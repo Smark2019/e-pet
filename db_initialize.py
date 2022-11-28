@@ -6,7 +6,7 @@ def initialize_db():
     cursor = connection.cursor()
     connection.commit()
 
-    userTableQuery = """CREATE TABLE IF NOT EXISTS users(
+    user_table_query = """CREATE TABLE IF NOT EXISTS users(
         id integer primary key,
         password text,
         email text,
@@ -20,7 +20,7 @@ def initialize_db():
         is_vet integer)
         """
 
-    petTableQuery = """CREATE TABLE IF NOT EXISTS pet(
+    pet_table_query = """CREATE TABLE IF NOT EXISTS pet(
         id integer primary key,
         name text,
         date_of_birth text,
@@ -29,14 +29,10 @@ def initialize_db():
         sterility integer,
         health_status text,
         owner_ID integer,
-        vaccination_list text,
-        appointment_list text,
-        treatment_list text,
-        allergie_list text
        )
         """
 
-    vaccinationTableQuery = """CREATE TABLE IF NOT EXISTS vaccination(
+    vaccination_table_query = """CREATE TABLE IF NOT EXISTS vaccination(
         id integer primary key,
         name text,
         date_of_vaccination text,
@@ -47,7 +43,7 @@ def initialize_db():
         )
         """
 
-    appointmentTableQuery = """CREATE TABLE IF NOT EXISTS appointment(
+    appointment_table_query = """CREATE TABLE IF NOT EXISTS appointment(
         id integer primary key,
         vet_ID integer,
         pet_ID integer,
@@ -57,17 +53,17 @@ def initialize_db():
         )
         """
 
-    treatmentTableQuery = """CREATE TABLE IF NOT EXISTS treatment(
+    treatment_table_query = """CREATE TABLE IF NOT EXISTS treatment(
         id integer primary key,
         vet_ID integer,
-        pet_ID integer,
+        description text
         used_medicine text,
         date_of_treatment text,
-        description text
+        pet_ID integer,
         )
         """
 
-    allergieTableQuery = """CREATE TABLE IF NOT EXISTS allergie(
+    allergie_table_query = """CREATE TABLE IF NOT EXISTS allergie(
         id integer primary key,
         description integer,
         vet_ID integer,
@@ -75,11 +71,11 @@ def initialize_db():
         )
         """
 
-    cursor.execute(userTableQuery)
-    cursor.execute(petTableQuery)
-    cursor.execute(vaccinationTableQuery)
-    cursor.execute(appointmentTableQuery)
-    cursor.execute(treatmentTableQuery)
-    cursor.execute(allergieTableQuery)
+    cursor.execute(user_table_query)
+    cursor.execute(pet_table_query)
+    cursor.execute(vaccination_table_query)
+    cursor.execute(appointment_table_query)
+    cursor.execute(treatment_table_query)
+    cursor.execute(allergie_table_query)
 
     connection.commit()
