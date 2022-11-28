@@ -34,8 +34,8 @@ def initialize_db():
 
     vaccination_table_query = """CREATE TABLE IF NOT EXISTS vaccination(
         id integer primary key,
-        pet_ID integer,
         vet_ID integer,
+        pet_ID integer,
         name text,
         date_of_vaccination text,
         dose_given real,
