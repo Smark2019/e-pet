@@ -21,7 +21,7 @@ def initialize_db():
         """
 
     pet_table_query = """CREATE TABLE IF NOT EXISTS pet(
-        id integer primary key,
+        id integer primary key autoincrement,
         name text,
         date_of_birth text,
         species text,
@@ -33,7 +33,7 @@ def initialize_db():
         """
 
     vaccination_table_query = """CREATE TABLE IF NOT EXISTS vaccination(
-        id integer primary key,
+        id integer primary key autoincrement,
         pet_ID integer,
         vet_ID integer,
         name text,
@@ -44,7 +44,7 @@ def initialize_db():
         """
 
     appointment_table_query = """CREATE TABLE IF NOT EXISTS appointment(
-        id integer primary key,
+        id integer primary key autoincrement,
         pet_ID integer,
         vet_ID integer,
         date_of_appointment text,
@@ -54,7 +54,7 @@ def initialize_db():
         """
 
     treatment_table_query = """CREATE TABLE IF NOT EXISTS treatment(
-        id integer primary key,
+        id integer primary key autoincrement,
         pet_ID integer,
         vet_ID integer,
         description text
@@ -63,8 +63,8 @@ def initialize_db():
         )
         """
 
-    allergie_table_query = """CREATE TABLE IF NOT EXISTS allergie(
-        id integer primary key,
+    allergy_table_query = """CREATE TABLE IF NOT EXISTS allergy(
+        id integer primary key autoincrement,
         pet_ID integer,
         vet_ID integer,
         description integer,
@@ -77,6 +77,6 @@ def initialize_db():
     cursor.execute(vaccination_table_query)
     cursor.execute(appointment_table_query)
     cursor.execute(treatment_table_query)
-    cursor.execute(allergie_table_query)
+    cursor.execute(allergy_table_query)
 
     connection.commit()

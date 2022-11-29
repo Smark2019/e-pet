@@ -1,4 +1,4 @@
-class Allergie:
+class Allergy:
     def __init__(self, id, pet_id, vet_ID, description, drugs):
         self.id = id  # id of the allergy
         self.pet_id = pet_id  # petID is the id of the pet that the allergy is for
