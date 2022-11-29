@@ -1,7 +1,7 @@
 import sqlite3
 
 
-def searchPet(petID):
+def search_pet(petID):
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
@@ -13,7 +13,7 @@ def searchPet(petID):
     return pet
 
 
-def addPet(pet):
+def add_pet(pet):
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
@@ -26,7 +26,7 @@ def addPet(pet):
     connection.close()
 
 
-def editPet(pet_id, sterility, health_status, owner_ID):
+def edit_pet(pet_id, sterility, health_status, owner_ID):
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
@@ -38,7 +38,7 @@ def editPet(pet_id, sterility, health_status, owner_ID):
     connection.close()
 
 
-def addVaccination(vaccination):
+def add_vaccination(vaccination):
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
@@ -50,7 +50,7 @@ def addVaccination(vaccination):
     connection.close()
 
 
-def addAppointment(appointment):
+def add_appointment(appointment):
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
@@ -62,7 +62,7 @@ def addAppointment(appointment):
     connection.close()
 
 
-def addTreatment(treatment):
+def add_treatment(treatment):
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
@@ -74,7 +74,7 @@ def addTreatment(treatment):
     connection.close()
 
 
-def addAllergy(allergy):
+def add_allergy(allergy):
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
@@ -86,7 +86,7 @@ def addAllergy(allergy):
     connection.close()
 
 
-def getAppointmentsInNext3Days():
+def get_appointments_in_next_3days():
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
