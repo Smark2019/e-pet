@@ -5,3 +5,6 @@ class Allergy:
         self.vet_ID = vet_ID  # vetID is the id of the vet who diagnosed the allergy
         self.description = description  # description of the allergy
         self.drugs = drugs  # list of drugs in string format
+
+    def to_string(self):
+        return "Allergy ID: " + str(self.id) + " Pet ID: " + str(self.pet_id) + " Vet ID: " + str(self.vet_ID) + " Description: " + self.description + " Drugs: " + self.drugs

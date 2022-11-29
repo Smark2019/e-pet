@@ -58,7 +58,7 @@ def initialize_db():
         id integer primary key autoincrement,
         pet_ID integer,
         vet_ID integer,
-        description text
+        description text,
         used_medicine text,
         date_of_treatment text
         )

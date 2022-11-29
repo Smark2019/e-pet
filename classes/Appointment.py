@@ -7,3 +7,6 @@ class Appointment:
         self.date_of_appointment = date_of_appointment
         self.description = description  # description of the appointment
         self.vaccinations = vaccinations  # list of vaccinations in string format
+
+    def to_string(self):
+        return "Appointment ID: " + str(self.id) + " Pet ID: " + str(self.pet_ID) + " Vet ID: " + str(self.vet_ID) + " Date of Appointment: " + str(self.date_of_appointment) + " Description: " + self.description + " Vaccinations: " + self.vaccinations

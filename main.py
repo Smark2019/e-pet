@@ -6,14 +6,10 @@ from Pages.LoginPage import *
 import db_initialize
 import auth_operation
 import hashlib
+import pet_owner_operations as poo
+import vet_operations as vet
 
-app = QApplication(sys.argv)
-window = QMainWindow()
-ui = Ui_LoginWindow()
-ui.setupUi(window)
-window.show()
 
-db_initialize.initialize_db() #initialize the database if it doesn't exist
 
 def authenticate():
     """_summary_ : Authenticates the user and logs them in if the credentials are correct.
@@ -25,22 +21,23 @@ def authenticate():
     if result == 1: 
         ui.statusbar.showMessage("Login Successful", 5000)
         print("Login Successful")
+        getInput(id)
+        
     elif result == 0:
         ui.statusbar.showMessage("Wrong Password", 5000)
         print("Wrong password.")
     else:
         ui.statusbar.showMessage("Wrong ID or Password!",5000)
         print("Wrong ID or password.")
-
-        """ msg = QMessageBox() #create a message box to show the error
-        msg.setIcon(QMessageBox.Critical)
-        msg.setText("Wrong ID or Password!")
-        msg.setInformativeText('Please try again.')
-        msg.setWindowTitle("Error!")
-        msg.exec_() """
-
-        
-
+    
+    
+    """ msg = QMessageBox() #create a message box to show the error
+    msg.setIcon(QMessageBox.Critical)
+    msg.setText("Wrong ID or Password!")
+    msg.setInformativeText('Please try again.')
+    msg.setWindowTitle("Error!")
+    msg.exec_() """
+    
 def showPassword():
     """_summary_ : Shows the password in plain text when the user clicks the show password button. 
     Otherwise, it hides the password.
@@ -50,8 +47,44 @@ def showPassword():
     else:
         ui.passField.setEchoMode(QtWidgets.QLineEdit.Password)
         
+def getInput(id):
+    pet_ID_list = []
+    a = poo.get_list_of_pets(id)
+    for item in a:
+        pet_ID_list.append(item.id)
+        print(item.to_string())
+    print(pet_ID_list)
+    for i in pet_ID_list:
+        
+        for item in poo.get_vaccination_card(i):
+            print(item.to_string())
+        
+        for item in poo.get_allergies(i):
+            print(item.to_string())
+            
+        for item in poo.get_treatments(i):
+            print(item.to_string())
+            
+        for item in poo.get_appointments(i):
+            print(item.to_string()) 
+    
+    
 
-ui.loginButton.clicked.connect(authenticate)
-ui.showPass.stateChanged.connect(showPassword)
 
-sys.exit(app.exec_())
+
+
+
+
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = QMainWindow()
+    ui = Ui_LoginWindow()
+    ui.setupUi(window)
+    window.show()
+
+    db_initialize.initialize_db() #initialize the database if it doesn't exist
+    
+    
+    ui.loginButton.clicked.connect(authenticate)
+    ui.showPass.stateChanged.connect(showPassword)
+    sys.exit(app.exec_())
