@@ -17,7 +17,8 @@ def initialize_db():
         city text,
         country text,
         zip_code text,
-        is_vet integer)
+        is_vet integer
+        )
         """
 
     pet_table_query = """CREATE TABLE IF NOT EXISTS pet(
@@ -28,8 +29,8 @@ def initialize_db():
         gender text,
         sterility integer,
         health_status text,
-        owner_ID integer,
-       )
+        owner_ID integer
+        )
         """
 
     vaccination_table_query = """CREATE TABLE IF NOT EXISTS vaccination(
@@ -59,7 +60,7 @@ def initialize_db():
         vet_ID integer,
         description text
         used_medicine text,
-        date_of_treatment text,
+        date_of_treatment text
         )
         """
 
@@ -68,11 +69,11 @@ def initialize_db():
         pet_ID integer,
         vet_ID integer,
         description integer,
-        drugs text,
+        drugs text
         )
         """
 
-    cursor.execute(user_table_query)
+    cursor.executescript(user_table_query)
     cursor.execute(pet_table_query)
     cursor.execute(vaccination_table_query)
     cursor.execute(appointment_table_query)
