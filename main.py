@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from Pages.LoginPage import *
-import db_initialize
+from db.db_initialize import *
 import auth_operation
 import hashlib
 import pet_owner_operations as poo
@@ -89,8 +89,9 @@ if __name__ == "__main__":
     ui.setupUi(window)
     window.show()
 
-    db_initialize.initialize_db()  # initialize the database if it doesn't exist
+    initialize_db()  # initialize the database if it doesn't exist
 
+    
     ui.loginButton.clicked.connect(authenticate)
     ui.showPass.stateChanged.connect(showPassword)
     sys.exit(app.exec_())

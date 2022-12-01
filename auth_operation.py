@@ -36,12 +36,16 @@ def authentification(id, password):
                 return -2  # User is now blocked
             elif user[11] == 5:
                 blocked_date = user[12]
-                # 5 minutes passed
-                if blocked_date[0] == getDateTime()-datetime.timedelta(minutes=5):
+                blocked_date = datetime.datetime.strptime(blocked_date, "%d-%m-%Y %H:%M")
+                now = datetime.datetime.strptime(getDateTime(), "%d-%m-%Y %H:%M")
+                
+                if (now - blocked_date).total_seconds() > 300:           
+                    # 5 minutes have passed since the user was blocked
+                    print("5 minutes passed")
                     cursor.execute(
                         "UPDATE users SET blocked_date = ? WHERE id = ?", (None, id))
                     cursor.execute(
-                        "UPDATE users SET login_attempt = 0 WHERE id = ?", (id,))
+                        "UPDATE users SET login_attempts = 0 WHERE id = ?", (id,))
                     connection.commit()
                     if user[1] == password:
                         return 2  # Login successful after being unblocked
@@ -64,7 +68,7 @@ def authentification(id, password):
 
 
 # register function for the register page to use when the user clicks the register button
-def register(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet):
+def register(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet, blocked_date, login_attempts):
 
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
@@ -72,8 +76,8 @@ def register(id, password, email, name, surname, phone, address, city, country, 
     password = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
     try:
-        cursor.execute("INSERT INTO users(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                       (id, password, email, name, surname, phone, address, city, country, zip_code, is_vet))
+        cursor.execute("INSERT INTO users(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet, blocked_date, login_attempts) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?)",
+                       (id, password, email, name, surname, phone, address, city, country, zip_code, is_vet, blocked_date, login_attempts))
         connection.commit()
     except Exception as err:
         print(err)
@@ -83,3 +87,5 @@ def register(id, password, email, name, surname, phone, address, city, country, 
 
 def getDateTime():
     return datetime.datetime.now().strftime("%d-%m-%Y %H:%M")
+
+
