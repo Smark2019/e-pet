@@ -17,7 +17,9 @@ def initialize_db():
         city text,
         country text,
         zip_code text,
-        is_vet integer
+        is_vet integer,
+        login_attempts integer,
+        blocked_date text
         )
         """
 

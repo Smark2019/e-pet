@@ -1,8 +1,9 @@
 import sqlite3
 import hashlib
+import datetime
+
 
 def authentification(id, password):
-    
     """_summary_ : Authenticates the user and logs them in if the credentials are correct.
 
     Args:
@@ -12,35 +13,73 @@ def authentification(id, password):
     Returns:
         int: 1 if the user is authenticated, 0 if the password is wrong, -1 if the user doesn't exist.
     """
-    
+
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
     try:
         cursor.execute("SELECT * FROM users WHERE id = ?", (id,))
         user = cursor.fetchone()
-        
-        if user[1] == password: #user[1] is the password column in the database
-            return 1 #Login successful
+
+        if user[1] == password and user[11] < 5:  # user[1] is the password column in the database
+            cursor.execute(
+                "UPDATE users SET login_attempts = 0 WHERE id = ?", (id,))
+            connection.commit()
+            return 1  # Login successful
         else:
-            return 0 #Wrong password
+            if user[11] == 4:
+                cursor.execute(
+                    "UPDATE users SET blocked_date = ? WHERE id = ?", (getDateTime(), id))
+                cursor.execute(
+                    "update users set login_attempts = login_attempts + 1 where id = ?", (id,))
+                connection.commit()
+                return -2  # User is now blocked
+            elif user[11] == 5:
+                blocked_date = user[12]
+                # 5 minutes passed
+                if blocked_date[0] == getDateTime()-datetime.timedelta(minutes=5):
+                    cursor.execute(
+                        "UPDATE users SET blocked_date = ? WHERE id = ?", (None, id))
+                    cursor.execute(
+                        "UPDATE users SET login_attempt = 0 WHERE id = ?", (id,))
+                    connection.commit()
+                    if user[1] == password:
+                        return 2  # Login successful after being unblocked
+                    else:
+                        cursor.execute(
+                            "update users set login_attempts = login_attempts + 1 where id = ?", (id,))
+                        connection.commit()
+                        return -4  # Wrong password after being unblocked
+                return -3  # User is still blocked
+            else:
+                cursor.execute(
+                    "update users set login_attempts = login_attempts + 1 where id = ?", (id,))
+                connection.commit()
+                return 0  # Wrong password
     except Exception as err:
         print(err)
-    
-    connection.close()
-    return -1 #Wrong ID or password
 
-def register(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet): #register function for the register page to use when the user clicks the register button
-    
+    connection.close()
+    return -1  # Wrong ID or password
+
+
+# register function for the register page to use when the user clicks the register button
+def register(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet):
+
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
     password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-    
+
     try:
-        cursor.execute("INSERT INTO users(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (id, password, email, name, surname, phone, address, city, country, zip_code, is_vet))
+        cursor.execute("INSERT INTO users(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                       (id, password, email, name, surname, phone, address, city, country, zip_code, is_vet))
         connection.commit()
     except Exception as err:
         print(err)
-        
+
     connection.close()
+
+
+def getDateTime():
+    return datetime.datetime.now().strftime("%d-%m-%Y %H:%M")

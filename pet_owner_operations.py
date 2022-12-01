@@ -14,17 +14,17 @@ def get_list_of_pets(owner_ID):
     pet_list_query = """SELECT * FROM pet WHERE owner_ID = ?"""
     cursor.execute(pet_list_query, (owner_ID,))
     pet_list = cursor.fetchall()
-    
 
     # turn each pet list object into a pet object with fields
     for i in range(len(pet_list)):
-        newPet = Pet(pet_list[i][0], pet_list[i][1], pet_list[i][2], pet_list[i][3], 
-                pet_list[i][4], pet_list[i][5], pet_list[i][6], pet_list[i][7])
+        newPet = Pet(pet_list[i][0], pet_list[i][1], pet_list[i][2], pet_list[i][3],
+                     pet_list[i][4], pet_list[i][5], pet_list[i][6], pet_list[i][7])
         pet_list[i] = newPet
 
     connection.commit()
     connection.close()
     return pet_list
+
 
 def get_appointments(pet_ID):
     connection = sqlite3.connect("epet_database.db")
@@ -36,12 +36,13 @@ def get_appointments(pet_ID):
     appointments = cursor.fetchall()
     # turn each pet list object into a pet object with fields
     for i in range(len(appointments)):
-        newAppointment = Appointment(appointments[i][0], appointments[i][1], appointments[i][2], appointments[i][3], 
-                appointments[i][4], appointments[i][5])
+        newAppointment = Appointment(appointments[i][0], appointments[i][1], appointments[i][2], appointments[i][3],
+                                     appointments[i][4], appointments[i][5])
         appointments[i] = newAppointment
     connection.commit()
     connection.close()
     return appointments
+
 
 def get_treatments(pet_ID):
     connection = sqlite3.connect("epet_database.db")
@@ -51,14 +52,15 @@ def get_treatments(pet_ID):
     treatment_list_query = """SELECT * FROM treatment WHERE pet_ID = ?"""
     cursor.execute(treatment_list_query, (pet_ID,))
     treatment_list = cursor.fetchall()
-    
+
     for i in range(len(treatment_list)):
-        newTreatment = Treatment(treatment_list[i][0], treatment_list[i][1], treatment_list[i][2], treatment_list[i][3], 
-                treatment_list[i][4],treatment_list[i][5])
+        newTreatment = Treatment(treatment_list[i][0], treatment_list[i][1], treatment_list[i][2], treatment_list[i][3],
+                                 treatment_list[i][4], treatment_list[i][5])
         treatment_list[i] = newTreatment
     connection.commit()
     connection.close()
     return treatment_list
+
 
 def get_allergies(pet_ID):
     connection = sqlite3.connect("epet_database.db")
@@ -69,12 +71,13 @@ def get_allergies(pet_ID):
     cursor.execute(allergy_list_query, (pet_ID,))
     allergy_list = cursor.fetchall()
     for i in range(len(allergy_list)):
-        newAllergy = Allergy(allergy_list[i][0], allergy_list[i][1], allergy_list[i][2], allergy_list[i][3], 
-                allergy_list[i][4])
+        newAllergy = Allergy(allergy_list[i][0], allergy_list[i][1], allergy_list[i][2], allergy_list[i][3],
+                             allergy_list[i][4])
         allergy_list[i] = newAllergy
     connection.commit()
     connection.close()
     return allergy_list
+
 
 def get_vaccination_card(pet_ID):
     connection = sqlite3.connect("epet_database.db")
@@ -95,7 +98,7 @@ def get_vaccination_card(pet_ID):
     return vaccination_list
 
 
-#yapamadık xd
+# yapamadık xd
 
 # gets appointments where one week is left
 

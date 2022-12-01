@@ -9,6 +9,11 @@ def search_pet(petID):
     pet_search_query = """SELECT * FROM pet WHERE id = ?"""
     cursor.execute(pet_search_query, (petID,))
     pet = cursor.fetchone()
+
+    # if pet does not exist return -1
+    if pet == None:
+        return -1
+
     connection.close()
     return pet
 
@@ -91,7 +96,7 @@ def get_appointments_in_next_3days():
     cursor = connection.cursor()
     connection.commit()
 
-    appointment_search_query = """SELECT * FROM appointment WHERE date_of_appointment BETWEEN date('now') AND date('now', '+3 days')"""
+    appointment_search_query = """SELECT * FROM appointment WHERE date_of_appointment BETWEEN date('now') AND date('now', '+3 days') ORDER BY date_of_appointment ASC"""
     cursor.execute(appointment_search_query)
     appointments = cursor.fetchall()
     connection.close()
