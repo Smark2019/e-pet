@@ -2,6 +2,8 @@ import auth_operation
 import time
 import hashlib
 
+# Pytest is used to run the test
+
 
 def test_login_response_time():
 
