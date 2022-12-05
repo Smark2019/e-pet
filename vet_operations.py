@@ -23,7 +23,7 @@ def add_pet(pet):
     cursor = connection.cursor()
     connection.commit()
 
-    pet_add_query = """INSERT INTO pet VALUES(?, ?, ?, ?, ?, ?, ?)"""
+    pet_add_query = """INSERT INTO pet(name,date_of_birth,species,gender,sterility,health_status,owner_ID) VALUES(?, ?, ?, ?, ?, ?, ?)"""
     cursor.execute(pet_add_query, (pet.name, pet.date_of_birth,
                    pet.species, pet.gender, pet.sterility, pet.health_status, pet.owner_ID))
 
@@ -48,7 +48,7 @@ def add_vaccination(vaccination):
     cursor = connection.cursor()
     connection.commit()
 
-    vaccination_add_query = """INSERT INTO vaccination VALUES(?, ?, ?, ?, ?, ?)"""
+    vaccination_add_query = """INSERT INTO vaccination(pet_ID,vet_ID,name,date_of_vaccination,dose_given,count) VALUES(?, ?, ?, ?, ?, ?)"""
     cursor.execute(vaccination_add_query, (vaccination.pet_ID, vaccination.vet_ID, vaccination.name,
                                            vaccination.date_of_vaccination, vaccination.dose_given, vaccination.count))
     connection.commit()
@@ -60,7 +60,7 @@ def add_appointment(appointment):
     cursor = connection.cursor()
     connection.commit()
 
-    appointment_add_query = """INSERT INTO appointment VALUES(?, ?, ?, ?, ?)"""
+    appointment_add_query = """INSERT INTO appointment(pet_ID,vet_ID,date_of_appointment,description,vaccinations) VALUES(?, ?, ?, ?, ?)"""
     cursor.execute(appointment_add_query, (appointment.pet_ID, appointment.vet_ID, appointment.date_of_appointment,
                                            appointment.description, appointment.vaccinations))
     connection.commit()
@@ -72,7 +72,7 @@ def add_treatment(treatment):
     cursor = connection.cursor()
     connection.commit()
 
-    treatment_add_query = """INSERT INTO treatment VALUES(?, ?, ?, ?, ?)"""
+    treatment_add_query = """INSERT INTO treatment(pet_ID,vet_ID,description,used_medicine,date_of_treatment) VALUES(?, ?, ?, ?, ?)"""
     cursor.execute(treatment_add_query, (treatment.pet_ID,
                    treatment.vet_ID, treatment.description, treatment.used_medicine, treatment.date_of_treatment))
     connection.commit()
@@ -84,7 +84,7 @@ def add_allergy(allergy):
     cursor = connection.cursor()
     connection.commit()
 
-    allergy_add_query = """INSERT INTO allergy VALUES(?, ?, ?, ?)"""
+    allergy_add_query = """INSERT INTO allergy(pet_ID,vet_ID,description,drugs) VALUES(?, ?, ?, ?)"""
     cursor.execute(allergy_add_query, (allergy.pet_ID,
                    allergy.vet_ID, allergy.description, allergy.drugs))
     connection.commit()
