@@ -7,36 +7,8 @@ from classes.Treatment import Treatment
 from classes.Allergy import Allergy
 import random
 import sqlite3
-
-# Create a dataset of pets
-
-""" for i in range(1, 5):
-    vet_operations.add_pet(Pet("dog1", "2020-01-01", "labrador",
-                            "male", "sterile", "healthy", 1))
-
-# Create a dataset of appointments
-
-for i in range(1, 5):
-    vet_operations.add_appointment(
-        Appointment(i, 2, "2020-01-01", "test", "vaccination"))
-
-# Create a dataset of vaccinations
-
-for i in range(1, 5):
-    vet_operations.add_vaccination(
-        Vaccination(i, 2, "name", "2020-01-01", 0.5, 1))
-
-# Create a dataset of treatments
-
-for i in range(1, 5):
-    vet_operations.add_treatment(
-        Treatment(i, 2, "description", "medicine", "2020-01-01"))
-
-# Create a dataset of allergies
-
-for i in range(1, 5):
-    vet_operations.add_allergy(
-        Allergy(i, 2, "description", "drugs")) """
+from datetime import datetime, timedelta
+from faker import Factory
 
 
 def get_random_user_id():
@@ -48,12 +20,61 @@ def get_random_user_id():
     random = cursor.fetchone()
     id = random[0]
     return id
+def get_random_vet_and_pet_id():
+    connection = sqlite3.connect("epet_database.db")
+    cursor = connection.cursor()
+    connection.commit()
+    getRandomVet = """SELECT * FROM users where is_vet = 1 ORDER BY RANDOM() LIMIT 1"""
+    getRandomPet = """SELECT * FROM pet ORDER BY RANDOM() LIMIT 1"""
+    cursor.execute(getRandomVet)
+    randomVet = cursor.fetchone()
+    cursor.execute(getRandomPet)
+    randomPet = cursor.fetchone()
+    
+    vet_id = randomVet[0]
+    pet_id = randomPet[0]
+    return vet_id, pet_id
 
+def generateRandomDate():
+    start_date = datetime(2007, 1, 1)
+    end_date = datetime.today()
 
+    # Generate a random date between the start and end dates
+   
+    
+    random_date = start_date + (end_date - start_date) * random.random()
+    return (random_date.strftime("%d-%m-%Y"))
+
+def generateRandomDateAndTime():
+    start_date = datetime(2007, 1, 1)
+    end_date = datetime.today()
+
+    # Generate a random date between the start and end dates
+   
+    
+    random_date = start_date + (end_date - start_date) * random.random()
+    return (random_date.strftime("%d-%m-%Y %H:%M")) 
+
+def generateRandomDateAndTimeForAppointment():
+    
+    start_date = datetime(2007, 1, 1)
+    end_date = datetime.today()
+
+    random_date = start_date + (end_date - start_date) * random.random()
+    random_date = random_date.replace(hour=0, minute=0, second=0, microsecond=0)
+    
+    minSeconds = 32400 # 9am
+    maxSeconds = 61200 # 5pm
+    
+    random_time = random_date + timedelta(seconds= random.randint(minSeconds, maxSeconds))
+    
+    random_time = random_time.strftime("%d-%m-%Y %H:%M")
+    
+    return random_time
 # Create a dataset of users
 
 
-def add_user(count):
+def add_users(count):
     firstNames = ["Adam", "Alex", "Aaron", "Ben", "Carl", "Dan", "David", "Edward", "Fred", "Frank", "George", "Hal", "Hank", "Ike", "John", "Jack",
                   "Joe", "Larry", "Monte", "Matthew", "Mark", "Nathan", "Otto", "Paul", "Peter", "Roger", "Roger", "Steve", "Thomas", "Tim", "Ty", "Victor", "Walter"]
     lastNames = ["Anderson", "Ashwoon", "Aikin", "Bateman", "Bongard", "Bowers", "Boyd", "Cannon", "Cast", "Deitz", "Dewalt", "Ebner", "Frick", "Hancock", "Haworth", "Hesch", "Hoffman", "Kassing", "Knutson", "Lawless", "Lawicki", "Mccord", "McCormack", "Miller", "Myers", "Nugent", "Ortiz", "Orwig", "Ory", "Paiser", "Pak", "Pettigrew", "Quinn", "Quizoz", "Ramachandran", "Resnick", "Sagar", "Schickowski", "Schiebel", "Sellon", "Severson", "Shaffer", "Solberg", "Soloman", "Sonderling", "Soukup", "Soulis", "Stahl", "Sweeney", "Tandy", "Trebil", "Trusela", "Trussel", "Turco", "Uddin", "Uflan", "Ulrich", "Upson", "Vader", "Vail", "Valente", "Van Zandt", "Vanderpoel", "Ventotla", "Vogal", "Wagle", "Wagner", "Wakefield", "Weinstein", "Weiss", "Woo", "Yang", "Yates", "Yocum", "Zeaser",
@@ -64,8 +85,9 @@ def add_user(count):
                  "Montenegro", "Kosovo", "Turkey", "Russia", "Ukraine", "Belarus", "Moldova", "Armenia", "Azerbaijan", "Georgia", "Kazakhstan", "Kyrgyzstan", "Tajikistan", "Turkmenistan", "Uzbekistan", "China", "India", "Indonesia", "Japan", "South Korea", "Malaysia", "Pakistan", "Philippines", "Thailand", "Vietnam", "Australia", "New Zealand", "Argentina", "Brazil", "Canada", "Chile", "Colombia", "Mexico", "Peru", "Venezuela", "South Africa", "Egypt"]
     cities = ["Bucharest", "Berlin", "Paris", "Rome", "Madrid", "London", "Warsaw", "Amsterdam", "Brussels", "Lisbon", "Athens", "Prague", "Budapest", "Stockholm", "Vienna", "Bern", "Copenhagen", "Helsinki", "Bratislava", "Oslo", "Dublin", "Luxembourg", "Tallinn", "Ljubljana", "Vilnius", "Riga", "Zagreb", "Sofia", "Nicosia", "Valletta", "Tirana", "Chisinau", "Sarajevo", "Skopje", "Belgrade", "Podgorica",
               "Pristina", "Ankara", "Moscow", "Kiev", "Minsk", "Chisinau", "Yerevan", "Baku", "Tbilisi", "Astana", "Bishkek", "Dushanbe", "Ashgabat", "Tashkent", "Beijing", "New Delhi", "Jakarta", "Tokyo", "Seoul", "Kuala Lumpur", "Islamabad", "Manila", "Bangkok", "Hanoi", "Canberra", "Wellington", "Buenos Aires", "Sao Paulo", "Ottawa", "Santiago", "Bogota", "Mexico City", "Lima", "Caracas", "Pretoria", "Cairo"]
-    streetNames = ["Main", "2nd", "1st", "Park", "Oak", "Pine", "Elm", "Maple", "Cedar", "Washington", "Lake", "Hill", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th", "15th", "16th", "17th", "18th", "19th", "20th", "21st", "22nd", "23rd", "24th", "25th", "26th", "27th", "28th", "29th", "30th", "31st", "32nd", "33rd", "34th", "35th", "36th", "37th", "38th", "39th", "40th", "41st", "42nd", "43rd", "44th", "45th", "46th", "47th", "48th", "49th", "50th", "51st", "52nd", "53rd", "54th",
-                   "55th", "56th", "57th", "58th", "59th", "60th", "61st", "62nd", "63rd", "64th", "65th", "66th", "67th", "68th", "69th", "70th", "71st", "72nd", "73rd", "74th", "75th", "76th", "77th", "78th", "79th", "80th", "81st", "82nd", "83rd", "84th", "85th", "86th", "87th", "88th", "89th", "90th", "91st", "92nd", "93rd", "94th", "95th", "96th", "97th", "98th", "99th", "100th", "101st", "102nd", "103rd", "104th", "105th", "106th", "107th", "108th", "109th", "110th", "111th", "112th", "113th", "114th", "115th", "116th", "117th"]
+    fake = Factory.create()
+    
+    vet_percentage = 0.05
     for i in range(count):
         nationalId = random.randint(10000000000, 99999999999)
         firstName = firstNames[random.randint(0, len(firstNames)-1)]
@@ -81,13 +103,15 @@ def add_user(count):
         country = countries[countryAndCity]
         city = cities[countryAndCity]
         zipCode = str(random.randint(1000, 9999))
-        address = str(random.randint(1, 100)) + " " + \
-            streetNames[random.randint(0, len(streetNames)-1)] + " St."
+        address = fake.address()
+        vetID = 0
+        if(random.random() < vet_percentage):
+            vetID = 1
 
         print("National ID => " + str(nationalId) + "- E-Mail => "+email + " - Password => " + password + " - First Name => " + firstName + " - Last Name => " +
               lastName + " - Phone Number => " + phoneNumber + " Address => " + address + " - Country => " + country + " - City => " + city + " - Zip Code => " + zipCode)
         auth_operation.register(nationalId, password, email, firstName,
-                                lastName, phoneNumber, address, city, country, zipCode, 0)
+                                lastName, phoneNumber, address, city, country, zipCode, vetID)
 
 
 # Create a dataset of pets
@@ -96,30 +120,98 @@ def add_pets(count):
 
     petNames = ["Bella", "Lucy", "Molly", "Daisy", "Coco", "Charlie", "Milo", "Lola", "Max", "Buddy", "Bailey", "Rocky", "Toby", "Jack", "Jasper", "Oscar", "Teddy", "Lucky", "Maggie", "Lily", "Cody", "Gizmo", "Bear", "Harley", "Riley", "Duke", "Bentley", "Zeus", "Sam", "Loki", "Buster", "Rusty", "Baxter", "Cooper", "Murphy", "Louie", "George", "Bo", "Bandit", "Rocco", "Frankie", "Diesel", "Chico", "Ollie", "Romeo", "Henry", "Harley", "Rudy", "Bruno", "Rex", "Rufus", "Prince", "Sammy", "Ranger", "Rocco", "Scooter", "Jackson", "Gus", "Scout",
                 "Moose", "Shadow", "Winston", "Copper", "Benny", "Joey", "Rusty", "Rudy", "Boomer", "Bubba", "Buck", "Buddy", "Casey", "Chance", "Chase", "Chester", "Chico", "Cody", "Dakota", "Dexter", "Diesel", "Duke", "Frankie", "Gizmo", "Gus", "Harley", "Henry", "Jack", "Jackson", "Jasper", "Joey", "Kobe", "Loki", "Louie", "Luke", "Mickey", "Milo", "Moose", "Murphy", "Ollie", "Oscar", "Prince", "Ranger", "Rex", "Rocco", "Romeo", "Rudy", "Rusty", "Sam", "Sammy", "Scout", "Shadow", "Simba", "Spike", "Tank", "Toby", "Tucker", "Winston", "Ziggy"]
-    petDateOfBirth = ["2019-01-01", "2019-01-02", "2019-01-03", "2019-01-04", "2019-01-05", "2019-01-06", "2019-01-07", "2019-01-08", "2019-01-09", "2019-01-10", "2019-01-11", "2019-01-12", "2019-01-13", "2019-01-14", "2019-01-15", "2019-01-16", "2019-01-17", "2019-01-18", "2019-01-19", "2019-01-20", "2019-01-21", "2019-01-22", "2019-01-23", "2019-01-24", "2019-01-25", "2019-01-26", "2019-01-27", "2019-01-28", "2019-01-29", "2019-01-30", "2019-01-31",
-                      "2019-02-01", "2019-02-02", "2019-02-03", "2019-02-04", "2019-02-05", "2019-02-06", "2019-02-07", "2019-02-08", "2019-02-09", "2019-02-10", "2019-02-11", "2019-02-12", "2019-02-13", "2019-02-14", "2019-02-15", "2019-02-16", "2019-02-17", "2019-02-18", "2019-02-19", "2019-02-20", "2019-02-21", "2019-02-22", "2019-02-23", "2019-02-24", "2019-02-25", "2019-02-26", "2019-02-27", "2019-02-28", "2019-03-01", "2019-03-02", "2019-03-03", "2019"]
     petSpecies = ["Dog", "Cat", "Bird", "Rabbit",
                   "Hamster", "Guinea Pig", "Ferret"]
-    petGender = ["male", "female"]
+    petGender = ["Male", "Female"]
     petSterilized = ["0", "1"]
     petHealthStatus = ["Healthy", "Sick", "Injured"]
     # get random petOwnerId from existing users in the database
 
     for i in range(count):
-        id = get_random_user_id()
+        
         pet_name = petNames[random.randint(0, len(petNames)-1)]
-        pet_date_of_birth = petDateOfBirth[random.randint(
-            0, len(petDateOfBirth)-1)]
+        pet_date_of_birth = generateRandomDate()
         pet_species = petSpecies[random.randint(0, len(petSpecies)-1)]
         pet_gender = petGender[random.randint(0, len(petGender)-1)]
         pet_sterilized = petSterilized[random.randint(
             0, len(petSterilized)-1)]
         pet_health_status = petHealthStatus[random.randint(
             0, len(petHealthStatus)-1)]
-        pet_owner_id = id
+        pet_owner_id = get_random_user_id()
         print("Pet Name => " + pet_name + " - Pet Date Of Birth => " +
               pet_date_of_birth + " - Pet Species => " + pet_species)
 
         pet = Pet(pet_name, pet_date_of_birth, pet_species, pet_gender,
                   pet_sterilized, pet_health_status, pet_owner_id)
         vet_operations.add_pet(pet)
+
+def add_vaccinations(count):
+    vaccination_names = ['Distemper', 'Rabies', 'Parvovirus', 'Leptospirosis', 'Feline Leukemia']
+    for i in range(count):
+        randomCount = random.randint(1, 5)
+        vet_ID, pet_ID = get_random_vet_and_pet_id()
+        vaccination_name = vaccination_names[random.randint(0, len(vaccination_names)-1)]
+        vaccination_date = generateRandomDate()
+        vaccination_dose = random.randint(1, 20) * 10
+        for j in range(randomCount):
+            vaccination_date = datetime.strftime(datetime.strptime(vaccination_date, "%d-%m-%Y") + timedelta(days=30), "%d-%m-%Y")
+            vaccination_count = j + 1
+            print("Pet ID => " + str(pet_ID) + " Vet ID => " + str(vet_ID) +  " - Vaccination Name => " + vaccination_name + " - Vaccination Date => " + vaccination_date + " - Vaccination Dose => " + str(vaccination_dose) + " - Vaccination Count => " + str(vaccination_count))
+            vet_operations.add_vaccination(Vaccination(pet_ID , vet_ID, vaccination_name, vaccination_date, vaccination_dose, vaccination_count))
+    
+def add_appointments(count):
+    appointment_types = ['Vaccination', 'Checkup', 'Surgery', 'Other']
+    vaccination_names = ['Distemper', 'Rabies', 'Parvovirus', 'Leptospirosis', 'Feline Leukemia', ""]
+    for i in range(count):
+        vet_ID, pet_ID = get_random_vet_and_pet_id()
+        date_of_appointment = generateRandomDateAndTimeForAppointment()
+        appointment_description = appointment_types[random.randint(0, len(appointment_types)-1)]
+        
+        if appointment_description == "Vaccination":
+            vaccination_name = vaccination_names[random.randint(0, len(vaccination_names)-1)]
+        else:
+            vaccination_name = ""
+        
+        print("Pet ID => " + str(pet_ID) + " Vet ID => " + str(vet_ID) +  " - Appointment Date => " + date_of_appointment + " - Appointment Description => " + appointment_description + " - Vaccinations => " + vaccination_name )
+        vet_operations.add_appointment(Appointment(pet_ID, vet_ID, date_of_appointment, appointment_description, vaccination_name))
+def add_treatments(count):
+    fake = Factory.create()
+    medicines = ['Paracetamol', 'Ibuprofen', 'Aspirin', 'Cetirizine', 'Diphenhydramine', 'Loratadine', 'Prednisone', 'Prednisolone', 'Cortisone', 'Cortisol', 'Cyclosporine', 'Tacrolimus', 'Methylprednisolone', 'Methotrexate', 'Azathioprine', 'Mycophenolate', 'Cyclophosphamide', 'Methimazole', 'Carprofen', 'Meloxicam', 'Famotidine', 'Omeprazole', 'Metoclopramide', 'Dexamethasone', 'Doxycycline', 'Amoxicillin', 'Clindamycin', 'Metronidazole', 'Enrofloxacin', 'Flucon']
+    for i in range(count):
+        vet_ID, pet_ID = get_random_vet_and_pet_id()
+        treatment_description = fake.text()
+        #pick random medicines
+        pick3Medicines = random.sample(medicines, 3)
+        randomNum = random.randint(0, len(pick3Medicines)-1)
+        used_medicine = ""
+        for j in range(randomNum - 1):
+            used_medicine = used_medicine + pick3Medicines[j] + ", "
+        used_medicine = used_medicine + pick3Medicines[randomNum]
+        
+        treatment_date = generateRandomDateAndTimeForAppointment()
+        
+        print("Pet ID => " + str(pet_ID) + " Vet ID => " + str(vet_ID) +   " - Treatment Description => " + treatment_description + " - Used Medicine => " + used_medicine + " - Treatment Date => " + treatment_date )
+        vet_operations.add_treatment(Treatment(pet_ID, vet_ID,treatment_description, used_medicine,treatment_date))
+
+def add_allergies(count):
+    medicines = ['Paracetamol', 'Ibuprofen', 'Aspirin', 'Cetirizine', 'Diphenhydramine', 'Loratadine', 'Prednisone', 'Prednisolone', 'Cortisone', 'Cortisol', 'Cyclosporine', 'Tacrolimus', 'Methylprednisolone', 'Methotrexate', 'Azathioprine', 'Mycophenolate', 'Cyclophosphamide', 'Methimazole', 'Carprofen', 'Meloxicam', 'Famotidine', 'Omeprazole', 'Metoclopramide', 'Dexamethasone', 'Doxycycline', 'Amoxicillin', 'Clindamycin', 'Metronidazole', 'Enrofloxacin', 'Flucon']
+    allergyNames = ['Allergic Rhinitis', 'Allergic Conjunctivitis', 'Allergic Asthma', 'Allergic Dermatitis', 'Allergic Urticaria', 'Allergic Angioedema', 'Allergic Gastroenteritis', 'Allergic Shock', 'Allergic Anaphylaxis', 'Allergic Rhinosinusitis', 'Allergic Bronchitis', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis', 'Allergic Bronchopulmonary Mycosis', 'Allergic Bronchopulmonary Fungal Infections', 'Allergic Bronchopulmonary Aspergillosis']
+    for i in range(count):
+        vet_ID, pet_ID = get_random_vet_and_pet_id()
+        description = random.choice(allergyNames)
+        
+        pick3Medicines = random.sample(medicines, 3)
+        randomNum = random.randint(0, len(pick3Medicines)-1)
+        
+        drugs = ""
+        for j in range(randomNum - 1):
+            drugs = drugs + pick3Medicines[j] + ", "
+        drugs = drugs + pick3Medicines[randomNum]
+        
+        
+        
+        print("Pet ID => " + str(pet_ID) + " Vet ID => " + str(vet_ID) + " Description => " + description + " Drugs => " + drugs)
+        vet_operations.add_allergy(Allergy(pet_ID,vet_ID, description , drugs))
+        
+if __name__ == "__main__":
+    print("Creating Dataset...")

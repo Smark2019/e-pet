@@ -1,5 +1,5 @@
 class Treatment:
-    def __init__(self, pet_ID, vet_ID, used_medicine, date_of_treatment, description):
+    def __init__(self, pet_ID, vet_ID,description, used_medicine, date_of_treatment ):
         self.pet_ID = pet_ID  # petID is the id of the pet that the treatment is for
         self.vet_ID = vet_ID  # vetID is the id of the vet who treated the pet
         self.description = description  # description of the treatment
