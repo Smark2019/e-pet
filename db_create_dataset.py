@@ -9,13 +9,14 @@ import random
 import sqlite3
 from datetime import datetime, timedelta
 from faker import Factory
+from db import db_initialize
 
 
 def get_random_user_id():
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
-    getRandom = """SELECT * FROM users ORDER BY RANDOM() LIMIT 1"""
+    getRandom = """SELECT * FROM user ORDER BY RANDOM() LIMIT 1"""
     cursor.execute(getRandom)
     random = cursor.fetchone()
     id = random[0]
@@ -24,7 +25,7 @@ def get_random_vet_and_pet_id():
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
-    getRandomVet = """SELECT * FROM users where is_vet = 1 ORDER BY RANDOM() LIMIT 1"""
+    getRandomVet = """SELECT * FROM user where is_vet = 1 ORDER BY RANDOM() LIMIT 1"""
     getRandomPet = """SELECT * FROM pet ORDER BY RANDOM() LIMIT 1"""
     cursor.execute(getRandomVet)
     randomVet = cursor.fetchone()
@@ -213,5 +214,15 @@ def add_allergies(count):
         print("Pet ID => " + str(pet_ID) + " Vet ID => " + str(vet_ID) + " Description => " + description + " Drugs => " + drugs)
         vet_operations.add_allergy(Allergy(pet_ID,vet_ID, description , drugs))
         
+def generate_fake_dataset(count):
+    db_initialize.initialize_db()
+    add_users(count)
+    add_pets(int(count * 1.5))
+    add_vaccinations(int(count * 2))
+    add_appointments(int(count * 3))
+    add_allergies(int(count * 1.5))
+    add_treatments(int(count * 3))
+        
 if __name__ == "__main__":
     print("Creating Dataset...")
+    #generate_fake_dataset()

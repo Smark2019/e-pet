@@ -9,7 +9,7 @@ def get_random_user_credentials():
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
-    getRandom = """SELECT * FROM users ORDER BY RANDOM() LIMIT 1"""
+    getRandom = """SELECT * FROM user ORDER BY RANDOM() LIMIT 1"""
     cursor.execute(getRandom)
     random = cursor.fetchone()
     id = random[0]
