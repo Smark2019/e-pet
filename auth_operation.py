@@ -68,7 +68,7 @@ def authentification(id, password):
 
 
 # register function for the register page to use when the user clicks the register button
-def register(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet, blocked_date, login_attempts):
+def register(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet):
 
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
@@ -76,8 +76,8 @@ def register(id, password, email, name, surname, phone, address, city, country, 
     password = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
     try:
-        cursor.execute("INSERT INTO users(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet, blocked_date, login_attempts) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? ,?)",
-                       (id, password, email, name, surname, phone, address, city, country, zip_code, is_vet, blocked_date, login_attempts))
+        cursor.execute("INSERT INTO users(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                       (id, password, email, name, surname, phone, address, city, country, zip_code, is_vet))
         connection.commit()
     except Exception as err:
         print(err)

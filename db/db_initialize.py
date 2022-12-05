@@ -18,8 +18,8 @@ def initialize_db():
         country text,
         zip_code text,
         is_vet integer,
-        login_attempts integer,
-        blocked_date text
+        login_attempts integer default 0,
+        blocked_date text default null
         )
         """
 

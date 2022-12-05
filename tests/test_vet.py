@@ -1,6 +1,6 @@
 import vet_operations
 
-# Pytest is used to run the test
+# Pytest is used to run the test run with python -m pytest
 
 
 def test_invalid_search_pet():
