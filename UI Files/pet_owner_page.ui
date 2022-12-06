@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>PetOwnerWindow</class>
+ <widget class="QMainWindow" name="PetOwnerWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>896</width>
+    <height>622</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>e-Pet</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background: #23B7C8;</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTabWidget" name="petOwnerTabs">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>896</width>
+      <height>622</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="tabPosition">
+     <enum>QTabWidget::North</enum>
+    </property>
+    <property name="tabShape">
+     <enum>QTabWidget::Rounded</enum>
+    </property>
+    <property name="currentIndex">
+     <number>0</number>
+    </property>
+    <property name="elideMode">
+     <enum>Qt::ElideNone</enum>
+    </property>
+    <widget class="QWidget" name="myPetsTab">
+     <attribute name="title">
+      <string>My Pets</string>
+     </attribute>
+     <widget class="QListWidget" name="myPetsList">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>891</width>
+        <height>591</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QWidget" name="petInfoWidget" native="true">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>891</width>
+        <height>591</height>
+       </rect>
+      </property>
+      <widget class="QListWidget" name="petListWidget1">
+       <property name="geometry">
+        <rect>
+         <x>100</x>
+         <y>40</y>
+         <width>241</width>
+         <height>501</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background:white;
+border: 2px solid black;
+border-radius: 10px;</string>
+       </property>
+      </widget>
+      <widget class="QPushButton" name="petInfoBackButton">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>20</y>
+         <width>71</width>
+         <height>28</height>
+        </rect>
+       </property>
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background: #03e8fc;</string>
+       </property>
+       <property name="text">
+        <string>Back</string>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="petListWidget2">
+       <property name="geometry">
+        <rect>
+         <x>370</x>
+         <y>40</y>
+         <width>481</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background:white;
+border: 2px solid black;
+border-radius: 10px;</string>
+       </property>
+      </widget>
+      <widget class="QListWidget" name="petListWidget3">
+       <property name="geometry">
+        <rect>
+         <x>370</x>
+         <y>310</y>
+         <width>481</width>
+         <height>231</height>
+        </rect>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background:white;
+border: 2px solid black;
+border-radius: 10px;</string>
+       </property>
+      </widget>
+     </widget>
+     <zorder>petInfoWidget</zorder>
+     <zorder>myPetsList</zorder>
+    </widget>
+    <widget class="QWidget" name="appointmentBookTab">
+     <attribute name="title">
+      <string>Appointment Book</string>
+     </attribute>
+     <widget class="QLabel" name="label">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>40</y>
+        <width>191</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>14</pointsize>
+       </font>
+      </property>
+      <property name="text">
+       <string>My Appointments</string>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="myAppointmentsTable">
+      <property name="geometry">
+       <rect>
+        <x>60</x>
+        <y>90</y>
+        <width>781</width>
+        <height>461</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background: white;
+border: 4px solid black;</string>
+      </property>
+     </widget>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
