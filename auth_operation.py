@@ -18,20 +18,20 @@ def authentification(id, password):
     cursor = connection.cursor()
     connection.commit()
     try:
-        cursor.execute("SELECT * FROM users WHERE id = ?", (id,))
+        cursor.execute("SELECT * FROM user WHERE id = ?", (id,))
         user = cursor.fetchone()
 
         if user[1] == password and user[11] < 5:  # user[1] is the password column in the database
             cursor.execute(
-                "UPDATE users SET login_attempts = 0 WHERE id = ?", (id,))
+                "UPDATE user SET login_attempts = 0 WHERE id = ?", (id,))
             connection.commit()
             return 1  # Login successful
         else:
             if user[11] == 4:
                 cursor.execute(
-                    "UPDATE users SET blocked_date = ? WHERE id = ?", (getDateTime(), id))
+                    "UPDATE user SET blocked_date = ? WHERE id = ?", (getDateTime(), id))
                 cursor.execute(
-                    "update users set login_attempts = login_attempts + 1 where id = ?", (id,))
+                    "update user set login_attempts = login_attempts + 1 where id = ?", (id,))
                 connection.commit()
                 return -2  # User is now blocked
             elif user[11] == 5:
@@ -43,21 +43,21 @@ def authentification(id, password):
                     # 5 minutes have passed since the user was blocked
                     print("5 minutes passed")
                     cursor.execute(
-                        "UPDATE users SET blocked_date = ? WHERE id = ?", (None, id))
+                        "UPDATE user SET blocked_date = ? WHERE id = ?", (None, id))
                     cursor.execute(
-                        "UPDATE users SET login_attempts = 0 WHERE id = ?", (id,))
+                        "UPDATE user SET login_attempts = 0 WHERE id = ?", (id,))
                     connection.commit()
                     if user[1] == password:
                         return 2  # Login successful after being unblocked
                     else:
                         cursor.execute(
-                            "update users set login_attempts = login_attempts + 1 where id = ?", (id,))
+                            "update user set login_attempts = login_attempts + 1 where id = ?", (id,))
                         connection.commit()
                         return -4  # Wrong password after being unblocked
                 return -3  # User is still blocked
             else:
                 cursor.execute(
-                    "update users set login_attempts = login_attempts + 1 where id = ?", (id,))
+                    "update user set login_attempts = login_attempts + 1 where id = ?", (id,))
                 connection.commit()
                 return 0  # Wrong password
     except Exception as err:
@@ -76,7 +76,7 @@ def register(id, password, email, name, surname, phone, address, city, country, 
     password = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
     try:
-        cursor.execute("INSERT INTO users(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+        cursor.execute("INSERT INTO user(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                        (id, password, email, name, surname, phone, address, city, country, zip_code, is_vet))
         connection.commit()
     except Exception as err:

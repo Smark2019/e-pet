@@ -6,7 +6,7 @@ def initialize_db():
     cursor = connection.cursor()
     connection.commit()
 
-    user_table_query = """CREATE TABLE IF NOT EXISTS users(
+    user_table_query = """CREATE TABLE IF NOT EXISTS user(
         id integer primary key,
         password text,
         email text,
