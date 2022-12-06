@@ -16,6 +16,7 @@ import json
 
 def getCredentialsFromJSON():
     # Opening JSON file
+    # JSON format: {"credentials": [{"id": id, "password": "password"}]}
     
     credentials = []
     
