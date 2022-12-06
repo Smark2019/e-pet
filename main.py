@@ -10,8 +10,27 @@ import auth_operation
 import hashlib
 import pet_owner_operations as poo
 import vet_operations as vet
+import json
 
-# Main Window            
+# Main Window     
+
+def getCredentialsFromJSON():
+    # Opening JSON file
+    f = open('credentials.json')
+    
+    credentials = []
+    # returns JSON object as 
+    # a dictionary
+    data = json.load(f)
+    
+    # Iterating through the json
+    # list
+    for i in data['credentials']:
+        credentials.append(i)
+    
+    # Closing file
+    f.close()    
+    return credentials 
 
 def authenticate():
     """_summary_ : Authenticates the user and logs them in if the credentials are correct.
@@ -20,6 +39,10 @@ def authenticate():
     id = ui.idField.text()
     password = hashlib.sha256(ui.passField.text().encode('utf-8')).hexdigest()
 
+    credentials = getCredentialsFromJSON()
+    
+    id = credentials[0]['id']
+    password = hashlib.sha256(credentials[0]['password'].encode('utf-8')).hexdigest()
     
     result = auth_operation.authentification(id, password)
     if result == 1:
