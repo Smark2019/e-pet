@@ -11,6 +11,7 @@ import hashlib
 import pet_owner_operations as poo
 import vet_operations as vet
 
+# Main Window            
 
 def authenticate():
     """_summary_ : Authenticates the user and logs them in if the credentials are correct.
@@ -19,14 +20,12 @@ def authenticate():
     id = ui.idField.text()
     password = hashlib.sha256(ui.passField.text().encode('utf-8')).hexdigest()
 
-    id = 11932184605
-    password = hashlib.sha256("steveschiebel123".encode('utf-8')).hexdigest()
     
     result = auth_operation.authentification(id, password)
     if result == 1:
         ui.statusbar.showMessage("Login Successful", 5000)
         print("Login Successful")
-        getInput(id)
+        #getInput(id)
     elif result == 2:
         ui.statusbar.showMessage("User unblocked! Login Successful!", 5000)
         print("User unblocked! Login Successful!")
@@ -69,9 +68,8 @@ def showPassword():
 def getInput(id):
     pet_ID_list = []
     a = poo.get_list_of_pets(id)
-    print(a)
     for item in a:
-        pet_ID_list.append(item.pet_id)
+        pet_ID_list.append(item.id)
         print(item.to_string())
     print(pet_ID_list)
     for i in pet_ID_list:
@@ -93,6 +91,7 @@ if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = QMainWindow()
     ui = Ui_LoginWindow()
+    
     ui.setupUi(window)
     window.show()
 

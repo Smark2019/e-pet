@@ -78,6 +78,11 @@ class Ui_VetWindow(object):
 "border: 2px solid black;\n"
 "border-radius: 10px;")
         self.petListWidget3.setObjectName("petListWidget3")
+        
+        self.petInfoWidget.setVisible(False)
+       
+        
+        
         self.vetTabs.addTab(self.searchTab, "")
         self.myAppointmentsTab = QtWidgets.QWidget()
         self.myAppointmentsTab.setObjectName("myAppointmentsTab")
@@ -106,8 +111,10 @@ class Ui_VetWindow(object):
         VetWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(VetWindow)
-        self.vetTabs.setCurrentIndex(1)
+        self.vetTabs.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(VetWindow)
+        
+        
 
     def retranslateUi(self, VetWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -127,6 +134,8 @@ if __name__ == "__main__":
     VetWindow = QtWidgets.QMainWindow()
     ui = Ui_VetWindow()
     ui.setupUi(VetWindow)
+    
+    
     VetWindow.show()
     sys.exit(app.exec_())
 
