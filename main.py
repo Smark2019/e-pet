@@ -3,6 +3,8 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
 from Pages.LoginPage import *
+from Pages.PetOwnerPage import *
+from Pages.vetPage import *
 from db.db_initialize import *
 import auth_operation
 import hashlib
@@ -13,9 +15,13 @@ import vet_operations as vet
 def authenticate():
     """_summary_ : Authenticates the user and logs them in if the credentials are correct.
     """
+    
     id = ui.idField.text()
     password = hashlib.sha256(ui.passField.text().encode('utf-8')).hexdigest()
 
+    id = 11932184605
+    password = hashlib.sha256("steveschiebel123".encode('utf-8')).hexdigest()
+    
     result = auth_operation.authentification(id, password)
     if result == 1:
         ui.statusbar.showMessage("Login Successful", 5000)
@@ -63,8 +69,9 @@ def showPassword():
 def getInput(id):
     pet_ID_list = []
     a = poo.get_list_of_pets(id)
+    print(a)
     for item in a:
-        pet_ID_list.append(item.id)
+        pet_ID_list.append(item.pet_id)
         print(item.to_string())
     print(pet_ID_list)
     for i in pet_ID_list:
@@ -90,7 +97,7 @@ if __name__ == "__main__":
     window.show()
 
     initialize_db()  # initialize the database if it doesn't exist
-
+    
     
     ui.loginButton.clicked.connect(authenticate)
     ui.showPass.stateChanged.connect(showPassword)

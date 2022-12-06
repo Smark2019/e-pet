@@ -199,6 +199,8 @@ color: white;</string>
    </widget>
   </widget>
  </widget>
+ <widget class="QStatusBar" name="statusbar"/> <!-- bunu ekledik ona göre status bar-->
+ </widget>
  <resources/>
  <connections/>
 </ui>

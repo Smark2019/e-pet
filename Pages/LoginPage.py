@@ -75,6 +75,9 @@ class Ui_LoginWindow(object):
         self.label_5.setScaledContents(True)
         self.label_5.setObjectName("label_5")
         LoginWindow.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(LoginWindow)
+        self.statusbar.setObjectName("statusbar")
+        LoginWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(LoginWindow)
         QtCore.QMetaObject.connectSlotsByName(LoginWindow)

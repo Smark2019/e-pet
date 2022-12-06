@@ -14,11 +14,25 @@ def get_list_of_pets(owner_ID):
     pet_list_query = """SELECT * FROM pet WHERE owner_ID = ?"""
     cursor.execute(pet_list_query, (owner_ID,))
     pet_list = cursor.fetchall()
+    
+    """
+    id = pet_list[0][0]
+    name = pet_list[0][1]
+    date_of_birth = pet_list[0][2]
+    species = pet_list[0][3]
+    gender = pet_list[0][4]
+    sterility = pet_list[0][5]
+    health_status = pet_list[0][6]
+    owner_ID = pet_list[0][7]
+    
+    Pet(name, date_of_birth, species, gender, sterility, health_status, owner_ID, id)
+    
+    """
 
     # turn each pet list object into a pet object with fields
     for i in range(len(pet_list)):
-        newPet = Pet(pet_list[i][0], pet_list[i][1], pet_list[i][2], pet_list[i][3],
-                     pet_list[i][4], pet_list[i][5], pet_list[i][6])
+        newPet = Pet(pet_list[i][1], pet_list[i][2], pet_list[i][3],
+                     pet_list[i][4], pet_list[i][5], pet_list[i][6], pet_list[i][7],pet_list[i][0])
         pet_list[i] = newPet
 
     connection.commit()
@@ -36,8 +50,8 @@ def get_appointments(pet_ID):
     appointments = cursor.fetchall()
     # turn each pet list object into a pet object with fields
     for i in range(len(appointments)):
-        newAppointment = Appointment(appointments[i][0], appointments[i][1], appointments[i][2], appointments[i][3],
-                                     appointments[i][4])
+        newAppointment = Appointment(appointments[i][1], appointments[i][2], appointments[i][3],
+                                     appointments[i][4], appointments[i][5], appointments[i][0])
         appointments[i] = newAppointment
     connection.commit()
     connection.close()
@@ -54,8 +68,8 @@ def get_treatments(pet_ID):
     treatment_list = cursor.fetchall()
 
     for i in range(len(treatment_list)):
-        newTreatment = Treatment(treatment_list[i][0], treatment_list[i][1], treatment_list[i][2], treatment_list[i][3],
-                                 treatment_list[i][4])
+        newTreatment = Treatment(treatment_list[i][1], treatment_list[i][2], treatment_list[i][3],
+                                 treatment_list[i][4], treatment_list[i][5], treatment_list[i][0])
         treatment_list[i] = newTreatment
     connection.commit()
     connection.close()
@@ -72,7 +86,7 @@ def get_allergies(pet_ID):
     allergy_list = cursor.fetchall()
     for i in range(len(allergy_list)):
         newAllergy = Allergy(
-            allergy_list[i][0], allergy_list[i][1], allergy_list[i][2], allergy_list[i][3])
+             allergy_list[i][1], allergy_list[i][2], allergy_list[i][3], allergy_list[i][4], allergy_list[i][0])
         allergy_list[i] = newAllergy
     connection.commit()
     connection.close()
@@ -90,8 +104,8 @@ def get_vaccination_card(pet_ID):
 
     # turn each vaccination list object into a vaccination object with fields
     for i in range(len(vaccination_list)):
-        vaccination_list[i] = Vaccination(vaccination_list[i][0], vaccination_list[i][1], vaccination_list[i]
-                                          [2], vaccination_list[i][3], vaccination_list[i][4], vaccination_list[i][5])
+        vaccination_list[i] = Vaccination(vaccination_list[i][1], vaccination_list[i]
+                                          [2], vaccination_list[i][3], vaccination_list[i][4], vaccination_list[i][5],vaccination_list[i][6], vaccination_list[i][0])
 
     connection.commit()
     connection.close()
