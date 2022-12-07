@@ -112,6 +112,3 @@ def test_get_appointments_in_next_3days():
     assert most_close_date - most_far_date == 3
 
     
-if __name__ == "__main__":
-    test_able_to_add_pet()
-
