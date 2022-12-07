@@ -58,5 +58,4 @@ def test_user_block_for_unsuccessful_login():
         "1231".encode('utf-8')).hexdigest())
 
     unblock_user(id)
-
     assert login_status == -2 or -3
