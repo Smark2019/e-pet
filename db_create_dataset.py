@@ -162,7 +162,7 @@ def add_vaccinations(count):
     
 def add_appointments(count):
     appointment_types = ['Vaccination', 'Checkup', 'Surgery', 'Other']
-    vaccination_names = ['Distemper', 'Rabies', 'Parvovirus', 'Leptospirosis', 'Feline Leukemia', ""]
+    vaccination_names = ['Distemper', 'Rabies', 'Parvovirus', 'Leptospirosis', 'Feline Leukemia']
     for i in range(count):
         vet_ID, pet_ID = get_random_vet_and_pet_id()
         date_of_appointment = generateRandomDateAndTimeForAppointment()
