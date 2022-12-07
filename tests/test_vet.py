@@ -1,5 +1,5 @@
 import vet_operations
-from classes import Pet
+from classes import Pet, Vaccination, Appointment
 import sqlite3
 
 # Pytest is used to run the test run with python -m pytest
@@ -38,6 +38,39 @@ def test_edit_pet():
     connection.close()
     return result[5] == "Yes" and result[6] == "Not Healthy"
     
+def test_add_vaccination():
+
+    test_vac = Vaccination.Vaccination("12345","345",
+    "HPP-B","7.12.2022","1.5 Mg","1",11)
+    vet_operations.add_vaccination(test_vac)
+    
+    # here db query should work:
+    connection = sqlite3.connect("epet_database.db")
+    cursor = connection.cursor()
+    connection.commit()
+    get_added_pet ="""SELECT * FROM vaccination WHERE id = ? """
+    cursor.execute(get_added_pet, (test_vac.id,))
+    result = cursor.fetchone()
+    connection.close()
+    return result[0] == test_vac.id
+
+
+def test_add_appointment():
+    test_vac = Vaccination.Vaccination("12345","345",
+    "HPP-B","7.12.2022","1.5 Mg","1",11)
+    test_app = Appointment.Appointment("12345",11,"12.12.2022"," This appointment is generated for test purpose.",
+    test_vac,1)
+    vet_operations.add_appointment(test_app)
+    
+    # here db query should work:
+    connection = sqlite3.connect("epet_database.db")
+    cursor = connection.cursor()
+    connection.commit()
+    get_added_pet ="""SELECT * FROM appointment WHERE id = ? """
+    cursor.execute(get_added_pet, (test_app.id,))
+    result = cursor.fetchone()
+    connection.close()
+    return result[0] == test_app.id
 
 
 
