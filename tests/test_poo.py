@@ -77,10 +77,24 @@ def test_get_treatments():
     assert is_found
 
 
-# --
-#  is_found = False
-#     for allergy in test_allergy_list:
-#         if(allergy.id == test_allergy.id):
-#             is_found = True
-#             break
-#     assert is_found
+def test_get_allergies():
+    test_allergy = Allergy.Allergy("12345","11","This allergy is generated for test purpose. ",
+    "No Medicine",123)
+    # db op.s:
+    connection = sqlite3.connect("epet_database.db")
+    cursor = connection.cursor()
+    connection.commit()
+
+    allergy_add_query = """INSERT INTO allergy(pet_ID,vet_ID,description,drugs) VALUES(?, ?, ?, ?)"""
+    cursor.execute(allergy_add_query, (test_allergy.pet_ID,
+                   test_allergy.vet_ID, test_allergy.description, test_allergy.drugs))
+    connection.commit()
+    connection.close()
+     
+    test_allergy_list = pet_owner_operations.get_allergies(test_allergy.pet_ID)
+    is_found = False
+    for allergy in test_allergy_list:
+        if(allergy.id == test_allergy.id):
+            is_found = True
+            break
+    assert is_found
