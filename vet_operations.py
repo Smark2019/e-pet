@@ -1,4 +1,6 @@
 import sqlite3
+from classes.Appointment import Appointment
+from classes.Pet import Pet
 
 
 def search_pet(petID):
@@ -15,7 +17,7 @@ def search_pet(petID):
         return -1
 
     connection.close()
-    return pet
+    return Pet(pet[1], pet[2], pet[3], pet[4], pet[5], pet[6], pet[7], pet[0])
 
 
 def add_pet(pet):
@@ -92,12 +94,17 @@ def add_allergy(allergy):
 
 
 def get_appointments_in_next_3days(vet_ID):
+    appointment_list = []
+    
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
 
-    appointment_search_query = """SELECT * FROM appointment WHERE vetID = ? AND date_of_appointment BETWEEN date('now') AND date('now', '+3 days') ORDER BY date_of_appointment ASC"""
+    appointment_search_query = """SELECT * FROM appointment WHERE vet_ID = ? AND date(substr(date_of_appointment, 7, 4) || '-' || substr(date_of_appointment, 4, 2) || '-' || substr(date_of_appointment, 1, 2)) BETWEEN date('now') AND date('now', '+3 days') ORDER BY date_of_appointment ASC"""
+    
     cursor.execute(appointment_search_query, (vet_ID,))
     appointments = cursor.fetchall()
     connection.close()
-    return appointments
+    for item in appointments:
+        appointment_list.append(Appointment(item[1], item[2], item[3], item[4], item[5],item[0]))
+    return appointment_list

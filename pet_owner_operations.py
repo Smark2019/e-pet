@@ -35,7 +35,6 @@ def get_list_of_pets(owner_ID):
                      pet_list[i][4], pet_list[i][5], pet_list[i][6], pet_list[i][7],pet_list[i][0])
         pet_list[i] = newPet
 
-    connection.commit()
     connection.close()
     return pet_list
 
@@ -53,7 +52,6 @@ def get_appointments(pet_ID):
         newAppointment = Appointment(appointments[i][1], appointments[i][2], appointments[i][3],
                                      appointments[i][4], appointments[i][5], appointments[i][0])
         appointments[i] = newAppointment
-    connection.commit()
     connection.close()
     return appointments
 
@@ -71,7 +69,6 @@ def get_treatments(pet_ID):
         newTreatment = Treatment(treatment_list[i][1], treatment_list[i][2], treatment_list[i][3],
                                  treatment_list[i][4], treatment_list[i][5], treatment_list[i][0])
         treatment_list[i] = newTreatment
-    connection.commit()
     connection.close()
     return treatment_list
 
@@ -88,7 +85,6 @@ def get_allergies(pet_ID):
         newAllergy = Allergy(
              allergy_list[i][1], allergy_list[i][2], allergy_list[i][3], allergy_list[i][4], allergy_list[i][0])
         allergy_list[i] = newAllergy
-    connection.commit()
     connection.close()
     return allergy_list
 
@@ -107,7 +103,6 @@ def get_vaccination_card(pet_ID):
         vaccination_list[i] = Vaccination(vaccination_list[i][1], vaccination_list[i]
                                           [2], vaccination_list[i][3], vaccination_list[i][4], vaccination_list[i][5],vaccination_list[i][6], vaccination_list[i][0])
 
-    connection.commit()
     connection.close()
     return vaccination_list
 
@@ -118,28 +113,42 @@ def get_vaccination_card(pet_ID):
 
 
 def fetch_appointments_in_next_week(owner_ID):
+
+    appointment_list = []
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
 
-    appointment_search_query = """SELECT * FROM appointment WHERE date_of_appointment = date('now', '+7 days') AND owner_ID = ?"""
+    appointment_search_query = """SELECT * FROM appointment WHERE date(substr(date_of_appointment, 7, 4) || '-' || substr(date_of_appointment, 4, 2) || '-' || substr(date_of_appointment, 1, 2)) = date('now', '+7 days') AND owner_ID = ?"""
     cursor.execute(appointment_search_query, (owner_ID,))
     appointments = cursor.fetchall()
-    connection.commit()
+
+    for i in range(len(appointments)):
+        newAppointment = Appointment(appointments[i][1], appointments[i][2], appointments[i][3],
+                                     appointments[i][4], appointments[i][5], appointments[i][0])
+        appointment_list.append(newAppointment)
+        
     connection.close()
-    return appointments
+    return appointment_list
 
 # gets appointments where one day is left
 
 
 def fetch_appointments_for_tomorrow(owner_ID):
+    appointment_list = []
+    
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
 
-    appointment_search_query = """SELECT * FROM appointment WHERE date_of_appointment = date('now', '+1 days') AND owner_ID = ?"""
+    appointment_search_query = """SELECT * FROM appointment WHERE date(substr(date_of_appointment, 7, 4) || '-' || substr(date_of_appointment, 4, 2) || '-' || substr(date_of_appointment, 1, 2)) = date('now', '+1 days') AND owner_ID = ?"""
     cursor.execute(appointment_search_query, (owner_ID,))
     appointments = cursor.fetchall()
-    connection.commit()
+    
+    for i in range(len(appointments)):
+        newAppointment = Appointment(appointments[i][1], appointments[i][2], appointments[i][3],
+                                     appointments[i][4], appointments[i][5], appointments[i][0])
+        appointment_list.append(newAppointment)
+    
     connection.close()
-    return appointments
+    return appointment_list

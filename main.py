@@ -59,7 +59,7 @@ def authenticate():
     if result == 1:
         ui.statusbar.showMessage("Login Successful", 5000)
         print("Login Successful")
-        #getInput(id)
+        getInput(id)
     elif result == 2:
         ui.statusbar.showMessage("User unblocked! Login Successful!", 5000)
         print("User unblocked! Login Successful!")
@@ -119,6 +119,9 @@ def getInput(id):
 
         for item in poo.get_appointments(i):
             print(item.to_string())
+    print("Vet Appointments: Next 3 days")
+    for item in vet.get_appointments_in_next_3days(78710966195):
+        print(item.to_string())
 
 
 if __name__ == "__main__":
