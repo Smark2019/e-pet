@@ -105,8 +105,13 @@ def test_add_allergy():
     connection.close()
     return result[0] == test_allergy.id # maybe other attributes shall be checked. later on we back.
 
- 
-   
+def test_get_appointments_in_next_3days():
+    test_appointments = vet_operations.get_appointments_in_next_3days("11")
+    most_close_date = datetime.datetime.strptime(test_appointments[0][3], "%d-%m-%Y %H:%M")
+    most_far_date = datetime.datetime.strptime(test_appointments[len(test_appointments)-1][3], "%d-%m-%Y %H:%M")
+    assert most_close_date - most_far_date == 3
+
+    
 if __name__ == "__main__":
     test_able_to_add_pet()
 
