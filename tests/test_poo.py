@@ -20,7 +20,12 @@ def test_get_list_of_pets():
     connection.commit()
     connection.close()
     test_pet_list = pet_owner_operations.get_list_of_pets(test_pet.owner_ID)
-    assert test_pet_list[0].id == test_pet.id
+    is_found = False
+    for pet in test_pet_list:
+        if(pet.id == test_pet.id):
+            is_found = True
+            break
+    assert is_found
 
 def test_get_appointments():
     test_vac = Vaccination.Vaccination("12345","345",
@@ -41,7 +46,12 @@ def test_get_appointments():
     # calling get_appointments func:
     test_apps = pet_owner_operations.get_appointments(test_app.pet_ID)
 
-    assert test_apps[0].id == test_app.id
+    is_found = False
+    for appointment in test_apps:
+        if(appointment.id == test_app.id):
+            is_found = True
+            break
+    assert is_found
 
 def test_get_treatments():
     
@@ -57,7 +67,20 @@ def test_get_treatments():
     connection.commit()
     connection.close()
     test_treatment_list = pet_owner_operations.get_treatments(test_treat.pet_ID)
-    assert test_treatment_list[0].id == test_treat.id
+
+    is_found = False
+    for treatment in test_treatment_list:
+        if(treatment.id == test_treat.id):
+            is_found = True
+            break
+
+    assert is_found
 
 
-
+# --
+#  is_found = False
+#     for allergy in test_allergy_list:
+#         if(allergy.id == test_allergy.id):
+#             is_found = True
+#             break
+#     assert is_found
