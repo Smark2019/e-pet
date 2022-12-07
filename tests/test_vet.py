@@ -1,5 +1,5 @@
 import vet_operations
-from classes import Pet, Vaccination, Appointment
+from classes import Pet, Vaccination, Appointment, Treatment
 import sqlite3
 
 # Pytest is used to run the test run with python -m pytest
@@ -71,6 +71,20 @@ def test_add_appointment():
     result = cursor.fetchone()
     connection.close()
     return result[0] == test_app.id
+
+def test_add_treatment():
+    test_treat = Treatment.Treatment("12345","11","This treatment is generated for test purpose.", "Apoquel Tablets for Dogs","12.12.2022",11)
+    vet_operations.add_treatment(test_treat)
+    
+    # here db query should work:
+    connection = sqlite3.connect("epet_database.db")
+    cursor = connection.cursor()
+    connection.commit()
+    get_added_pet ="""SELECT * FROM appointment WHERE id = ? """
+    cursor.execute(get_added_pet, (test_treat.id,))
+    result = cursor.fetchone()
+    connection.close()
+    return result[0] == test_treat.id
 
 
 
