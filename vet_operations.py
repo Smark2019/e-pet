@@ -91,13 +91,13 @@ def add_allergy(allergy):
     connection.close()
 
 
-def get_appointments_in_next_3days():
+def get_appointments_in_next_3days(vet_ID):
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
 
-    appointment_search_query = """SELECT * FROM appointment WHERE date_of_appointment BETWEEN date('now') AND date('now', '+3 days') ORDER BY date_of_appointment ASC"""
-    cursor.execute(appointment_search_query)
+    appointment_search_query = """SELECT * FROM appointment WHERE vetID = ? AND date_of_appointment BETWEEN date('now') AND date('now', '+3 days') ORDER BY date_of_appointment ASC"""
+    cursor.execute(appointment_search_query, (vet_ID,))
     appointments = cursor.fetchall()
     connection.close()
     return appointments
