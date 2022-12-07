@@ -43,7 +43,21 @@ def test_get_appointments():
 
     assert test_apps[0].id == test_app.id
 
+def test_get_treatments():
+    
+    test_treat = Treatment.Treatment("12345","11","This treatment is generated for test purpose.", "Apoquel Tablets for Dogs","12.12.2022",111)
+    # db operations:
+    connection = sqlite3.connect("epet_database.db")
+    cursor = connection.cursor()
+    connection.commit()
 
+    test_treatment_add_query = """INSERT INTO treatment(pet_ID,vet_ID,description,used_medicine,date_of_treatment) VALUES(?, ?, ?, ?, ?)"""
+    cursor.execute(test_treatment_add_query, (test_treat.pet_ID,
+                   test_treat.vet_ID, test_treat.description, test_treat.used_medicine, test_treat.date_of_treatment))
+    connection.commit()
+    connection.close()
+    test_treatment_list = pet_owner_operations.get_treatments(test_treat.pet_ID)
+    assert test_treatment_list[0].id == test_treat.id
 
 
 
