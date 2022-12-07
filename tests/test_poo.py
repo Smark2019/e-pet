@@ -98,3 +98,27 @@ def test_get_allergies():
             is_found = True
             break
     assert is_found
+
+def test_get_vaccination_card():
+    test_vac = Vaccination.Vaccination("12345","345",
+    "HPP-B","7.12.2022","1.5 Mg","1",112)
+    # db op.s:
+    connection = sqlite3.connect("epet_database.db")
+    cursor = connection.cursor()
+    connection.commit()
+
+    vaccination_add_query = """INSERT INTO vaccination(pet_ID,vet_ID,name,date_of_vaccination,dose_given,count) VALUES(?, ?, ?, ?, ?, ?)"""
+    cursor.execute(vaccination_add_query, (test_vac.pet_ID, test_vac.vet_ID, test_vac.name,
+                                           test_vac.date_of_vaccination, test_vac.dose_given, test_vac.count))
+    connection.commit()
+    connection.close()
+
+    test_vac_list = pet_owner_operations.get_vaccination_card(test_vac.pet_ID)
+
+    is_found = False
+    for vacc in test_vac_list:
+        if(vacc.id == test_vac.id):
+            is_found = True
+            break
+    assert is_found
+
