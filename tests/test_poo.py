@@ -22,3 +22,28 @@ def test_get_list_of_pets():
     test_pet_list = pet_owner_operations.get_list_of_pets(test_pet.owner_ID)
     assert test_pet_list[0].id == test_pet.id
 
+def test_get_appointments():
+    test_vac = Vaccination.Vaccination("12345","345",
+    "HPP-B","7.12.2022","1.5 Mg","1",11)
+    test_app = Appointment.Appointment("12345",11,"12.12.2022"," This appointment is generated for test purpose.",
+    test_vac,13)
+
+    connection = sqlite3.connect("epet_database.db")
+    cursor = connection.cursor()
+    connection.commit()
+
+    app_add_query = """INSERT INTO appointment(pet_ID,vet_ID,date_of_appointment,description,vaccinations) VALUES(?, ?, ?, ?, ?)"""
+    cursor.execute(app_add_query, (test_app.pet_ID, test_app.vet_ID, test_app.date_of_appointment,
+                                           test_app.description, test_app.vaccinations))
+    connection.commit()
+    connection.close()
+
+    # calling get_appointments func:
+    test_apps = pet_owner_operations.get_appointments(test_app.pet_ID)
+
+    assert test_apps[0].id == test_app.id
+
+
+
+
+
