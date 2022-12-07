@@ -122,3 +122,16 @@ def test_get_vaccination_card():
             break
     assert is_found
 
+def test_fetch_appointments_in_next_week():
+
+    date_now = datetime.now()
+    date_of_app = date_now + datetime.timedelta(days = 7)
+    date_of_app = datetime.datetime.strftime(date_of_app, "%m/%d/%y")
+    
+    test_vac = Vaccination.Vaccination("12345","345",
+    "HPP-B",date_of_app,"1.5 Mg","1",11)
+    test_app = Appointment.Appointment("12345",11,date_of_app," This appointment is generated for test purpose.",
+    test_vac,1)
+
+    # test_apps_list = pet_owner_operations.fetch_appointments_in_next_week(test_app.ownerId) will cause an error. We'll back later on.
+    pass
