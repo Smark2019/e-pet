@@ -1,5 +1,6 @@
 import vet_operations
-from classes import Pet, Vaccination, Appointment, Treatment
+from classes import Pet, Vaccination, Appointment, Treatment, Allergy
+import datetime
 import sqlite3
 
 # Pytest is used to run the test run with python -m pytest
@@ -36,7 +37,8 @@ def test_edit_pet():
     cursor.execute(get_added_pet, (test_pet.id,))
     result = cursor.fetchone()
     connection.close()
-    return result[5] == "Yes" and result[6] == "Not Healthy"
+    return result[5] == "Yes" and result[6] == "Not Healthy" # maybe other attributes shall be checked. later on we back.
+
     
 def test_add_vaccination():
 
@@ -70,7 +72,8 @@ def test_add_appointment():
     cursor.execute(get_added_pet, (test_app.id,))
     result = cursor.fetchone()
     connection.close()
-    return result[0] == test_app.id
+    return result[0] == test_app.id # maybe other attributes shall be checked. later on we back.
+
 
 def test_add_treatment():
     test_treat = Treatment.Treatment("12345","11","This treatment is generated for test purpose.", "Apoquel Tablets for Dogs","12.12.2022",11)
@@ -84,12 +87,26 @@ def test_add_treatment():
     cursor.execute(get_added_pet, (test_treat.id,))
     result = cursor.fetchone()
     connection.close()
-    return result[0] == test_treat.id
+    return result[0] == test_treat.id # maybe other attributes shall be checked. later on we back.
 
 
+def test_add_allergy():
+    test_allergy = Allergy.Allergy("12345","11","This allergy is generated for test purpose. ",
+    "No Medicine",1)
+    vet_operations.add_allergy(test_allergy)
 
+    # here db query should work:
+    connection = sqlite3.connect("epet_database.db")
+    cursor = connection.cursor()
+    connection.commit()
+    get_added_pet ="""SELECT * FROM allergy WHERE id = ? """
+    cursor.execute(get_added_pet, (test_allergy.id,))
+    result = cursor.fetchone()
+    connection.close()
+    return result[0] == test_allergy.id # maybe other attributes shall be checked. later on we back.
 
-
+ 
+   
 if __name__ == "__main__":
     test_able_to_add_pet()
 
