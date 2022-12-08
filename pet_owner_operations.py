@@ -119,7 +119,7 @@ def fetch_appointments_in_next_week(owner_ID):
     cursor = connection.cursor()
     connection.commit()
 
-    appointment_search_query = """SELECT * FROM appointment WHERE date(substr(date_of_appointment, 7, 4) || '-' || substr(date_of_appointment, 4, 2) || '-' || substr(date_of_appointment, 1, 2)) = date('now', '+7 days') AND owner_ID = ?"""
+    appointment_search_query = """SELECT app.id,app.pet_ID, app.vet_ID, app.date_of_appointment, app.description, app.vaccinations FROM appointment as app LEFT join pet as p on app.pet_ID = p.id   WHERE  owner_ID = ? AND date(substr(date_of_appointment, 7, 4) || '-' || substr(date_of_appointment, 4, 2) || '-' || substr(date_of_appointment, 1, 2)) BETWEEN date('now') AND date('now', '+7 days')"""
     cursor.execute(appointment_search_query, (owner_ID,))
     appointments = cursor.fetchall()
 
@@ -141,7 +141,7 @@ def fetch_appointments_for_tomorrow(owner_ID):
     cursor = connection.cursor()
     connection.commit()
 
-    appointment_search_query = """SELECT * FROM appointment WHERE date(substr(date_of_appointment, 7, 4) || '-' || substr(date_of_appointment, 4, 2) || '-' || substr(date_of_appointment, 1, 2)) = date('now', '+1 days') AND owner_ID = ?"""
+    appointment_search_query = """SELECT app.id,app.pet_ID, app.vet_ID, app.date_of_appointment, app.description, app.vaccinations FROM appointment as app LEFT join pet as p on app.pet_ID = p.id WHERE date(substr(date_of_appointment, 7, 4) || '-' || substr(date_of_appointment, 4, 2) || '-' || substr(date_of_appointment, 1, 2)) = date('now', '+1 days') AND owner_ID = ?"""
     cursor.execute(appointment_search_query, (owner_ID,))
     appointments = cursor.fetchall()
     
