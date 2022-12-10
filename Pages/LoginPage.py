@@ -10,23 +10,28 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class Ui_LoginWindow(object):
     def setupUi(self, LoginWindow):
+        #Login Window created and editted
         LoginWindow.setObjectName("LoginWindow")
         LoginWindow.resize(591, 345)
         LoginWindow.setMinimumSize(QtCore.QSize(591, 345))
         LoginWindow.setMaximumSize(QtCore.QSize(591, 345))
         LoginWindow.setStyleSheet("background: #23B7C8;")
+        #LoginWindow added to centralwidget
         self.centralwidget = QtWidgets.QWidget(LoginWindow)
         self.centralwidget.setObjectName("centralwidget")
+        #idField create and editted
         self.idField = QtWidgets.QLineEdit(self.centralwidget)
         self.idField.setGeometry(QtCore.QRect(160, 170, 381, 21))
         self.idField.setStyleSheet("background: white;")
         self.idField.setObjectName("idField")
+        #label created and editted
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(70, 170, 91, 16))
         font = QtGui.QFont()
         font.setPointSize(11)
         self.label.setFont(font)
         self.label.setObjectName("label")
+        #label2 created and editted
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(60, 212, 91, 16))
         font = QtGui.QFont()
