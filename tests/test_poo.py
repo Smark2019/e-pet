@@ -132,9 +132,25 @@ def test_fetch_appointments_in_next_week():
     "HPP-B",date_of_app,"1.5 Mg","1",11)
     test_app = Appointment.Appointment("12345",11,date_of_app," This appointment is generated for test purpose.",
     test_vac,1)
+    
+    connection = sqlite3.connect("epet_database.db")
+    cursor = connection.cursor()
+    connection.commit()
 
-    # test_apps_list = pet_owner_operations.fetch_appointments_in_next_week(test_app.ownerId) will cause an error. We'll back later on.
-    pass
+    app_add_query = """INSERT INTO appointment(pet_ID,vet_ID,date_of_appointment,description,vaccinations) VALUES(?, ?, ?, ?, ?)"""
+    cursor.execute(app_add_query, (test_app.pet_ID, test_app.vet_ID, test_app.date_of_appointment,
+                                           test_app.description, test_app.vaccinations))
+    connection.commit()
+    connection.close()
+
+
+    test_apps_list = pet_owner_operations.fetch_appointments_in_next_week(test_app.ownerId)
+    is_found = False
+    for app in test_apps_list:
+        if(app.id == test_app.id):
+            is_found = True
+            break
+    assert is_found
 
 def test_fetch_appointments_for_tomorrow():
     date_now = datetime.now()
