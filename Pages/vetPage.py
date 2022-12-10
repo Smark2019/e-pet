@@ -28,8 +28,10 @@ class Ui_VetWindow(object):
         self.vetTabs.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.vetTabs.setElideMode(QtCore.Qt.ElideNone)
         self.vetTabs.setObjectName("vetTabs")
+         #searchTab created and editted.
         self.searchTab = QtWidgets.QWidget()
         self.searchTab.setObjectName("searchTab")
+        #label2 added into searchTable.
         self.label_2 = QtWidgets.QLabel(self.searchTab)
         self.label_2.setGeometry(QtCore.QRect(230, 60, 411, 231))
         self.label_2.setText("")
