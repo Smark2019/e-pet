@@ -48,22 +48,27 @@ class Ui_PetOwnerWindow(object):
         #petInfoBackButton added into petInfoWidget.
         self.petInfoBackButton = QtWidgets.QPushButton(self.petInfoWidget)
         self.petInfoBackButton.setGeometry(QtCore.QRect(10, 20, 71, 28))
+        #font size defined.
         font = QtGui.QFont()
         font.setPointSize(10)
+        #font added into petInfoBackButton.
         self.petInfoBackButton.setFont(font)
         self.petInfoBackButton.setStyleSheet("background: #03e8fc;")
         self.petInfoBackButton.setObjectName("petInfoBackButton")
+        #petListWidget2 added into petInfoWidget and editted.
         self.petListWidget2 = QtWidgets.QListWidget(self.petInfoWidget)
         self.petListWidget2.setGeometry(QtCore.QRect(370, 40, 481, 231))
         self.petListWidget2.setStyleSheet("background:white;\n"
 "border: 2px solid black;\n"
 "border-radius: 10px;")
         self.petListWidget2.setObjectName("petListWidget2")
+        #petListWidget3 added into petInfoWidget.
         self.petListWidget3 = QtWidgets.QListWidget(self.petInfoWidget)
         self.petListWidget3.setGeometry(QtCore.QRect(370, 310, 481, 231))
         self.petListWidget3.setStyleSheet("background:white;\n"
 "border: 2px solid black;\n"
 "border-radius: 10px;")
+#name of petListWidget3 added.
         self.petListWidget3.setObjectName("petListWidget3")
         self.petInfoWidget.raise_()
         self.myPetsList.raise_()
@@ -72,12 +77,16 @@ class Ui_PetOwnerWindow(object):
         self.appointmentBookTab.setObjectName("appointmentBookTab")
         self.label = QtWidgets.QLabel(self.appointmentBookTab)
         self.label.setGeometry(QtCore.QRect(60, 40, 191, 31))
+        #font size defined.
         font = QtGui.QFont()
         font.setPointSize(14)
+        #label editted.
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.myAppointmentsTable = QtWidgets.QTableWidget(self.appointmentBookTab)
+        #myAppointmentsTable size defined.
         self.myAppointmentsTable.setGeometry(QtCore.QRect(60, 90, 781, 461))
+        #color of myAppointentsTable defined as white and black.
         self.myAppointmentsTable.setStyleSheet("background: white;\n"
 "border: 4px solid black;")
         self.myAppointmentsTable.setObjectName("myAppointmentsTable")
