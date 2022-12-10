@@ -16,7 +16,7 @@ class Ui_LoginWindow(object):
         LoginWindow.setMinimumSize(QtCore.QSize(591, 345))
         LoginWindow.setMaximumSize(QtCore.QSize(591, 345))
         LoginWindow.setStyleSheet("background: #23B7C8;")
-        #LoginWindow added to centralwidget
+        #centralwidget added to LoginWindow
         self.centralwidget = QtWidgets.QWidget(LoginWindow)
         self.centralwidget.setObjectName("centralwidget")
         #idField create and editted
@@ -38,6 +38,8 @@ class Ui_LoginWindow(object):
         font.setPointSize(11)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
+
+        #LoginButton created and editted. Added in to central widget.
         self.loginButton = QtWidgets.QPushButton(self.centralwidget)
         self.loginButton.setGeometry(QtCore.QRect(255, 290, 101, 31))
         font = QtGui.QFont()
@@ -46,25 +48,30 @@ class Ui_LoginWindow(object):
         self.loginButton.setStyleSheet("background: #1CD050;\n"
 "color: white;")
         self.loginButton.setObjectName("loginButton")
+        #passField created and editted.PassField added into central widget.
         self.passField = QtWidgets.QLineEdit(self.centralwidget)
         self.passField.setGeometry(QtCore.QRect(160, 212, 381, 21))
         self.passField.setStyleSheet("background: white;")
         self.passField.setEchoMode(QtWidgets.QLineEdit.Password)
         self.passField.setObjectName("passField")
+        #label_3 created and editted.Label_3 added in to centralwidget.
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(40, 167, 21, 21))
         self.label_3.setText("")
         self.label_3.setPixmap(QtGui.QPixmap("media/avatar.png"))
         self.label_3.setScaledContents(True)
         self.label_3.setObjectName("label_3")
+        #label_4 created and editted.Label_4 added in to centralwidget.
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(37, 210, 21, 21))
         self.label_4.setText("")
         self.label_4.setPixmap(QtGui.QPixmap("media/lock.png"))
         self.label_4.setScaledContents(True)
         self.label_4.setObjectName("label_4")
+        #showPass created and editted.showPass added into centralwidget.
         self.showPass = QtWidgets.QCheckBox(self.centralwidget)
         self.showPass.setGeometry(QtCore.QRect(160, 240, 131, 20))
+        #font and size editted.
         font = QtGui.QFont()
         font.setPointSize(9)
         self.showPass.setFont(font)
