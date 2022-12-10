@@ -76,8 +76,10 @@ class Ui_LoginWindow(object):
         font.setPointSize(9)
         self.showPass.setFont(font)
         self.showPass.setObjectName("showPass")
+        #label_5 created and editted.Label_5 added in to centralwidget.
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(155, 20, 281, 141))
+        ##font and size editted.
         font = QtGui.QFont()
         font.setFamily("Dubai Medium")
         font.setPointSize(36)
@@ -87,12 +89,14 @@ class Ui_LoginWindow(object):
         self.label_5.setScaledContents(True)
         self.label_5.setObjectName("label_5")
         LoginWindow.setCentralWidget(self.centralwidget)
+        #statusbar created and editted.Status bar added into loginwindow.
         self.statusbar = QtWidgets.QStatusBar(LoginWindow)
         self.statusbar.setObjectName("statusbar")
         LoginWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(LoginWindow)
         QtCore.QMetaObject.connectSlotsByName(LoginWindow)
+
 
     def retranslateUi(self, LoginWindow):
         _translate = QtCore.QCoreApplication.translate
