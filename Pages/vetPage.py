@@ -11,13 +11,17 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_VetWindow(object):
     def setupUi(self, VetWindow):
         VetWindow.setObjectName("VetWindow")
+        #vetWindow size defined.
         VetWindow.resize(896, 622)
         VetWindow.setStyleSheet("background: #23B7C8;")
+        #central widget added into vetWindow.
         self.centralwidget = QtWidgets.QWidget(VetWindow)
         self.centralwidget.setObjectName("centralwidget")
+        #vetTabs added into centralwidget.
         self.vetTabs = QtWidgets.QTabWidget(self.centralwidget)
         self.vetTabs.setGeometry(QtCore.QRect(0, 0, 896, 622))
         font = QtGui.QFont()
+        #font size defined.
         font.setPointSize(10)
         self.vetTabs.setFont(font)
         self.vetTabs.setTabPosition(QtWidgets.QTabWidget.North)
