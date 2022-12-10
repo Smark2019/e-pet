@@ -50,6 +50,22 @@ class Ui_VetWindow(object):
         self.searchPetButton.setStyleSheet("background: #1CD050;\n"
 "color: white;")
         self.searchPetButton.setObjectName("searchPetButton")
+        
+
+        self.addPetButton = QtWidgets.QPushButton(self.searchTab)
+        self.addPetButton.setGeometry(QtCore.QRect(350, 530, 196, 31))
+        font = QtGui.QFont()
+        font.setPointSize(11)
+        self.addPetButton.setFont(font)
+        self.addPetButton.setStyleSheet("background: orange;\n"
+"color: white;")
+        self.addPetButton.setObjectName("addPetButton")
+
+        self.addPetWidget = QtWidgets.QWidget(self.searchTab)
+        self.addPetWidget.setGeometry(QtCore.QRect(0, 0, 896, 591))
+        self.addPetWidget.setObjectName("addPetWidget")
+
+
         self.petInfoWidget = QtWidgets.QWidget(self.searchTab)
         self.petInfoWidget.setGeometry(QtCore.QRect(0, 0, 896, 591))
         self.petInfoWidget.setObjectName("petInfoWidget")
@@ -80,7 +96,7 @@ class Ui_VetWindow(object):
         self.petListWidget3.setObjectName("petListWidget3")
         
         self.petInfoWidget.setVisible(False)
-       
+        self.addPetWidget.setVisible(False)
         
         
         self.vetTabs.addTab(self.searchTab, "")
@@ -121,6 +137,7 @@ class Ui_VetWindow(object):
         VetWindow.setWindowTitle(_translate("VetWindow", "e-Pet"))
         self.label_3.setText(_translate("VetWindow", "Search Pet"))
         self.searchPetButton.setText(_translate("VetWindow", "Find"))
+        self.addPetButton.setText(_translate("VetWindow", "Add Pet"))
         self.petInfoBackButton.setText(_translate("VetWindow", "Back"))
         self.vetTabs.setTabText(self.vetTabs.indexOf(self.searchTab), _translate("VetWindow", "Search"))
         self.label.setText(_translate("VetWindow", "My Appointments"))
