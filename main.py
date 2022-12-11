@@ -1,4 +1,5 @@
 import sys
+
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -112,11 +113,14 @@ def showPassword():
 
 
 def getInput(id):
+    counter = 0
     pet_ID_list = []
     a = poo.get_list_of_pets(id)
     for item in a:
         pet_ID_list.append(item.id)
         print(item.to_string())
+        ui_petOwner.myPetsList.addItem(item.name) # shows names of pet of regarding pet owner
+
     print(pet_ID_list)
     for i in pet_ID_list:
 
@@ -128,12 +132,21 @@ def getInput(id):
 
         for item in poo.get_treatments(i):
             print(item.to_string())
-
+        
         for item in poo.get_appointments(i):
+            pet = poo.get_pet(item.pet_ID)
+            ui_petOwner.myAppointmentsTable.setItem(counter , 0, QTableWidgetItem(str(pet[1])))
+
             print(item.to_string())
-    print("Vet Appointments: Next 3 days")
-    for item in vet.get_appointments_in_next_3days(78710966195):
-        print(item.to_string())
+            vet = poo.get_vet(item.vet_ID)
+            ui_petOwner.myAppointmentsTable.setItem(counter , 1, QTableWidgetItem(str(vet[3])+" "+str(vet[4])))
+            ui_petOwner.myAppointmentsTable.setItem(counter , 2, QTableWidgetItem(str(item.date_of_appointment)))
+
+            counter+=1
+
+    #print("Vet Appointments: Next 3 days")
+    #for item in vet.get_appointments_in_next_3days(78710966195):
+        #print(item.to_string())
 
 
 if __name__ == "__main__":
