@@ -90,8 +90,8 @@ class Ui_PetOwnerWindow(object):
         self.myAppointmentsTable.setStyleSheet("background: white;\n"
 "border: 4px solid black;")
         self.myAppointmentsTable.setObjectName("myAppointmentsTable")
-        self.myAppointmentsTable.setColumnCount(0)
-        self.myAppointmentsTable.setRowCount(0)
+        self.myAppointmentsTable.setColumnCount(10)
+        self.myAppointmentsTable.setRowCount(10)
         self.petOwnerTabs.addTab(self.appointmentBookTab, "")
         PetOwnerWindow.setCentralWidget(self.centralwidget)
 
