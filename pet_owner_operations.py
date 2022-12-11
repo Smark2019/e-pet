@@ -10,7 +10,7 @@ def get_name_of_vet(vet_Id):
     cursor = connection.cursor()
     connection.commit()
    
-    query = """SELECT * FROM user WHERE user_ID = ?"""
+    query = """SELECT * FROM user WHERE id = ?"""
     cursor.execute(query, (vet_Id,))
     vet = cursor.fetchone()
 
