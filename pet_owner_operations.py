@@ -5,6 +5,17 @@ from classes.Appointment import Appointment
 from classes.Allergy import Allergy
 from classes.Treatment import Treatment
 
+def get_name_of_vet(vet_Id):
+    connection = sqlite3.connect("epet_database.db")
+    cursor = connection.cursor()
+    connection.commit()
+   
+    query = """SELECT * FROM user WHERE user_ID = ?"""
+    cursor.execute(query, (vet_Id,))
+    vet = cursor.fetchone()
+
+    return vet
+
 
 def get_list_of_pets(owner_ID):
     connection = sqlite3.connect("epet_database.db")
