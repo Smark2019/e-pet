@@ -112,8 +112,8 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     PetOwnerWindow = QtWidgets.QMainWindow()
-    ui = Ui_PetOwnerWindow()
-    ui.setupUi(PetOwnerWindow)
+    ui_login = Ui_PetOwnerWindow()
+    ui_login.setupUi(PetOwnerWindow)
     PetOwnerWindow.show()
     sys.exit(app.exec_())
 

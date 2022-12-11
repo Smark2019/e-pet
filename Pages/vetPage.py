@@ -155,8 +155,8 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     VetWindow = QtWidgets.QMainWindow()
-    ui = Ui_VetWindow()
-    ui.setupUi(VetWindow)
+    ui_login = Ui_VetWindow()
+    ui_login.setupUi(VetWindow)
     
     
     VetWindow.show()

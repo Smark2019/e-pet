@@ -14,7 +14,7 @@ class Ui_LoginWindow(object):
         LoginWindow.setObjectName("LoginWindow")
         LoginWindow.resize(591, 345)
         LoginWindow.setMinimumSize(QtCore.QSize(591, 345))
-        LoginWindow.setMaximumSize(QtCore.QSize(591, 345))
+        LoginWindow.setMaximumSize(QtCore.QSize(896, 622))
         LoginWindow.setStyleSheet("background: #23B7C8;")
         #centralwidget added to LoginWindow
         self.centralwidget = QtWidgets.QWidget(LoginWindow)
@@ -111,8 +111,8 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     LoginWindow = QtWidgets.QMainWindow()
-    ui = Ui_LoginWindow()
-    ui.setupUi(LoginWindow)
+    ui_login = Ui_LoginWindow()
+    ui_login.setupUi(LoginWindow)
     LoginWindow.show()
     sys.exit(app.exec_())
 
