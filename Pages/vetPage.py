@@ -11,21 +11,27 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_VetWindow(object):
     def setupUi(self, VetWindow):
         VetWindow.setObjectName("VetWindow")
+        #vetWindow size defined.
         VetWindow.resize(896, 622)
         VetWindow.setStyleSheet("background: #23B7C8;")
+        #central widget added into vetWindow.
         self.centralwidget = QtWidgets.QWidget(VetWindow)
         self.centralwidget.setObjectName("centralwidget")
+        #vetTabs added into centralwidget.
         self.vetTabs = QtWidgets.QTabWidget(self.centralwidget)
         self.vetTabs.setGeometry(QtCore.QRect(0, 0, 896, 622))
         font = QtGui.QFont()
+        #font size defined.
         font.setPointSize(10)
         self.vetTabs.setFont(font)
         self.vetTabs.setTabPosition(QtWidgets.QTabWidget.North)
         self.vetTabs.setTabShape(QtWidgets.QTabWidget.Rounded)
         self.vetTabs.setElideMode(QtCore.Qt.ElideNone)
         self.vetTabs.setObjectName("vetTabs")
+         #searchTab created and editted.
         self.searchTab = QtWidgets.QWidget()
         self.searchTab.setObjectName("searchTab")
+        #label2 added into searchTable.
         self.label_2 = QtWidgets.QLabel(self.searchTab)
         self.label_2.setGeometry(QtCore.QRect(230, 60, 411, 231))
         self.label_2.setText("")
@@ -149,8 +155,8 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     VetWindow = QtWidgets.QMainWindow()
-    ui = Ui_VetWindow()
-    ui.setupUi(VetWindow)
+    ui_login = Ui_VetWindow()
+    ui_login.setupUi(VetWindow)
     
     
     VetWindow.show()

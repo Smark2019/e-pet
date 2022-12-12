@@ -25,7 +25,7 @@ def authentification(id, password):
             cursor.execute(
                 "UPDATE user SET login_attempts = 0 WHERE id = ?", (id,))
             connection.commit()
-            return 1  # Login successful
+            return 1, user[10]  # Login successful and user type
         else:
             if user[11] == 4:
                 cursor.execute(
@@ -33,7 +33,7 @@ def authentification(id, password):
                 cursor.execute(
                     "update user set login_attempts = login_attempts + 1 where id = ?", (id,))
                 connection.commit()
-                return -2  # User is now blocked
+                return -2, 0  # User is now blocked
             elif user[11] == 5:
                 blocked_date = user[12]
                 blocked_date = datetime.datetime.strptime(blocked_date, "%d-%m-%Y %H:%M")
@@ -48,23 +48,23 @@ def authentification(id, password):
                         "UPDATE user SET login_attempts = 0 WHERE id = ?", (id,))
                     connection.commit()
                     if user[1] == password:
-                        return 2  # Login successful after being unblocked
+                        return 2, user[10]  # Login successful after being unblocked
                     else:
                         cursor.execute(
                             "update user set login_attempts = login_attempts + 1 where id = ?", (id,))
                         connection.commit()
-                        return -4  # Wrong password after being unblocked
-                return -3  # User is still blocked
+                        return -4,0  # Wrong password after being unblocked
+                return -3,0  # User is still blocked
             else:
                 cursor.execute(
                     "update user set login_attempts = login_attempts + 1 where id = ?", (id,))
                 connection.commit()
-                return 0  # Wrong password
+                return 0,0  # Wrong password
     except Exception as err:
         print(err)
 
     connection.close()
-    return -1  # Wrong ID or password
+    return -1, 0  # Wrong ID or password
 
 
 # register function for the register page to use when the user clicks the register button

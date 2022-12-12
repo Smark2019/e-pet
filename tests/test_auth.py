@@ -38,14 +38,14 @@ def test_login_response_time():
 
 
 def test_login_wrong_id():
-    assert auth_operation.authentification(
-        123123123123, hashlib.sha256("1231".encode('utf-8')).hexdigest()) == -1
+    result, is_vet = auth_operation.authentification(123123123123, hashlib.sha256("1231".encode('utf-8')).hexdigest())
+    assert result  == -1
 
 
 def test_successful_login():
     id, password = get_random_user_credentials()
-    assert auth_operation.authentification(
-        id, password) == 1
+    result, is_vet = auth_operation.authentification(id, password)
+    assert result == 1
 
 
 def test_user_block_for_unsuccessful_login():
@@ -54,7 +54,7 @@ def test_user_block_for_unsuccessful_login():
         auth_operation.authentification(
             id, hashlib.sha256("1231".encode('utf-8')).hexdigest())
 
-    login_status = auth_operation.authentification(id, hashlib.sha256(
+    login_status,is_Vet = auth_operation.authentification(id, hashlib.sha256(
         "1231".encode('utf-8')).hexdigest())
 
     unblock_user(id)
