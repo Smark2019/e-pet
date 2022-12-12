@@ -67,20 +67,28 @@ class Ui_VetWindow(object):
 "color: white;")
         self.addPetButton.setObjectName("addPetButton")
 
+        #below shows the editable pet info page to add new pets to db
         self.addPetWidget = QtWidgets.QWidget(self.searchTab)
         self.addPetWidget.setGeometry(QtCore.QRect(0, 0, 896, 591))
         self.addPetWidget.setObjectName("addPetWidget")
+        self.addPetListWidget1 = QtWidgets.QListWidget(self.petInfoWidget)
+        self.addPetListWidget1.setGeometry(QtCore.QRect(100, 40, 241, 501))
+        self.addPetListWidget1.setStyleSheet("background:white;\n"
+"border: 2px solid black;\n"
+"border-radius: 10px;")
 
-
+        #below shows the read-only widget that contains the pet info
         self.petInfoWidget = QtWidgets.QWidget(self.searchTab)
         self.petInfoWidget.setGeometry(QtCore.QRect(0, 0, 896, 591))
         self.petInfoWidget.setObjectName("petInfoWidget")
-        self.petListWidget1 = QtWidgets.QListWidget(self.petInfoWidget)
-        self.petListWidget1.setGeometry(QtCore.QRect(100, 40, 241, 501))
-        self.petListWidget1.setStyleSheet("background:white;\n"
+        #this is the widget on the left side of the screen for "pet" table of the db
+        self.petInfoList = QtWidgets.QListWidget(self.petInfoWidget)
+        self.petInfoList.setGeometry(QtCore.QRect(100, 40, 241, 501))
+        self.petInfoList.setStyleSheet("background:white;\n"
 "border: 2px solid black;\n"
 "border-radius: 10px;")
-        self.petListWidget1.setObjectName("petListWidget1")
+        self.petInfoList.setObjectName("petListWidget1")
+        #this is the "back" button to go back to the search page.
         self.petInfoBackButton = QtWidgets.QPushButton(self.petInfoWidget)
         self.petInfoBackButton.setGeometry(QtCore.QRect(10, 20, 71, 28))
         font = QtGui.QFont()
