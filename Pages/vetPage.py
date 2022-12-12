@@ -35,7 +35,7 @@ class Ui_VetWindow(object):
         self.label_2 = QtWidgets.QLabel(self.searchTab)
         self.label_2.setGeometry(QtCore.QRect(230, 60, 411, 231))
         self.label_2.setText("")
-        self.label_2.setPixmap(QtGui.QPixmap("media/logo.png"))
+        self.label_2.setPixmap(QtGui.QPixmap("../media/logo.png"))
         self.label_2.setScaledContents(True)
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(self.searchTab)
