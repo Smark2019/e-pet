@@ -28,10 +28,8 @@ def test_get_list_of_pets():
     assert is_found
 
 def test_get_appointments():
-    test_vac = Vaccination.Vaccination("12345","345",
-    "HPP-B","7.12.2022","1.5 Mg","1",11)
     test_app = Appointment.Appointment("12345",11,"12.12.2022"," This appointment is generated for test purpose.",
-    test_vac,13)
+    "test_vac",13)
 
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
@@ -44,7 +42,7 @@ def test_get_appointments():
     connection.close()
 
     # calling get_appointments func:
-    test_apps = pet_owner_operations.get_appointments(test_app.pet_ID)
+    test_apps = pet_owner_operations.get_appointments(int(test_app.pet_ID))
 
     is_found = False
     for appointment in test_apps:
