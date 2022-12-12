@@ -2,6 +2,8 @@ import vet_operations
 from classes import Pet, Vaccination, Appointment, Treatment, Allergy
 import datetime
 import sqlite3
+import time
+from datetime import datetime, timedelta
 
 # Pytest is used to run the test run with python -m pytest
 
@@ -11,58 +13,81 @@ def test_invalid_search_pet():
 
 
 def test_able_to_add_pet():
-    test_pet = Pet.Pet("Olive", "12.12.2021", "Dog",
-                       "Male", "No", "Healthy", "12345", 1)
-    assert vet_operations.add_pet(test_pet)
+    ts = time.time()
+    test_pet = Pet.Pet(str(ts), "12.12.2021", "Dog",
+                       "Male", "No", "Healthy", "12345")
+    vet_operations.add_pet(test_pet)
     # here db query should work:
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
-    connection.commit()
-    get_added_pet = """SELECT * FROM pet WHERE id = '12345' """
-    cursor.execute(get_added_pet)
+
+    get_added_pet = """SELECT * FROM pet WHERE name = ? """
+    delete_query = """DELETE FROM pet WHERE name = ?"""
+    cursor.execute(get_added_pet, (test_pet.name,))
+
     result = cursor.fetchone()
+    connection.commit()
+
+    cursor.execute(delete_query, (test_pet.name,))
+    connection.commit()
     connection.close()
-    # maybe other attributes shall be checked. later on we back.
-    return test_pet.id == result[0]
+
+    assert test_pet.name == result[1]
 
 
 def test_edit_pet():
-    test_pet = Pet.Pet("Olive", "12.12.2021",
-                       "Dog", "Male", "No", "Healthy", "12345", 1)
+    ts = time.time()
+    test_pet = Pet.Pet("Olive", "12-12-2021 9:21",
+                       "Dog", "Male", 0, "Healthy", str(ts))
 
-    vet_operations.edit_pet(test_pet.id, "Yes",
-                            "Not Healthy", test_pet.owner_ID)
+    vet_operations.add_pet(test_pet)
 
+    get_pet_id = """SELECT id FROM pet WHERE owner_ID = ? """
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
-    get_added_pet = """SELECT * FROM pet WHERE id = ? """
-    cursor.execute(get_added_pet, (test_pet.id,))
+    cursor.execute(get_pet_id, (test_pet.owner_ID,))
+    pet_id = cursor.fetchone()
+
+    vet_operations.edit_pet(pet_id[0], 1, "Not Healthy", test_pet.owner_ID)
+
+    get_added_pet = """SELECT * FROM pet WHERE owner_ID = ? """
+    cursor.execute(get_added_pet, (test_pet.owner_ID,))
     result = cursor.fetchone()
+
+    delete_query = """DELETE FROM pet WHERE owner_ID = ? """
+    cursor.execute(delete_query, (test_pet.owner_ID,))
+    connection.commit()
     connection.close()
-    # maybe other attributes shall be checked. later on we back.
-    return result[5] == "Yes" and result[6] == "Not Healthy"
+
+    assert result[5] == 1 and result[6] == "Not Healthy"
 
 
 def test_add_vaccination():
+    ts = time.time()
 
-    test_vac = Vaccination.Vaccination("12345", "345",
-                                       "HPP-B", "7.12.2022", "1.5 Mg", "1", 11)
+    test_vac = Vaccination.Vaccination(ts, "345",
+                                       "HPP-B", "7.12.2022", "1.5 Mg", "1")
     vet_operations.add_vaccination(test_vac)
 
     # here db query should work:
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
-    get_added_pet = """SELECT * FROM vaccination WHERE id = ? """
-    cursor.execute(get_added_pet, (test_vac.id,))
+    get_added_pet = """SELECT * FROM vaccination WHERE pet_ID = ? """
+    delete_query = """DELETE FROM vaccination WHERE pet_ID = ?"""
+    cursor.execute(get_added_pet, (test_vac.pet_ID,))
     result = cursor.fetchone()
+
+    cursor.execute(delete_query, (test_vac.pet_ID,))
+    connection.commit()
     connection.close()
-    return result[0] == test_vac.id
+    assert result[1] == test_vac.pet_ID
 
 
 def test_add_appointment():
-    test_app = Appointment.Appointment("12345", 11, "12.12.2022", " This appointment is generated for test purpose.",
+    ts = time.time()
+    test_app = Appointment.Appointment(ts, 11, "12.12.2022", " This appointment is generated for test purpose.",
                                        "test_vac")
     vet_operations.add_appointment(test_app)
 
@@ -70,52 +95,87 @@ def test_add_appointment():
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
-    get_added_pet = """SELECT * FROM appointment WHERE id = ? """
-    cursor.execute(get_added_pet, (test_app.id,))
+    get_added_pet = """SELECT * FROM appointment WHERE pet_ID = ? """
+    delete_query = """DELETE FROM appointment WHERE pet_ID = ?"""
+    cursor.execute(get_added_pet, (test_app.pet_ID,))
     result = cursor.fetchone()
+
+    cursor.execute(delete_query, (test_app.pet_ID,))
+    connection.commit()
     connection.close()
-    # maybe other attributes shall be checked. later on we back.
-    return result[0] == test_app.id
+
+    assert result[1] == test_app.pet_ID
 
 
 def test_add_treatment():
+    ts = time.time()
     test_treat = Treatment.Treatment(
-        "12345", "11", "This treatment is generated for test purpose.", "Apoquel Tablets for Dogs", "12.12.2022", 11)
+        int(ts), 11, "This treatment is generated for test purpose.", "Apoquel Tablets for Dogs", "12-12-2022 09:21")
     vet_operations.add_treatment(test_treat)
 
     # here db query should work:
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
-    get_added_pet = """SELECT * FROM appointment WHERE id = ? """
-    cursor.execute(get_added_pet, (test_treat.id,))
+
+    print(test_treat.pet_ID)
+    get_added_pet = """SELECT * FROM treatment WHERE pet_ID = ? """
+    cursor.execute(get_added_pet, (test_treat.pet_ID,))
     result = cursor.fetchone()
+
+    delete_query = """DELETE FROM treatment WHERE pet_ID = ?"""
+    cursor.execute(delete_query, (test_treat.pet_ID,))
+    connection.commit()
     connection.close()
     # maybe other attributes shall be checked. later on we back.
-    return result[0] == test_treat.id
+    assert result[1] == test_treat.pet_ID
 
 
 def test_add_allergy():
-    test_allergy = Allergy.Allergy("12345", "11", "This allergy is generated for test purpose. ",
-                                   "No Medicine", 1)
+    ts = time.time()
+    test_allergy = Allergy.Allergy(ts, "11", "This allergy is generated for test purpose. ",
+                                   "No Medicine")
     vet_operations.add_allergy(test_allergy)
 
     # here db query should work:
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
-    get_added_pet = """SELECT * FROM allergy WHERE id = ? """
-    cursor.execute(get_added_pet, (test_allergy.id,))
+    get_added_pet = """SELECT * FROM allergy WHERE pet_ID = ? """
+    delete_query = """DELETE FROM allergy WHERE pet_ID = ?"""
+    cursor.execute(get_added_pet, (test_allergy.pet_ID,))
     result = cursor.fetchone()
+
+    cursor.execute(delete_query, (test_allergy.pet_ID,))
+    connection.commit()
     connection.close()
     # maybe other attributes shall be checked. later on we back.
-    return result[0] == test_allergy.id
+    assert result[1] == test_allergy.pet_ID
 
 
 def test_get_appointments_in_next_3days():
-    test_appointments = vet_operations.get_appointments_in_next_3days("11")
-    most_close_date = datetime.datetime.strptime(
-        test_appointments[0][3], "%d-%m-%Y %H:%M")
-    most_far_date = datetime.datetime.strptime(
-        test_appointments[len(test_appointments)-1][3], "%d-%m-%Y %H:%M")
-    assert most_close_date - most_far_date == 3
+    ts = time.time()
+    date_now = datetime.now()
+    date_of_last_app = date_now + timedelta(days=3)
+
+    date_now = datetime.strftime(date_now, "%d-%m-%Y %H:%M")
+    date_of_last_app = datetime.strftime(date_of_last_app, "%d-%m-%Y %H:%M")
+
+    test_app1 = Appointment.Appointment(ts, int(ts), date_now, " This appointment is generated for test purpose.",
+                                        "test_vac")
+    test_app2 = Appointment.Appointment(ts, int(ts), date_of_last_app, " This appointment is generated for test purpose.",
+                                        "test_vac")
+
+    vet_operations.add_appointment(test_app1)
+    vet_operations.add_appointment(test_app2)
+    test_appointments = vet_operations.get_appointments_in_next_3days(int(ts))
+
+    delete_query = """DELETE FROM appointment WHERE pet_ID = ? OR pet_ID = ?"""
+    connection = sqlite3.connect("epet_database.db")
+    cursor = connection.cursor()
+    connection.commit()
+    cursor.execute(delete_query, (test_app1.pet_ID, test_app2.pet_ID))
+    connection.commit()
+    connection.close()
+
+    assert test_appointments[0].pet_ID == test_app1.pet_ID and test_appointments[1].pet_ID == test_app2.pet_ID

@@ -154,7 +154,7 @@ def test_fetch_appointments_in_next_week():
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
-    
+
     ts = time.time()
     ts = int(ts)
     date_now = datetime.now()
@@ -169,65 +169,88 @@ def test_fetch_appointments_in_next_week():
                    test_pet.species, test_pet.gender, test_pet.sterility, test_pet.health_status, test_pet.owner_ID))
     connection.commit()
 
-    
     get_pet_id = """SELECT id FROM pet WHERE owner_ID = ?"""
     cursor.execute(get_pet_id, (test_pet.owner_ID,))
     fetched_pet_id = cursor.fetchone()
 
     test_pet.id = fetched_pet_id[0]
 
-    test_app = Appointment.Appointment(test_pet.id, 11, date_of_app, "This appointment is generated for test purpose.", "vac1")
+    test_app = Appointment.Appointment(
+        test_pet.id, 11, date_of_app, "This appointment is generated for test purpose.", "vac1")
 
     app_add_query = """INSERT INTO appointment(pet_ID,vet_ID,date_of_appointment,description,vaccinations) VALUES(?, ?, ?, ?, ?)"""
     cursor.execute(app_add_query, (test_app.pet_ID, test_app.vet_ID, test_app.date_of_appointment,
                                    test_app.description, test_app.vaccinations))
     connection.commit()
 
-    test_apps_list = pet_owner_operations.fetch_appointments_in_next_week(test_pet.owner_ID)
-    
+    test_apps_list = pet_owner_operations.fetch_appointments_in_next_week(
+        test_pet.owner_ID)
+
     is_found = False
-    
+
     for app in test_apps_list:
         if (app.pet_ID == test_app.pet_ID):
             is_found = True
             break
-    
-    
-    # delete_pet_query = """DELETE FROM pet WHERE owner_ID = ?"""
-    # delete_app_query = """DELETE FROM appointment WHERE pet_ID = ?"""
-    # cursor.execute(delete_pet_query, (test_pet.owner_ID,))
-    # cursor.execute(delete_app_query, (test_app.id,))
-    # connection.commit()
+
+    delete_pet_query = """DELETE FROM pet WHERE owner_ID = ?"""
+    delete_app_query = """DELETE FROM appointment WHERE pet_ID = ?"""
+    cursor.execute(delete_pet_query, (test_pet.owner_ID,))
+    connection.commit()
+    cursor.execute(delete_app_query, (test_app.pet_ID,))
+    connection.commit()
     connection.close()
     assert is_found
 
 
 def test_fetch_appointments_for_tomorrow():
-    date_now = datetime.now()
-    date_of_app = date_now + timedelta(days=1)
-    date_of_app = datetime.strftime(date_of_app, "%m/%d/%y")
-
-    test_vac = Vaccination.Vaccination("12345", "345",
-                                       "HPP-B", date_of_app, "1.5 Mg", "1", 11)
-    test_app = Appointment.Appointment("12345", 11, date_of_app, " This appointment is generated for test purpose.",
-                                       test_vac, 1)
-    # db operations:
-
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
+
+    ts = time.time()
+    ts = int(ts)
+    date_now = datetime.now()
+    date_of_app = date_now + timedelta(days=1)
+    date_of_app = datetime.strftime(date_of_app, "%d-%m-%Y %H:%M")
+
+    test_pet = Pet.Pet("Olive", "12.12.2021", "Dog",
+                       "Male", "No", "Healthy", ts, 1)
+
+    pet_add_query = """INSERT INTO pet(name,date_of_birth,species,gender,sterility,health_status,owner_ID) VALUES(?, ?, ?, ?, ?, ?, ?)"""
+    cursor.execute(pet_add_query, (test_pet.name, test_pet.date_of_birth,
+                   test_pet.species, test_pet.gender, test_pet.sterility, test_pet.health_status, test_pet.owner_ID))
+    connection.commit()
+
+    get_pet_id = """SELECT id FROM pet WHERE owner_ID = ?"""
+    cursor.execute(get_pet_id, (test_pet.owner_ID,))
+    fetched_pet_id = cursor.fetchone()
+
+    test_pet.id = fetched_pet_id[0]
+
+    test_app = Appointment.Appointment(
+        test_pet.id, 11, date_of_app, "This appointment is generated for test purpose.", "vac1")
 
     app_add_query = """INSERT INTO appointment(pet_ID,vet_ID,date_of_appointment,description,vaccinations) VALUES(?, ?, ?, ?, ?)"""
     cursor.execute(app_add_query, (test_app.pet_ID, test_app.vet_ID, test_app.date_of_appointment,
                                    test_app.description, test_app.vaccinations))
     connection.commit()
-    connection.close()
 
-    test_apps_list = pet_owner_operations.fetch_appointments_for_tomorrow(
-        test_app.ownerId)
+    test_apps_list = pet_owner_operations.fetch_appointments_in_next_week(
+        test_pet.owner_ID)
+
     is_found = False
+
     for app in test_apps_list:
-        if (app.id == test_app.id):
+        if (app.pet_ID == test_app.pet_ID):
             is_found = True
             break
+
+    delete_pet_query = """DELETE FROM pet WHERE owner_ID = ?"""
+    delete_app_query = """DELETE FROM appointment WHERE pet_ID = ?"""
+    cursor.execute(delete_pet_query, (test_pet.owner_ID,))
+    connection.commit()
+    cursor.execute(delete_app_query, (test_app.pet_ID,))
+    connection.commit()
+    connection.close()
     assert is_found
