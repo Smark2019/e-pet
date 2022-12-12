@@ -92,6 +92,7 @@ class Ui_PetOwnerWindow(object):
         self.myAppointmentsTable.setObjectName("myAppointmentsTable")
         self.myAppointmentsTable.setColumnCount(10)
         self.myAppointmentsTable.setRowCount(10)
+        self.myAppointmentsTable.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #makes table read-only
         self.petOwnerTabs.addTab(self.appointmentBookTab, "")
         PetOwnerWindow.setCentralWidget(self.centralwidget)
 
