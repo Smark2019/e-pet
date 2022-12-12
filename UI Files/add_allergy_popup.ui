@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>addTreatmentWindow</class>
- <widget class="QMainWindow" name="addTreatmentWindow">
+ <class>addAllergyWindow</class>
+ <widget class="QMainWindow" name="addAllergyWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -23,7 +23,7 @@
    </size>
   </property>
   <property name="windowTitle">
-   <string>e-Pet - Add Treatment</string>
+   <string>e-Pet - Add Allergy</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background: #23B7C8;</string>
@@ -44,16 +44,16 @@
      </font>
     </property>
     <property name="text">
-     <string>Add Treatment</string>
+     <string>Add Allergy</string>
     </property>
    </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>112</x>
+      <x>171</x>
       <y>90</y>
-      <width>115</width>
-      <height>16</height>
+      <width>51</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="font">
@@ -62,28 +62,10 @@
      </font>
     </property>
     <property name="text">
-     <string>Used Medicine:</string>
+     <string>Drugs:</string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_3">
-    <property name="geometry">
-     <rect>
-      <x>80</x>
-      <y>130</y>
-      <width>151</width>
-      <height>16</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>10</pointsize>
-     </font>
-    </property>
-    <property name="text">
-     <string>Date of Treatment:</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="treatmentUsedMedicineField">
+   <widget class="QLineEdit" name="allergyDrugsField">
     <property name="geometry">
      <rect>
       <x>240</x>
@@ -96,26 +78,7 @@
      <string notr="true">background: white;</string>
     </property>
    </widget>
-   <widget class="QDateTimeEdit" name="dateOfTreatmentField">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>130</y>
-      <width>371</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">background: white;</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-    <property name="calendarPopup">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="saveTreatmentButton">
+   <widget class="QPushButton" name="saveAllergyButton">
     <property name="geometry">
      <rect>
       <x>520</x>
@@ -135,7 +98,7 @@
     <property name="geometry">
      <rect>
       <x>132</x>
-      <y>165</y>
+      <y>125</y>
       <width>91</width>
       <height>21</height>
      </rect>
@@ -149,13 +112,13 @@
      <string>Description:</string>
     </property>
    </widget>
-   <widget class="QTextEdit" name="treatmentDescriptionField">
+   <widget class="QTextEdit" name="allergyDescriptionField">
     <property name="geometry">
      <rect>
       <x>240</x>
-      <y>170</y>
+      <y>130</y>
       <width>371</width>
-      <height>151</height>
+      <height>191</height>
      </rect>
     </property>
     <property name="styleSheet">
