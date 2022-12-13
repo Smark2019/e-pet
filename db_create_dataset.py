@@ -89,7 +89,7 @@ def add_users(count):
     fake = Factory.create()
     
     vet_percentage = 0.05
-    for i in range(count):
+    for i in range(count): 
         nationalId = random.randint(10000000000, 99999999999)
         firstName = firstNames[random.randint(0, len(firstNames)-1)]
         lastName = lastNames[random.randint(0, len(lastNames)-1)]
