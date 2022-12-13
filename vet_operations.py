@@ -33,14 +33,14 @@ def add_pet(pet):
     connection.close()
 
 
-def edit_pet(pet_id, sterility, health_status, owner_ID):
+def edit_pet(pet_ID, sterility, health_status, owner_ID):
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
 
     pet_edit_query = """UPDATE pet SET sterility = ?, health_status = ?, owner_ID = ? WHERE id = ?"""
     cursor.execute(pet_edit_query, (sterility,
-                   health_status, owner_ID, pet_id))
+                   health_status, owner_ID, pet_ID))
     connection.commit()
     connection.close()
 
@@ -74,7 +74,7 @@ def add_treatment(treatment):
     cursor = connection.cursor()
     connection.commit()
 
-    treatment_add_query = """INSERT INTO treatment(pet_ID,vet_ID,description,used_medicine,date_of_treatment) VALUES(?, ?, ?, ?, ?)"""
+    treatment_add_query = """INSERT INTO treatment(pet_ID, vet_ID, description, used_medicine, date_of_treatment) VALUES(?, ?, ?, ?, ?)"""
     cursor.execute(treatment_add_query, (treatment.pet_ID,
                    treatment.vet_ID, treatment.description, treatment.used_medicine, treatment.date_of_treatment))
     connection.commit()
@@ -95,16 +95,17 @@ def add_allergy(allergy):
 
 def get_appointments_in_next_3days(vet_ID):
     appointment_list = []
-    
+
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
 
     appointment_search_query = """SELECT * FROM appointment WHERE vet_ID = ? AND date(substr(date_of_appointment, 7, 4) || '-' || substr(date_of_appointment, 4, 2) || '-' || substr(date_of_appointment, 1, 2)) BETWEEN date('now') AND date('now', '+3 days') ORDER BY date_of_appointment ASC"""
-    
+
     cursor.execute(appointment_search_query, (vet_ID,))
     appointments = cursor.fetchall()
     connection.close()
     for item in appointments:
-        appointment_list.append(Appointment(item[1], item[2], item[3], item[4], item[5],item[0]))
+        appointment_list.append(Appointment(
+            item[1], item[2], item[3], item[4], item[5], item[0]))
     return appointment_list

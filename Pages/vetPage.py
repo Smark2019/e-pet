@@ -67,11 +67,96 @@ class Ui_VetWindow(object):
 "color: white;")
         self.addPetButton.setObjectName("addPetButton")
 
+#########################################################################################################
+#                                       ADD PET WIDGET                                                  #
+#########################################################################################################
         #below shows the editable pet info page to add new pets to db
         self.addPetWidget = QtWidgets.QWidget(self.searchTab)
         self.addPetWidget.setGeometry(QtCore.QRect(0, 0, 896, 591))
         self.addPetWidget.setObjectName("addPetWidget")
+        #this is the "back" button to go back to the search page.
+        self.addPetBackButton = QtWidgets.QPushButton(self.addPetWidget)
+        self.addPetBackButton.setGeometry(QtCore.QRect(10, 20, 71, 28))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.addPetBackButton.setFont(font)
+        self.addPetBackButton.setStyleSheet("background: #03e8fc;")
+        self.addPetBackButton.setObjectName("addPetBackButton")
+        #this is the "add vaccincation" button.
+        self.addPetAddVaccinationButton = QtWidgets.QPushButton(self.addPetWidget)
+        self.addPetAddVaccinationButton.setGeometry(QtCore.QRect(7, 55, 90, 28))
+        font = QtGui.QFont()
+        font.setPointSize(7)
+        self.addPetAddVaccinationButton.setFont(font)
+        self.addPetAddVaccinationButton.setStyleSheet("background: orange;")
+        self.addPetAddVaccinationButton.setObjectName("addPetAddVaccinationButton")
+        #this is the "add treatment" button.
+        self.addPetAddTreatmentButton = QtWidgets.QPushButton(self.addPetWidget)
+        self.addPetAddTreatmentButton.setGeometry(QtCore.QRect(7, 90, 90, 28))
+        font = QtGui.QFont()
+        font.setPointSize(7)
+        self.addPetAddTreatmentButton.setFont(font)
+        self.addPetAddTreatmentButton.setStyleSheet("background: orange;")
+        self.addPetAddTreatmentButton.setObjectName("addPetAddTreatmentButton")
+        #this is the "add allergy" button.
+        self.addPetAddAllergyButton = QtWidgets.QPushButton(self.addPetWidget)
+        self.addPetAddAllergyButton.setGeometry(QtCore.QRect(7, 125, 90, 28))
+        font = QtGui.QFont()
+        font.setPointSize(7)
+        self.addPetAddAllergyButton.setFont(font)
+        self.addPetAddAllergyButton.setStyleSheet("background: orange;")
+        self.addPetAddAllergyButton.setObjectName("addPetAddAllergyButton")
+        #this is the TABLE widget on the right first side of the screen for "vaccination" table of the db
+        self.addPetVaccinationTable = QtWidgets.QTableWidget(self.addPetWidget)
+        self.addPetVaccinationTable.setGeometry(QtCore.QRect(450, 40, 400, 160))
+        self.addPetVaccinationTable.setStyleSheet("background:white;\n"
+"border: 2px solid black;\n"
+"border-radius: 10px;")
+        self.addPetVaccinationTable.setObjectName("addPetVaccinationTable")
+        #this is the TABLE widget on the right second side of the screen for "treatments" table of the db
+        self.addPetTreatmentTable = QtWidgets.QTableWidget(self.addPetWidget)
+        self.addPetTreatmentTable.setGeometry(QtCore.QRect(450, 210, 400, 160))
+        self.addPetTreatmentTable.setStyleSheet("background:white;\n"
+"border: 2px solid black;\n"
+"border-radius: 10px;")
+        self.addPetTreatmentTable.setObjectName("addPetTreatmentTable")
+        #this is the TABLE widget on the right third side of the screen for "allergies" table of the db
+        self.addPetAllergiesTable = QtWidgets.QTableWidget(self.addPetWidget)
+        self.addPetAllergiesTable.setGeometry(QtCore.QRect(450, 380, 400, 160))
+        self.addPetAllergiesTable.setStyleSheet("background:white;\n"
+"border: 2px solid black;\n"
+"border-radius: 10px;")
+        self.addPetAllergiesTable.setObjectName("addPetAllergiesTable")
+        #below is the field to enter the "name" attribute of the "pet" table of the db
+        self.addPetNameField = QtWidgets.QLineEdit(self.addPetWidget)
+        self.addPetNameField.setGeometry(QtCore.QRect(230, 45, 200, 22))
+        self.addPetNameField.setStyleSheet("background: white;")
+        self.addPetNameField.setObjectName("addPetNameField")
+        self.addPetNameLabel = QtWidgets.QLabel(self.addPetWidget)
+        self.addPetNameLabel.setGeometry(QtCore.QRect(150, 45, 75, 22))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.addPetNameLabel.setFont(font)
+        self.addPetNameLabel.setObjectName("addPetNameLabel")
+        #below is the field to enter the "date_of_birth" attribute of the "pet" table of the db
+        self.addPetdateOfBirthField = QtWidgets.QDateTimeEdit(self.addPetWidget)
+        self.addPetdateOfBirthField.setGeometry(QtCore.QRect(230, 77, 200, 22))
+        self.addPetdateOfBirthField.setStyleSheet("background: white;")
+        self.addPetdateOfBirthField.setAlignment(QtCore.Qt.AlignCenter)
+        self.addPetdateOfBirthField.setCalendarPopup(True)
+        self.addPetdateOfBirthField.setObjectName("addPetdateOfBirthField")
+        self.addPetdateOfBirthLabel = QtWidgets.QLabel(self.addPetWidget)
+        self.addPetdateOfBirthLabel.setGeometry(QtCore.QRect(125, 77, 100, 22))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.addPetdateOfBirthLabel.setFont(font)
+        self.addPetdateOfBirthLabel.setObjectName("addPetdateOfBirthLabel")
+        
+        #TODO: species, and rest will be added
 
+#########################################################################################################
+#                                       PET INFO WIDGET                                                 #
+#########################################################################################################
         #below shows the read-only widget that contains the pet info
         self.petInfoWidget = QtWidgets.QWidget(self.searchTab)
         self.petInfoWidget.setGeometry(QtCore.QRect(0, 0, 896, 591))
@@ -116,29 +201,29 @@ class Ui_VetWindow(object):
         self.petInfoAddAllergyButton.setStyleSheet("background: orange;")
         self.petInfoAddAllergyButton.setObjectName("petInfoAddAllergyButton")
         #this is the TABLE widget on the right first side of the screen for "vaccination" table of the db
-        self.petVaccinationTable = QtWidgets.QTableWidget(self.petInfoWidget)
-        self.petVaccinationTable.setGeometry(QtCore.QRect(370, 40, 481, 160))
-        self.petVaccinationTable.setStyleSheet("background:white;\n"
+        self.petInfoVaccinationTable = QtWidgets.QTableWidget(self.petInfoWidget)
+        self.petInfoVaccinationTable.setGeometry(QtCore.QRect(370, 40, 481, 160))
+        self.petInfoVaccinationTable.setStyleSheet("background:white;\n"
 "border: 2px solid black;\n"
 "border-radius: 10px;")
-        self.petVaccinationTable.setObjectName("petVaccinationTable")
+        self.petInfoVaccinationTable.setObjectName("petInfoVaccinationTable")
         #this is the TABLE widget on the right second side of the screen for "treatments" table of the db
-        self.petTreatmentTable = QtWidgets.QTableWidget(self.petInfoWidget)
-        self.petTreatmentTable.setGeometry(QtCore.QRect(370, 210, 481, 160))
-        self.petTreatmentTable.setStyleSheet("background:white;\n"
+        self.petInfoTreatmentTable = QtWidgets.QTableWidget(self.petInfoWidget)
+        self.petInfoTreatmentTable.setGeometry(QtCore.QRect(370, 210, 481, 160))
+        self.petInfoTreatmentTable.setStyleSheet("background:white;\n"
 "border: 2px solid black;\n"
 "border-radius: 10px;")
-        self.petTreatmentTable.setObjectName("petTreatmentTable")
+        self.petInfoTreatmentTable.setObjectName("petInfoTreatmentTable")
         #this is the TABLE widget on the right third side of the screen for "allergies" table of the db
-        self.petAllergiesTable = QtWidgets.QTableWidget(self.petInfoWidget)
-        self.petAllergiesTable.setGeometry(QtCore.QRect(370, 380, 481, 160))
-        self.petAllergiesTable.setStyleSheet("background:white;\n"
+        self.petInfoAllergiesTable = QtWidgets.QTableWidget(self.petInfoWidget)
+        self.petInfoAllergiesTable.setGeometry(QtCore.QRect(370, 380, 481, 160))
+        self.petInfoAllergiesTable.setStyleSheet("background:white;\n"
 "border: 2px solid black;\n"
 "border-radius: 10px;")
-        self.petAllergiesTable.setObjectName("petAllergiesTable")
+        self.petInfoAllergiesTable.setObjectName("petInfoAllergiesTable")
         
-        self.petInfoWidget.setVisible(True)
-        self.addPetWidget.setVisible(False)
+        self.petInfoWidget.setVisible(False)
+        self.addPetWidget.setVisible(True)
         
         
         self.vetTabs.addTab(self.searchTab, "")
@@ -180,6 +265,15 @@ class Ui_VetWindow(object):
         self.label_3.setText(_translate("VetWindow", "Search Pet"))
         self.searchPetButton.setText(_translate("VetWindow", "Find"))
         self.addPetButton.setText(_translate("VetWindow", "Add Pet"))
+        self.addPetBackButton.setText(_translate("VetWindow", "Back"))
+        self.addPetAddVaccinationButton.setText(_translate("VetWindow", "Add Vaccination"))
+        self.addPetAddTreatmentButton.setText(_translate("VetWindow", "Add Treatment"))
+        self.addPetAddAllergyButton.setText(_translate("VetWindow", "Add Allergy"))
+
+        self.addPetNameLabel.setText(_translate("VetWindow", "Pet Name:"))
+        self.addPetdateOfBirthLabel.setText(_translate("VetWindow", "Date of Birth:"))
+
+
         self.petInfoBackButton.setText(_translate("VetWindow", "Back"))
         self.petInfoAddVaccinationButton.setText(_translate("VetWindow", "Add Vaccination"))
         self.petInfoAddTreatmentButton.setText(_translate("VetWindow", "Add Treatment"))
