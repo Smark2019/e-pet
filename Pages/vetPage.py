@@ -35,7 +35,7 @@ class Ui_VetWindow(object):
         self.label_2 = QtWidgets.QLabel(self.searchTab)
         self.label_2.setGeometry(QtCore.QRect(230, 60, 411, 231))
         self.label_2.setText("")
-        self.label_2.setPixmap(QtGui.QPixmap("../media/logo.png"))
+        self.label_2.setPixmap(QtGui.QPixmap("media/logo.png"))
         self.label_2.setScaledContents(True)
         self.label_2.setObjectName("label_2")
         self.label_3 = QtWidgets.QLabel(self.searchTab)
@@ -113,8 +113,10 @@ class Ui_VetWindow(object):
 "border: 2px solid black;\n"
 "border-radius: 10px;")
         self.addPetVaccinationTable.setObjectName("addPetVaccinationTable")
-        self.addPetVaccinationTable.setColumnCount(10)
+        self.addPetVaccinationTable.setColumnCount(5)
         self.addPetVaccinationTable.setRowCount(10)
+        self.addPetVaccinationTable.setHorizontalHeaderLabels(["Vet ID", "Name", "Date", "Dose", "Count"])
+        self.addPetVaccinationTable.verticalHeader().setVisible(False)
         #this is the TABLE widget on the right second side of the screen for "treatments" table of the db
         self.addPetTreatmentTable = QtWidgets.QTableWidget(self.addPetWidget)
         self.addPetTreatmentTable.setGeometry(QtCore.QRect(450, 210, 400, 160))
@@ -122,8 +124,10 @@ class Ui_VetWindow(object):
 "border: 2px solid black;\n"
 "border-radius: 10px;")
         self.addPetTreatmentTable.setObjectName("addPetTreatmentTable")
-        self.addPetTreatmentTable.setColumnCount(10)
+        self.addPetTreatmentTable.setColumnCount(4)
         self.addPetTreatmentTable.setRowCount(10)
+        self.addPetTreatmentTable.setHorizontalHeaderLabels(["Vet ID", "Description", "Medicine", "Date"])
+        self.addPetTreatmentTable.verticalHeader().setVisible(False)
         
         #this is the TABLE widget on the right third side of the screen for "allergies" table of the db
         self.addPetAllergiesTable = QtWidgets.QTableWidget(self.addPetWidget)
@@ -132,8 +136,10 @@ class Ui_VetWindow(object):
 "border: 2px solid black;\n"
 "border-radius: 10px;")
         self.addPetAllergiesTable.setObjectName("addPetAllergiesTable")
-        self.addPetAllergiesTable.setColumnCount(10)
+        self.addPetAllergiesTable.setColumnCount(3)
         self.addPetAllergiesTable.setRowCount(10)
+        self.addPetAllergiesTable.setHorizontalHeaderLabels(["Vet ID", "Description", "Drugs"])
+        self.addPetAllergiesTable.verticalHeader().setVisible(False)
 
 
         #below is the field to enter the "name" attribute of the "pet" table of the db
@@ -225,7 +231,6 @@ class Ui_VetWindow(object):
         self.petInfoVaccinationTable.setRowCount(10)
         self.petInfoVaccinationTable.setHorizontalHeaderLabels(["Vet ID", "Name", "Date", "Dose", "Count"])
         self.petInfoVaccinationTable.verticalHeader().setVisible(False)
-        self.petInfoVaccinationTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         #this is the TABLE widget on the right second side of the screen for "treatments" table of the db
         self.petInfoTreatmentTable = QtWidgets.QTableWidget(self.petInfoWidget)
         self.petInfoTreatmentTable.setGeometry(QtCore.QRect(370, 210, 481, 160))
