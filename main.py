@@ -1,5 +1,5 @@
 import sys
-
+from classes import Appointment 
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -12,7 +12,8 @@ import hashlib
 import pet_owner_operations as poo
 import vet_operations as vo
 import json
-
+import time
+from datetime import datetime, timedelta
 # Main Window 
 
 
@@ -118,9 +119,10 @@ def navigator(id):
     counter = 0
     pet_ID_list = []
     if(is_vet): # this block runs if user is Vet.
-
+        
         ui_vet.searchPetButton.clicked.connect(showPetInfoPage)
         ui_vet.searchPetField.returnPressed.connect(showPetInfoPage)
+        getDataToMyAppointmentsTab(id)
         
 
     else: # this block runs if user is Pet Owner.
@@ -173,12 +175,34 @@ def showPetInfoPage():
         try:
             # DB operations for regarding pet : ( petInfoList )   
             pet_displayed = vo.search_pet(searched_pet_id)
-            ui_vet.petInfoList.addItem(f"Name: {pet_displayed.name}")
-            ui_vet.petInfoList.addItem(f"date_of_birth: {pet_displayed.date_of_birth}")
-            ui_vet.petInfoList.addItem(f"species: {pet_displayed.species}")
-            ui_vet.petInfoList.addItem(f"gender: {pet_displayed.gender}")
-            ui_vet.petInfoList.addItem(f"sterility: {bool(pet_displayed.sterility)}")
-            ui_vet.petInfoList.addItem(f"owner_ID: {pet_displayed.owner_ID}")
+            colored_item = QListWidgetItem("ID")
+            colored_item.setBackground(QColor("#7fc97f"))
+            ui_vet.petInfoList.addItem(colored_item)
+            ui_vet.petInfoList.addItem(f"{pet_displayed.id}")
+            colored_item = QListWidgetItem("Name")
+            colored_item.setBackground(QColor("#7fc97f"))
+            ui_vet.petInfoList.addItem(colored_item)
+            ui_vet.petInfoList.addItem(f"{pet_displayed.name}")
+            colored_item = QListWidgetItem("Date of Birth")
+            colored_item.setBackground(QColor("#7fc97f"))
+            ui_vet.petInfoList.addItem(colored_item)
+            ui_vet.petInfoList.addItem(f"{pet_displayed.date_of_birth}")
+            colored_item = QListWidgetItem("Species")
+            colored_item.setBackground(QColor("#7fc97f"))
+            ui_vet.petInfoList.addItem(colored_item)
+            ui_vet.petInfoList.addItem(f"{pet_displayed.species}")
+            colored_item = QListWidgetItem("Gender")
+            colored_item.setBackground(QColor("#7fc97f"))
+            ui_vet.petInfoList.addItem(colored_item)
+            ui_vet.petInfoList.addItem(f"{pet_displayed.gender}")
+            colored_item = QListWidgetItem("Sterility")
+            colored_item.setBackground(QColor("#7fc97f"))
+            ui_vet.petInfoList.addItem(colored_item)
+            ui_vet.petInfoList.addItem(f"{bool(pet_displayed.sterility)}")
+            colored_item = QListWidgetItem("Owner ID")
+            colored_item.setBackground(QColor("#7fc97f"))
+            ui_vet.petInfoList.addItem(colored_item)
+            ui_vet.petInfoList.addItem(f"{pet_displayed.owner_ID}")
             ui_vet.searchPetField.clearFocus()
             ui_vet.petInfoWidget.setVisible(True)
             ui_vet.petInfoBackButton.clicked.connect(showSearchPage)
@@ -234,7 +258,22 @@ def showSearchPage():
     ui_vet.petInfoWidget.setVisible(False)
     ui_vet.searchTab.setVisible(True)
     ui_vet.petInfoList.clear()
-    
+
+def getDataToMyAppointmentsTab(vet_id):
+        
+    # DB operations for regarding pet : ( pet Allergies List )  
+        appointments_list = vo.get_appointments_in_next_3days(vet_id)
+        print(appointments_list)
+        if(len(appointments_list) != 0):
+            for appointment in appointments_list:
+
+                ui_vet.myAppointmentsTable.setItem(appointments_list.index(appointment) , 0, QTableWidgetItem(str(appointment.pet_ID)))
+                ui_vet.myAppointmentsTable.setItem(appointments_list.index(appointment) , 1, QTableWidgetItem(str(appointment.vet_ID)))
+                ui_vet.myAppointmentsTable.setItem(appointments_list.index(appointment) , 2, QTableWidgetItem(str(appointment.date_of_appointment)))
+                ui_vet.myAppointmentsTable.setItem(appointments_list.index(appointment) , 3, QTableWidgetItem(str(appointment.description)))
+                ui_vet.myAppointmentsTable.setItem(appointments_list.index(appointment) , 4, QTableWidgetItem(str(appointment.vaccinations)))
+        
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
