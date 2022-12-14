@@ -10,7 +10,7 @@ from db.db_initialize import *
 import auth_operation
 import hashlib
 import pet_owner_operations as poo
-import vet_operations as vet
+import vet_operations as vo
 import json
 
 # Main Window 
@@ -121,6 +121,7 @@ def navigator(id):
     if(is_vet): # this block runs if user is Vet.
 
         ui_vet.searchPetButton.clicked.connect(showPetInfoPage)
+        ui_vet.searchPetField.returnPressed.connect(showPetInfoPage)
         
 
     else: # this block runs if user is Pet Owner.
@@ -159,22 +160,82 @@ def navigator(id):
 
 def showPetInfoPage():
     if(ui_vet.searchPetField.text() == ""):
-        pass
+        msg = QMessageBox() #create a message box to show the error
+        msg.setIcon(QMessageBox.Warning)
+        msg.setText("Please enter a Pet ID")
+        msg.setInformativeText('Please try again.')
+        msg.setWindowTitle("Error!")
+        msg.exec_()
     else:
-        searched_pet_id = ui_vet.searchPetField.text() # gettin ID of the searched pet.
+        searched_pet_id = ui_vet.searchPetField.text() # getting ID of the searched pet.
         ui_vet.searchPetField.clear()
         print(searched_pet_id)
-        #ui_vet.searchTab.setVisible(False)
-        ui_vet.searchPetField.clearFocus()
-        ui_vet.petInfoWidget.setVisible(True)
-        ui_vet.petInfoBackButton.clicked.connect(showSearchPage)
+        
+        try:
+            # DB operations for regarding pet : ( petInfoList )   
+            pet_displayed = vo.search_pet(searched_pet_id)
+            ui_vet.petInfoList.addItem(f"Name: {pet_displayed.name}")
+            ui_vet.petInfoList.addItem(f"date_of_birth: {pet_displayed.date_of_birth}")
+            ui_vet.petInfoList.addItem(f"species: {pet_displayed.species}")
+            ui_vet.petInfoList.addItem(f"gender: {pet_displayed.gender}")
+            ui_vet.petInfoList.addItem(f"sterility: {bool(pet_displayed.sterility)}")
+            ui_vet.petInfoList.addItem(f"owner_ID: {pet_displayed.owner_ID}")
+            ui_vet.searchPetField.clearFocus()
+            ui_vet.petInfoWidget.setVisible(True)
+            ui_vet.petInfoBackButton.clicked.connect(showSearchPage)
 
-        # DB operations for regarding pet :
+            # DB operations for regarding pet : ( pet Vaccination List )  
+            vacc_list = poo.get_vaccination_card(searched_pet_id)
+            
+            if(len(vacc_list) != 0):
+                for vacc in vacc_list:
+
+                    ui_vet.petInfoVaccinationTable.setItem(vacc_list.index(vacc) , 0, QTableWidgetItem(str(vacc.vet_ID)))
+                    ui_vet.petInfoVaccinationTable.setItem(vacc_list.index(vacc) , 1, QTableWidgetItem(str(vacc.name)))
+                    ui_vet.petInfoVaccinationTable.setItem(vacc_list.index(vacc) , 2, QTableWidgetItem(str(vacc.date_of_vaccination)))
+                    ui_vet.petInfoVaccinationTable.setItem(vacc_list.index(vacc) , 3, QTableWidgetItem(str(vacc.dose_given)))
+                    ui_vet.petInfoVaccinationTable.setItem(vacc_list.index(vacc) , 4, QTableWidgetItem(str(vacc.count)))
+
+            # DB operations for regarding pet : ( pet Treatment List )  
+            treatment_list = poo.get_treatments(searched_pet_id)
+            
+            if(len(treatment_list) != 0):
+                for treatment in treatment_list:
+    
+                    ui_vet.petInfoTreatmentTable.setItem(treatment_list.index(treatment) , 0, QTableWidgetItem(str(treatment.vet_ID)))
+                    ui_vet.petInfoTreatmentTable.setItem(treatment_list.index(treatment) , 1, QTableWidgetItem(str(treatment.description)))
+                    ui_vet.petInfoTreatmentTable.setItem(treatment_list.index(treatment) , 2, QTableWidgetItem(str(treatment.used_medicine)))
+                    ui_vet.petInfoTreatmentTable.setItem(treatment_list.index(treatment) , 3, QTableWidgetItem(str(treatment.date_of_treatment)))
+                    
+            
+            # DB operations for regarding pet : ( pet Allergies List )  
+            allergy_list = poo.get_allergies(searched_pet_id)
+            if(len(allergy_list) != 0):
+                for allergy in allergy_list:
+                    print(allergy.drugs)
+                    ui_vet.petInfoAllergiesTable.setItem(allergy_list.index(allergy) , 0, QTableWidgetItem(str(allergy.vet_ID)))
+                    ui_vet.petInfoAllergiesTable.setItem(allergy_list.index(allergy) , 1, QTableWidgetItem(str(allergy.description)))
+                    ui_vet.petInfoAllergiesTable.setItem(allergy_list.index(allergy) , 2, QTableWidgetItem(str(allergy.drugs)))
+            
+                 
+            
+
+        except:
+            msg = QMessageBox() #create a message box to show the error
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Pet does not exist!")
+            msg.setInformativeText('Please try again.')
+            msg.setWindowTitle("Error!")
+            msg.exec_()
+
+
         
     
 def showSearchPage():
     ui_vet.petInfoWidget.setVisible(False)
     ui_vet.searchTab.setVisible(True)
+    ui_vet.petInfoList.clear()
+    
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -191,5 +252,8 @@ if __name__ == "__main__":
     
     
     ui_login.loginButton.clicked.connect(authenticate)
+    ui_login.idField.returnPressed.connect(authenticate)
+    ui_login.passField.returnPressed.connect(authenticate)
     ui_login.showPass.stateChanged.connect(showPassword)
+
     sys.exit(app.exec_())
