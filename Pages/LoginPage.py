@@ -111,8 +111,13 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     LoginWindow = QtWidgets.QMainWindow()
+
     ui_login = Ui_LoginWindow()
     ui_login.setupUi(LoginWindow)
+    ui_login.label_3.setPixmap(QtGui.QPixmap("../media/avatar.png"))
+    ui_login.label_4.setPixmap(QtGui.QPixmap("../media/lock.png"))
+    ui_login.label_5.setPixmap(QtGui.QPixmap("../media/logo.png"))
+
     LoginWindow.show()
     sys.exit(app.exec_())
 

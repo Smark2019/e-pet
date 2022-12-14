@@ -117,6 +117,7 @@ class Ui_VetWindow(object):
         self.addPetVaccinationTable.setRowCount(10)
         self.addPetVaccinationTable.setHorizontalHeaderLabels(["Vet ID", "Name", "Date", "Dose", "Count"])
         self.addPetVaccinationTable.verticalHeader().setVisible(False)
+        self.addPetVaccinationTable.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #makes table read-only
         #this is the TABLE widget on the right second side of the screen for "treatments" table of the db
         self.addPetTreatmentTable = QtWidgets.QTableWidget(self.addPetWidget)
         self.addPetTreatmentTable.setGeometry(QtCore.QRect(450, 210, 400, 160))
@@ -128,6 +129,7 @@ class Ui_VetWindow(object):
         self.addPetTreatmentTable.setRowCount(10)
         self.addPetTreatmentTable.setHorizontalHeaderLabels(["Vet ID", "Description", "Medicine", "Date"])
         self.addPetTreatmentTable.verticalHeader().setVisible(False)
+        self.addPetTreatmentTable.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #makes table read-only
         
         #this is the TABLE widget on the right third side of the screen for "allergies" table of the db
         self.addPetAllergiesTable = QtWidgets.QTableWidget(self.addPetWidget)
@@ -140,6 +142,7 @@ class Ui_VetWindow(object):
         self.addPetAllergiesTable.setRowCount(10)
         self.addPetAllergiesTable.setHorizontalHeaderLabels(["Vet ID", "Description", "Drugs"])
         self.addPetAllergiesTable.verticalHeader().setVisible(False)
+        self.addPetAllergiesTable.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #makes table read-only
 
 
         #below is the field to enter the "name" attribute of the "pet" table of the db
@@ -231,6 +234,7 @@ class Ui_VetWindow(object):
         self.petInfoVaccinationTable.setRowCount(10)
         self.petInfoVaccinationTable.setHorizontalHeaderLabels(["Vet ID", "Name", "Date", "Dose", "Count"])
         self.petInfoVaccinationTable.verticalHeader().setVisible(False)
+        self.petInfoVaccinationTable.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #makes table read-only
         #this is the TABLE widget on the right second side of the screen for "treatments" table of the db
         self.petInfoTreatmentTable = QtWidgets.QTableWidget(self.petInfoWidget)
         self.petInfoTreatmentTable.setGeometry(QtCore.QRect(370, 210, 481, 160))
@@ -242,6 +246,7 @@ class Ui_VetWindow(object):
         self.petInfoTreatmentTable.setRowCount(10)
         self.petInfoTreatmentTable.setHorizontalHeaderLabels(["Vet ID", "Description", "Medicine", "Date"])
         self.petInfoTreatmentTable.verticalHeader().setVisible(False)
+        self.petInfoTreatmentTable.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #makes table read-only
         #this is the TABLE widget on the right third side of the screen for "allergies" table of the db
         self.petInfoAllergiesTable = QtWidgets.QTableWidget(self.petInfoWidget)
         self.petInfoAllergiesTable.setGeometry(QtCore.QRect(370, 380, 481, 160))
@@ -253,6 +258,7 @@ class Ui_VetWindow(object):
         self.petInfoAllergiesTable.setRowCount(10)
         self.petInfoAllergiesTable.setHorizontalHeaderLabels(["Vet ID", "Description", "Drugs"])
         self.petInfoAllergiesTable.verticalHeader().setVisible(False)
+        self.petInfoAllergiesTable.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #makes table read-only
         
         self.vetTabs.addTab(self.searchTab, "")
         self.myAppointmentsTab = QtWidgets.QWidget()
@@ -287,7 +293,7 @@ class Ui_VetWindow(object):
                 
 
         # SETTINGS FOR VISIBILITY OF Widgets:
-        self.petInfoWidget.setVisible(False)
+        self.petInfoWidget.setVisible(True)
         self.addPetWidget.setVisible(False)
 
 
@@ -327,6 +333,7 @@ if __name__ == "__main__":
     VetWindow = QtWidgets.QMainWindow()
     ui_login = Ui_VetWindow()
     ui_login.setupUi(VetWindow)
+    ui_login.label_2.setPixmap(QtGui.QPixmap("../media/logo.png"))
 
     VetWindow.show()
     sys.exit(app.exec_())

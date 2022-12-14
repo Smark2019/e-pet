@@ -21,7 +21,6 @@ def getCredentialsFromJSON():
     # JSON format: {"credentials": [{"id": id, "password": "password"}]}
     
     credentials = []
-    
     try:
         f = open('credentials.json')
         
