@@ -225,6 +225,7 @@ class Ui_VetWindow(object):
         self.petInfoVaccinationTable.setRowCount(10)
         self.petInfoVaccinationTable.setHorizontalHeaderLabels(["Vet ID", "Name", "Date", "Dose", "Count"])
         self.petInfoVaccinationTable.verticalHeader().setVisible(False)
+        self.petInfoVaccinationTable.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         #this is the TABLE widget on the right second side of the screen for "treatments" table of the db
         self.petInfoTreatmentTable = QtWidgets.QTableWidget(self.petInfoWidget)
         self.petInfoTreatmentTable.setGeometry(QtCore.QRect(370, 210, 481, 160))
