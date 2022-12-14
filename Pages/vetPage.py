@@ -152,7 +152,10 @@ class Ui_VetWindow(object):
         self.addPetdateOfBirthLabel.setFont(font)
         self.addPetdateOfBirthLabel.setObjectName("addPetdateOfBirthLabel")
         
+
+
         #TODO: species, and rest will be added
+
 
 #########################################################################################################
 #                                       PET INFO WIDGET                                                 #
@@ -222,10 +225,6 @@ class Ui_VetWindow(object):
 "border-radius: 10px;")
         self.petInfoAllergiesTable.setObjectName("petInfoAllergiesTable")
         
-        self.petInfoWidget.setVisible(False)
-        self.addPetWidget.setVisible(True)
-        
-        
         self.vetTabs.addTab(self.searchTab, "")
         self.myAppointmentsTab = QtWidgets.QWidget()
         self.myAppointmentsTab.setObjectName("myAppointmentsTab")
@@ -256,8 +255,12 @@ class Ui_VetWindow(object):
         self.retranslateUi(VetWindow)
         self.vetTabs.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(VetWindow)
-        
-        
+                
+
+        # SETTINGS FOR VISIBILITY OF Widgets:
+        self.petInfoWidget.setVisible(False)
+        self.addPetWidget.setVisible(False)
+
 
     def retranslateUi(self, VetWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -290,8 +293,7 @@ if __name__ == "__main__":
     VetWindow = QtWidgets.QMainWindow()
     ui_login = Ui_VetWindow()
     ui_login.setupUi(VetWindow)
-    
-    
+
     VetWindow.show()
     sys.exit(app.exec_())
 
