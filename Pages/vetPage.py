@@ -144,7 +144,6 @@ class Ui_VetWindow(object):
         self.addPetAllergiesTable.verticalHeader().setVisible(False)
         self.addPetAllergiesTable.setEditTriggers(QtWidgets.QTableWidget.NoEditTriggers) #makes table read-only
 
-
         #below is the field to enter the "name" attribute of the "pet" table of the db
         self.addPetNameField = QtWidgets.QLineEdit(self.addPetWidget)
         self.addPetNameField.setGeometry(QtCore.QRect(230, 45, 200, 22))
