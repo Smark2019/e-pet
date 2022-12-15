@@ -12,8 +12,8 @@ class Ui_addVaccinationWindow(object):
     def setupUi(self, addVaccinationWindow):
         addVaccinationWindow.setObjectName("addVaccinationWindow")
         addVaccinationWindow.resize(651, 288)
-        addVaccinationWindow.setMinimumSize(QtCore.QSize(651, 288))
-        addVaccinationWindow.setMaximumSize(QtCore.QSize(651, 288))
+        addVaccinationWindow.setMinimumSize(QtCore.QSize(700, 320))
+        addVaccinationWindow.setMaximumSize(QtCore.QSize(700, 320))
         addVaccinationWindow.setStyleSheet("background: #23B7C8;")
         addVaccinationWindow.setWindowIcon(QtGui.QIcon('media/logo.png'))
         self.centralwidget = QtWidgets.QWidget(addVaccinationWindow)
@@ -73,6 +73,13 @@ class Ui_addVaccinationWindow(object):
         self.saveVaccinationButton.setGeometry(QtCore.QRect(510, 250, 93, 28))
         self.saveVaccinationButton.setStyleSheet("background: #1CD050;")
         self.saveVaccinationButton.setObjectName("saveVaccinationButton")
+
+        # custom added:
+        # self.backButton = QtWidgets.QPushButton(self.centralwidget)
+        # self.backButton.setGeometry(QtCore.QRect(410, 250, 93, 28))
+        # self.backButton.setStyleSheet("background: #1CD050;")
+        # self.backButton.setObjectName("backButton")
+
         addVaccinationWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(addVaccinationWindow)
@@ -87,6 +94,7 @@ class Ui_addVaccinationWindow(object):
         self.label_4.setText(_translate("addVaccinationWindow", "Dose Given (mg):"))
         self.label_5.setText(_translate("addVaccinationWindow", "Count:"))
         self.saveVaccinationButton.setText(_translate("addVaccinationWindow", "Save"))
+        #self.backButton.setText(_translate("addVaccinationWindow", "Back"))
 
 
 if __name__ == "__main__":

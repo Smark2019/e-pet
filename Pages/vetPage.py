@@ -7,8 +7,33 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from .AddVaccinationPopup import *
+from .AddTreatmentPopup import *
+from .AddAllergyPopup import *
+
 
 class Ui_VetWindow(object):
+
+
+    def openAddVaccinationPopup(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_addVaccinationWindow()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def openAddTreatmentPopup(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_addTreatmentWindow()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+    def openAddAllergyPopup(self):
+        self.window = QtWidgets.QMainWindow()
+        self.ui = Ui_addAllergyWindow()
+        self.ui.setupUi(self.window)
+        self.window.show()
+
+
     def setupUi(self, VetWindow):
         VetWindow.setObjectName("VetWindow")
         VetWindow.setWindowIcon(QtGui.QIcon('media/logo.png'))
@@ -93,6 +118,7 @@ class Ui_VetWindow(object):
         self.addPetAddVaccinationButton.setFont(font)
         self.addPetAddVaccinationButton.setStyleSheet("background: orange; border-radius: 5px;")
         self.addPetAddVaccinationButton.setObjectName("addPetAddVaccinationButton")
+
 
         #this is the "add treatment" button.
         self.addPetAddTreatmentButton = QtWidgets.QPushButton(self.addPetWidget)
@@ -299,7 +325,7 @@ class Ui_VetWindow(object):
         self.petInfoBackButton.setObjectName("petInfoBackButton")
 
         #this is the "add vaccincation" button.
-        self.petInfoAddVaccinationButton = QtWidgets.QPushButton(self.petInfoWidget)
+        self.petInfoAddVaccinationButton = QtWidgets.QPushButton(self.petInfoWidget,clicked = lambda: self.openAddVaccinationPopup())
         self.petInfoAddVaccinationButton.setGeometry(QtCore.QRect(100, 350, 241, 57))
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -308,7 +334,7 @@ class Ui_VetWindow(object):
         self.petInfoAddVaccinationButton.setObjectName("petInfoAddVaccinationButton")
 
         #this is the "add treatment" button.
-        self.petInfoAddTreatmentButton = QtWidgets.QPushButton(self.petInfoWidget)
+        self.petInfoAddTreatmentButton = QtWidgets.QPushButton(self.petInfoWidget, clicked = lambda: self.openAddTreatmentPopup())
         self.petInfoAddTreatmentButton.setGeometry(QtCore.QRect(100, 417, 241, 57))
         font = QtGui.QFont()
         font.setPointSize(11)
@@ -317,7 +343,7 @@ class Ui_VetWindow(object):
         self.petInfoAddTreatmentButton.setObjectName("petInfoAddTreatmentButton")
 
         #this is the "add allergy" button.
-        self.petInfoAddAllergyButton = QtWidgets.QPushButton(self.petInfoWidget)
+        self.petInfoAddAllergyButton = QtWidgets.QPushButton(self.petInfoWidget, clicked = lambda: self.openAddAllergyPopup())
         self.petInfoAddAllergyButton.setGeometry(QtCore.QRect(100, 484, 241, 57))
         font = QtGui.QFont()
         font.setPointSize(11)

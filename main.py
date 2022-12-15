@@ -3,9 +3,14 @@ from classes import Appointment
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
+# PAGES
 from Pages.LoginPage import *
 from Pages.PetOwnerPage import *
 from Pages.vetPage import *
+from Pages.AddAllergyPopup import *
+from Pages.AddTreatmentPopup import *
+from Pages.AddVaccinationPopup import *
+#-----------#-----------#-----------
 from db.db_initialize import *
 import auth_operation
 import hashlib
@@ -173,6 +178,12 @@ def showPetInfoPage():
         print(searched_pet_id)
         
         try:
+            # following first part runs for controlling of "Add" buttons:
+            ui_vet.petInfoAddVaccinationButton.clicked.connect(conductAddVaccinationPopUp)
+            ui_vet.petInfoAddAllergyButton.clicked.connect(conductAddAllergyPopUp)
+            ui_vet.petInfoAddTreatmentButton.clicked.connect(conductAddTreatmentPopUp)
+
+
             # DB operations for regarding pet : ( petInfoList )   
             pet_displayed = vo.search_pet(searched_pet_id)
             colored_item = QListWidgetItem("ID")
@@ -259,7 +270,7 @@ def showSearchPage():
     ui_vet.searchTab.setVisible(True)
     ui_vet.petInfoList.clear()
 
-def getDataToMyAppointmentsTab(vet_id):
+def getDataToMyAppointmentsTab(vet_id): # tested and it works properly.
         
     # DB operations for regarding pet : ( pet Allergies List )  
         appointments_list = vo.get_appointments_in_next_3days(vet_id)
@@ -273,7 +284,21 @@ def getDataToMyAppointmentsTab(vet_id):
                 ui_vet.myAppointmentsTable.setItem(appointments_list.index(appointment) , 3, QTableWidgetItem(str(appointment.description)))
                 ui_vet.myAppointmentsTable.setItem(appointments_list.index(appointment) , 4, QTableWidgetItem(str(appointment.vaccinations)))
         
+def conductAddVaccinationPopUp():
+    print("showAddVaccinationPopUp OPENS")
 
+    
+
+    # db operations starts after checking obligatory fields:
+
+
+
+def conductAddAllergyPopUp():
+    print("AddAllergyPopUp OPENS")
+def conductAddTreatmentPopUp():
+    print("AddTreatmentPopUp OPENS")
+
+    
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
@@ -284,6 +309,12 @@ if __name__ == "__main__":
     ui_vet = Ui_VetWindow() # vet page generated
 
     ui_petOwner = Ui_PetOwnerWindow() #petOwner page generated
+
+    ui_AllergyPopUp = Ui_addAllergyWindow() # Add Allergy popup page generated
+    ui_TreatmentPopUp = Ui_addTreatmentWindow() # Add Treatment popup page generated
+    ui_VaccinationPopUp = Ui_addVaccinationWindow() # Add Vaccination popup page generated
+
+
     window.show()
 
     initialize_db()  # initialize the database if it doesn't exist
