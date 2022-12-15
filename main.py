@@ -1,5 +1,5 @@
 import sys
-from classes import Appointment 
+from classes import Appointment,Vaccination,Allergy,Treatment
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -7,9 +7,6 @@ from PyQt5.QtCore import *
 from Pages.LoginPage import *
 from Pages.PetOwnerPage import *
 from Pages.vetPage import *
-from Pages.AddAllergyPopup import *
-from Pages.AddTreatmentPopup import *
-from Pages.AddVaccinationPopup import *
 #-----------#-----------#-----------
 from db.db_initialize import *
 import auth_operation
@@ -49,7 +46,7 @@ def getCredentialsFromJSON():
 def authenticate():
     """_summary_ : Authenticates the user and logs them in if the credentials are correct.
     """
-    
+    global id
     id = ui_login.idField.text()
     password = hashlib.sha256(ui_login.passField.text().encode('utf-8')).hexdigest()
 
@@ -59,6 +56,7 @@ def authenticate():
         print("No sample credentials found.")
     else:
         print("Sample credentials found. Entering sample credentials.")
+        
         id = credentials[0]['id']
         password = hashlib.sha256(credentials[0]['password'].encode('utf-8')).hexdigest()
     global is_vet
@@ -173,17 +171,24 @@ def showPetInfoPage():
         msg.setWindowTitle("Error!")
         msg.exec_()
     else:
+        global searched_pet_id
         searched_pet_id = ui_vet.searchPetField.text() # getting ID of the searched pet.
         ui_vet.searchPetField.clear()
         print(searched_pet_id)
         
         try:
-            # following first part runs for controlling of "Add" buttons:
-            ui_vet.petInfoAddVaccinationButton.clicked.connect(conductAddVaccinationPopUp)
-            ui_vet.petInfoAddAllergyButton.clicked.connect(conductAddAllergyPopUp)
-            ui_vet.petInfoAddTreatmentButton.clicked.connect(conductAddTreatmentPopUp)
+            # following first part runs for controlling of "Save" buttons at PopUps:
+            
+            
+            try:
 
 
+                ui_vet.petInfoAddVaccinationButton.clicked.connect(conductAddVaccinationPopUp)
+            except Exception as e: print(e)
+            
+            #ui_vet.popUi.saveAllergyButton.clicked.connect(conductAddAllergyPopUp)
+            #ui_vet.popUi.saveTreatmentButton.clicked.connect(conductAddTreatmentPopUp)
+            
             # DB operations for regarding pet : ( petInfoList )   
             pet_displayed = vo.search_pet(searched_pet_id)
             colored_item = QListWidgetItem("ID")
@@ -284,13 +289,41 @@ def getDataToMyAppointmentsTab(vet_id): # tested and it works properly.
                 ui_vet.myAppointmentsTable.setItem(appointments_list.index(appointment) , 3, QTableWidgetItem(str(appointment.description)))
                 ui_vet.myAppointmentsTable.setItem(appointments_list.index(appointment) , 4, QTableWidgetItem(str(appointment.vaccinations)))
         
-def conductAddVaccinationPopUp():
-    print("showAddVaccinationPopUp OPENS")
+def conductAddVaccinationPopUp(): # ensures that VaccPopUp opened now
+    print("AddVaccinationPopUp OPENS")
+    ui_vet.popUi.saveVaccinationButton.clicked.connect(saveVacc)
 
-    
+def saveVacc():
+        # db operations starts after checking obligatory fields:
 
-    # db operations starts after checking obligatory fields:
+        if(ui_vet.popUi.vaccinationNameField.text() != "" and ui_vet.popUi.vaccinationCountField.text() != "" and ui_vet.popUi.vaccinationDoseGivenField.text() != "" and ui_vet.popUi.dateOfVaccinationField.text() != ""):
 
+            vaccName = ui_vet.popUi.vaccinationNameField.text()
+            vaccCount = ui_vet.popUi.vaccinationCountField.text()
+            vaccDose = ui_vet.popUi.vaccinationDoseGivenField.text()
+            vaccDate = ui_vet.popUi.dateOfVaccinationField.text()
+            vaccDate = datetime.strptime(vaccDate, "%d.%m.%Y %H:%M")
+            vaccDate = datetime.strftime(vaccDate, "%d-%m-%Y %H:%M")
+
+
+            savedVacc = Vaccination.Vaccination(searched_pet_id,id,vaccName,vaccDate,vaccDose,vaccCount)
+            vo.add_vaccination(savedVacc)
+            msg = QMessageBox() #create a message box to show the error
+            msg.setIcon(QMessageBox.Information)
+            msg.setText("Your Vacc Saved !")
+            msg.setInformativeText('')
+            msg.setWindowTitle("Succesfully Saved!")
+            msg.exec_()
+            ui_vet.window.close()
+        else:
+            msg = QMessageBox() #create a message box to show the error
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Cannot leave fields as empty!")
+            msg.setInformativeText('Please try again.')
+            msg.setWindowTitle("Error!")
+            msg.exec_()
+
+            
 
 
 def conductAddAllergyPopUp():
@@ -310,9 +343,7 @@ if __name__ == "__main__":
 
     ui_petOwner = Ui_PetOwnerWindow() #petOwner page generated
 
-    ui_AllergyPopUp = Ui_addAllergyWindow() # Add Allergy popup page generated
-    ui_TreatmentPopUp = Ui_addTreatmentWindow() # Add Treatment popup page generated
-    ui_VaccinationPopUp = Ui_addVaccinationWindow() # Add Vaccination popup page generated
+
 
 
     window.show()

@@ -17,24 +17,25 @@ class Ui_VetWindow(object):
 
     def openAddVaccinationPopup(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_addVaccinationWindow()
-        self.ui.setupUi(self.window)
+        self.popUi = Ui_addVaccinationWindow()
+        self.popUi.setupUi(self.window)
         self.window.show()
 
     def openAddTreatmentPopup(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_addTreatmentWindow()
-        self.ui.setupUi(self.window)
+        self.popUi = Ui_addTreatmentWindow()
+        self.popUi.setupUi(self.window)
         self.window.show()
 
     def openAddAllergyPopup(self):
         self.window = QtWidgets.QMainWindow()
-        self.ui = Ui_addAllergyWindow()
-        self.ui.setupUi(self.window)
+        self.popUi = Ui_addAllergyWindow()
+        self.popUi.setupUi(self.window)
         self.window.show()
 
 
     def setupUi(self, VetWindow):
+        self.popUi = Ui_addVaccinationWindow() # only for start case
         VetWindow.setObjectName("VetWindow")
         VetWindow.setWindowIcon(QtGui.QIcon('media/logo.png'))
         #vetWindow size defined.

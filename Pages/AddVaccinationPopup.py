@@ -74,11 +74,6 @@ class Ui_addVaccinationWindow(object):
         self.saveVaccinationButton.setStyleSheet("background: #1CD050;")
         self.saveVaccinationButton.setObjectName("saveVaccinationButton")
 
-        # custom added:
-        # self.backButton = QtWidgets.QPushButton(self.centralwidget)
-        # self.backButton.setGeometry(QtCore.QRect(410, 250, 93, 28))
-        # self.backButton.setStyleSheet("background: #1CD050;")
-        # self.backButton.setObjectName("backButton")
 
         addVaccinationWindow.setCentralWidget(self.centralwidget)
 
@@ -94,7 +89,6 @@ class Ui_addVaccinationWindow(object):
         self.label_4.setText(_translate("addVaccinationWindow", "Dose Given (mg):"))
         self.label_5.setText(_translate("addVaccinationWindow", "Count:"))
         self.saveVaccinationButton.setText(_translate("addVaccinationWindow", "Save"))
-        #self.backButton.setText(_translate("addVaccinationWindow", "Back"))
 
 
 if __name__ == "__main__":
