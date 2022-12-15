@@ -125,6 +125,7 @@ def navigator(id):
         
         ui_vet.searchPetButton.clicked.connect(showPetInfoPage)
         ui_vet.searchPetField.returnPressed.connect(showPetInfoPage)
+        ui_vet.addPetButton.clicked.connect(showAddPetPage)
         getDataToMyAppointmentsTab(id)
         
 
@@ -159,10 +160,15 @@ def navigator(id):
                 counter+=1
         
 
+def showAddPetPage(): # activates addPetWidget
+    ui_vet.searchPetField.clearFocus()
+    ui_vet.petInfoWidget.setVisible(False)
+    ui_vet.addPetWidget.setVisible(True)
+    ui_vet.addPetBackButton.clicked.connect(showSearchPage)
 
     
 
-def showPetInfoPage():
+def showPetInfoPage(): # activates petInfoWidget
     if(ui_vet.searchPetField.text() == ""):
         msg = QMessageBox() #create a message box to show the error
         msg.setIcon(QMessageBox.Warning)
@@ -224,7 +230,6 @@ def showPetInfoPage():
             ui_vet.searchPetField.clearFocus()
             ui_vet.petInfoWidget.setVisible(True)
             ui_vet.petInfoBackButton.clicked.connect(showSearchPage)
-
             # DB operations for regarding pet : ( pet Vaccination List )  
             vacc_list = poo.get_vaccination_card(searched_pet_id)
             
@@ -274,6 +279,7 @@ def showPetInfoPage():
     
 def showSearchPage():
     ui_vet.petInfoWidget.setVisible(False)
+    ui_vet.addPetWidget.setVisible(False)
     ui_vet.searchTab.setVisible(True)
     ui_vet.petInfoList.clear()
 
