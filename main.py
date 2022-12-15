@@ -360,7 +360,35 @@ def saveAllergy():
 
 def conductAddTreatmentPopUp():
     print("AddTreatmentPopUp OPENS")
+    ui_vet.popUi.saveTreatmentButton.clicked.connect(saveTreatment)
 
+def saveTreatment():
+     # db operations starts after checking obligatory fields:
+
+        if(ui_vet.popUi.treatmentUsedMedicineField.text() != "" and ui_vet.popUi.dateOfTreatmentField.text() != "" and ui_vet.popUi.treatmentDescriptionField.toPlainText() != ""):
+
+            treatUsedMedicine = ui_vet.popUi.treatmentUsedMedicineField.text()
+            treaetDescp = ui_vet.popUi.treatmentDescriptionField.toPlainText()
+            treaetDate = ui_vet.popUi.dateOfTreatmentField.text()
+            treaetDate = datetime.strptime(treaetDate, "%d.%m.%Y %H:%M")
+            treaetDate = datetime.strftime(treaetDate, "%d-%m-%Y %H:%M")
+
+            savedTreat = Treatment.Treatment(searched_pet_id,id,treaetDescp,treatUsedMedicine,treaetDate)
+            vo.add_treatment(savedTreat)
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setText("Your Treatment Saved !")
+            msg.setInformativeText('')
+            msg.setWindowTitle("Succesfully Saved!")
+            msg.exec_()
+            ui_vet.window.close()
+        else:
+            msg = QMessageBox() #create a message box to show the error
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Cannot leave fields as empty!")
+            msg.setInformativeText('Please try again.')
+            msg.setWindowTitle("Error!")
+            msg.exec_()
     
 
 if __name__ == "__main__":
