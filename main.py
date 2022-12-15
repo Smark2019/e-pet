@@ -184,6 +184,8 @@ def showPetInfoPage():
 
 
                 ui_vet.petInfoAddVaccinationButton.clicked.connect(conductAddVaccinationPopUp)
+                ui_vet.petInfoAddAllergyButton.clicked.connect(conductAddAllergyPopUp)
+                ui_vet.petInfoAddTreatmentButton.clicked.connect(conductAddTreatmentPopUp)
             except Exception as e: print(e)
             
             #ui_vet.popUi.saveAllergyButton.clicked.connect(conductAddAllergyPopUp)
@@ -308,7 +310,7 @@ def saveVacc():
 
             savedVacc = Vaccination.Vaccination(searched_pet_id,id,vaccName,vaccDate,vaccDose,vaccCount)
             vo.add_vaccination(savedVacc)
-            msg = QMessageBox() #create a message box to show the error
+            msg = QMessageBox()
             msg.setIcon(QMessageBox.Information)
             msg.setText("Your Vacc Saved !")
             msg.setInformativeText('')
@@ -328,6 +330,34 @@ def saveVacc():
 
 def conductAddAllergyPopUp():
     print("AddAllergyPopUp OPENS")
+    ui_vet.popUi.saveAllergyButton.clicked.connect(saveAllergy)
+
+def saveAllergy():
+    # db operations starts after checking obligatory fields:
+
+        if(ui_vet.popUi.allergyDrugsField.text() != "" and ui_vet.popUi.allergyDescriptionField.toPlainText() != ""):
+            allergyDrugs = ui_vet.popUi.allergyDrugsField.text()
+            allergyDesc = ui_vet.popUi.allergyDescriptionField.toPlainText()
+            savedAllergy = Allergy.Allergy(searched_pet_id,id,allergyDesc,allergyDrugs)
+            vo.add_allergy(savedAllergy)
+
+            msg = QMessageBox()
+            msg.setIcon(QMessageBox.Information)
+            msg.setText("Your Allergy Saved !")
+            msg.setInformativeText('')
+            msg.setWindowTitle("Succesfully Saved!")
+            msg.exec_()
+            ui_vet.window.close()
+        else:
+            msg = QMessageBox() #create a message box to show the error
+            msg.setIcon(QMessageBox.Critical)
+            msg.setText("Cannot leave fields as empty!")
+            msg.setInformativeText('Please try again.')
+            msg.setWindowTitle("Error!")
+            msg.exec_()
+
+
+
 def conductAddTreatmentPopUp():
     print("AddTreatmentPopUp OPENS")
 
