@@ -15,6 +15,7 @@ class Ui_addVaccinationWindow(object):
         addVaccinationWindow.setMinimumSize(QtCore.QSize(651, 288))
         addVaccinationWindow.setMaximumSize(QtCore.QSize(651, 288))
         addVaccinationWindow.setStyleSheet("background: #23B7C8;")
+        addVaccinationWindow.setWindowIcon(QtGui.QIcon('media/logo.png'))
         self.centralwidget = QtWidgets.QWidget(addVaccinationWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)

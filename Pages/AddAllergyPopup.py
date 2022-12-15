@@ -15,6 +15,7 @@ class Ui_addAllergyWindow(object):
         addAllergyWindow.setMinimumSize(QtCore.QSize(651, 394))
         addAllergyWindow.setMaximumSize(QtCore.QSize(651, 394))
         addAllergyWindow.setStyleSheet("background: #23B7C8;")
+        addAllergyWindow.setWindowIcon(QtGui.QIcon('media/logo.png'))
         self.centralwidget = QtWidgets.QWidget(addAllergyWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)

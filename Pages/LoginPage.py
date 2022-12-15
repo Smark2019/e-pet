@@ -16,6 +16,7 @@ class Ui_LoginWindow(object):
         LoginWindow.setMinimumSize(QtCore.QSize(591, 345))
         LoginWindow.setMaximumSize(QtCore.QSize(896, 622))
         LoginWindow.setStyleSheet("background: #23B7C8;")
+        LoginWindow.setWindowIcon(QtGui.QIcon('media/logo.png'))
         #centralwidget added to LoginWindow
         self.centralwidget = QtWidgets.QWidget(LoginWindow)
         self.centralwidget.setObjectName("centralwidget")

@@ -15,6 +15,7 @@ class Ui_addTreatmentWindow(object):
         addTreatmentWindow.setMinimumSize(QtCore.QSize(651, 394))
         addTreatmentWindow.setMaximumSize(QtCore.QSize(651, 394))
         addTreatmentWindow.setStyleSheet("background: #23B7C8;")
+        addTreatmentWindow.setWindowIcon(QtGui.QIcon('media/logo.png'))
         self.centralwidget = QtWidgets.QWidget(addTreatmentWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)

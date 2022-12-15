@@ -13,6 +13,7 @@ class Ui_PetOwnerWindow(object):
         PetOwnerWindow.setObjectName("PetOwnerWindow")
         PetOwnerWindow.resize(896, 622)
         PetOwnerWindow.setStyleSheet("background: #23B7C8;")
+        PetOwnerWindow.setWindowIcon(QtGui.QIcon('media/logo.png'))
 #centralwidget created and editted.
         self.centralwidget = QtWidgets.QWidget(PetOwnerWindow)
         self.centralwidget.setObjectName("centralwidget")
