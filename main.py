@@ -206,9 +206,19 @@ def savePet():
                            petGender, petSterility, petHealth, petOwnerID)
         print(f"NAME: {petName}\n Species: {petSpecies} \n Gender: {petGender} \n BirthDate: {petBirthDate}\n Sterility: {petSterility} \n PetHealt: {petHealth} \n OwnerID: {petOwnerID}")
         vo.add_pet(savedPet)
+
+        connection = sqlite3.connect("epet_database.db")
+        cursor = connection.cursor()
+        connection.commit()
+
+        pet_search_query = """SELECT * FROM pet WHERE name = ? AND owner_ID = ?"""
+        cursor.execute(pet_search_query, (petName, petOwnerID))
+        pet = cursor.fetchone()
+        petID = pet[0]
+
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
-        msg.setText("Your Pet Saved !")
+        msg.setText(f"Pet Saved with id: {petID} !")
         msg.setInformativeText('')
         msg.setWindowTitle("Succesfully Saved!")
         msg.exec_()
