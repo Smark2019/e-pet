@@ -216,6 +216,8 @@ def savePet():
         pet = cursor.fetchone()
         petID = pet[0]
 
+        connection.close()
+
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         msg.setText(f"Pet Saved with id: {petID} !")
