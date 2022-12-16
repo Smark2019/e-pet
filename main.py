@@ -1,5 +1,5 @@
 import sys
-from classes import Appointment,Vaccination,Allergy,Treatment
+from classes import Appointment,Vaccination,Allergy,Treatment,Pet
 from PyQt5.QtWidgets import *
 from PyQt5.QtGui import *
 from PyQt5.QtCore import *
@@ -165,6 +165,61 @@ def showAddPetPage(): # activates addPetWidget
     ui_vet.petInfoWidget.setVisible(False)
     ui_vet.addPetWidget.setVisible(True)
     ui_vet.addPetBackButton.clicked.connect(showSearchPage)
+    ui_vet.addPetSaveButton.clicked.connect(savePet)
+
+def savePet():
+    print(" CLICKED SAVING PET")
+
+    # db operations starts after checking obligatory fields:
+    if(ui_vet.addPetNameField.text() != "" and  ui_vet.addPetDateOfBirthField.text() != "" and ui_vet.addPetSpeciesField.currentText != "" and ( ui_vet.addPetMaleRadioButton.isChecked() or ui_vet.addPetFemaleRadioButton.isChecked()) and ui_vet.addPetOwnerIDField.text() != ""):
+
+
+        petName = ui_vet.addPetNameField.text()
+        petSpecies = ui_vet.addPetSpeciesField.currentText()
+        petGender = "Not Given"
+        if(ui_vet.addPetMaleRadioButton.isChecked()):
+            petGender = ui_vet.addPetMaleRadioButton.text()
+        elif(ui_vet.addPetFemaleRadioButton.isChecked()):
+            petGender = ui_vet.addPetFemaleRadioButton.text()
+
+        petBirthDate = ui_vet.addPetDateOfBirthField.text()
+        petBirthDate = datetime.strptime(petBirthDate, "%d.%m.%Y %H:%M")
+        petBirthDate = datetime.strftime(petBirthDate, "%d-%m-%Y %H:%M")
+        petSterility = "Not Sterile"
+        if(ui_vet.addPetSterilityField.isChecked()):
+            petSterility = "Sterile"
+
+        petHealth = ui_vet.addPetHealthField.currentText()
+
+        #savedPet = Pet.Pet(searched_pet_id,id,vaccName,vaccDate,vaccDose,vaccCount)
+        petOwnerID = ui_vet.addPetOwnerIDField.text()
+        savedPet = Pet.Pet(petName,petBirthDate,petSpecies,petGender,petSterility,petHealth,petOwnerID)
+        print(f"NAME: {petName}\n Species: {petSpecies} \n Gender: {petGender} \n BirthDate: {petBirthDate}\n Sterility: {petSterility} \n PetHealt: {petHealth} \n OwnerID: {petOwnerID}")
+        vo.add_pet(savedPet)
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Information)
+        msg.setText("Your Pet Saved !")
+        msg.setInformativeText('')
+        msg.setWindowTitle("Succesfully Saved!")
+        msg.exec_()
+
+        # return back:
+        ui_vet.searchPetField.clearFocus()
+        ui_vet.petInfoWidget.setVisible(False)
+        ui_vet.addPetWidget.setVisible(False)
+        ui_vet.addPetBackButton.clicked.connect(showSearchPage)
+
+    else:
+        
+        msg = QMessageBox() #create a message box to show the error
+        msg.setIcon(QMessageBox.Critical)
+        msg.setText("Cannot leave fields as empty!")
+        msg.setInformativeText('Please try again.')
+        msg.setWindowTitle("Error!")
+        msg.exec_()
+        ui_vet.searchPetField.clearFocus()
+ 
+        
 
     
 
