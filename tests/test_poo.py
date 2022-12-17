@@ -1,4 +1,3 @@
-import vet_operations
 from classes import Pet, Vaccination, Appointment, Treatment, Allergy
 import sqlite3
 import pet_owner_operations
