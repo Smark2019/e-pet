@@ -97,9 +97,95 @@ class Ui_PetOwnerWindow(object):
         self.petOwnerTabs.addTab(self.appointmentBookTab, "")
         PetOwnerWindow.setCentralWidget(self.centralwidget)
 
+#########################################################################################################
+#                                       PET INFO WIDGET                                                 #
+#########################################################################################################
+        # below shows the read-only widget that contains the pet info
+        self.petInfoWidget = QtWidgets.QWidget(self.searchTab)
+        self.petInfoWidget.setGeometry(QtCore.QRect(0, 0, 896, 591))
+        self.petInfoWidget.setObjectName("petInfoWidget")
+
+        # this is the LIST widget on the left side of the screen for "pet" table of the db
+        self.petInfoList = QtWidgets.QListWidget(self.petInfoWidget)
+        self.petInfoList.setGeometry(QtCore.QRect(100, 40, 241, 300))
+        self.petInfoList.setStyleSheet("background:white;\n"
+                                       "border: 2px solid black;\n"
+                                       "border-radius: 10px;\n"
+                                       "font-size: 16pt;")
+        self.petInfoList.setObjectName("petInfoList")
+
+        # this is the "back" button to go back to the search page.
+        self.petInfoBackButton = QtWidgets.QPushButton(self.petInfoWidget)
+        self.petInfoBackButton.setGeometry(QtCore.QRect(10, 20, 71, 28))
+        font = QtGui.QFont()
+        font.setPointSize(10)
+        self.petInfoBackButton.setFont(font)
+        self.petInfoBackButton.setStyleSheet("background: #03e8fc;")
+        self.petInfoBackButton.setObjectName("petInfoBackButton")
+
+        # this is the TABLE widget on the right first side of the screen for "vaccination" table of the db
+        self.petInfoVaccinationTable = QtWidgets.QTableWidget(
+            self.petInfoWidget)
+        self.petInfoVaccinationTable.setGeometry(
+            QtCore.QRect(370, 40, 481, 160))
+        self.petInfoVaccinationTable.setStyleSheet("background:white;\n"
+                                                   "border: 2px solid black;\n"
+                                                   "border-radius: 10px;")
+        self.petInfoVaccinationTable.setObjectName("petInfoVaccinationTable")
+        self.petInfoVaccinationTable.setColumnCount(5)
+        self.petInfoVaccinationTable.setRowCount(50)
+        self.petInfoVaccinationTable.setHorizontalHeaderLabels(
+            ["Vet ID", "Name", "Date", "Dose", "Count"])
+        self.petInfoVaccinationTable.verticalHeader().setVisible(False)
+        self.petInfoVaccinationTable.setEditTriggers(
+            QtWidgets.QTableWidget.NoEditTriggers)  # makes table read-only
+        header = self.petInfoVaccinationTable.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
+
+        # this is the TABLE widget on the right second side of the screen for "treatments" table of the db
+        self.petInfoTreatmentTable = QtWidgets.QTableWidget(self.petInfoWidget)
+        self.petInfoTreatmentTable.setGeometry(
+            QtCore.QRect(370, 210, 481, 160))
+        self.petInfoTreatmentTable.setStyleSheet("background:white;\n"
+                                                 "border: 2px solid black;\n"
+                                                 "border-radius: 10px;")
+        self.petInfoTreatmentTable.setObjectName("petInfoTreatmentTable")
+        self.petInfoTreatmentTable.setColumnCount(4)
+        self.petInfoTreatmentTable.setRowCount(50)
+        self.petInfoTreatmentTable.setHorizontalHeaderLabels(
+            ["Vet ID", "Description", "Medicine", "Date"])
+        self.petInfoTreatmentTable.verticalHeader().setVisible(False)
+        self.petInfoTreatmentTable.setEditTriggers(
+            QtWidgets.QTableWidget.NoEditTriggers)  # makes table read-only
+
+        # this is the TABLE widget on the right third side of the screen for "allergies" table of the db
+        self.petInfoAllergiesTable = QtWidgets.QTableWidget(self.petInfoWidget)
+        self.petInfoAllergiesTable.setGeometry(
+            QtCore.QRect(370, 380, 481, 160))
+        self.petInfoAllergiesTable.setStyleSheet("background:white;\n"
+                                                 "border: 2px solid black;\n"
+                                                 "border-radius: 10px;")
+        self.petInfoAllergiesTable.setObjectName("petInfoAllergiesTable")
+        self.petInfoAllergiesTable.setColumnCount(3)
+        self.petInfoAllergiesTable.setRowCount(50)
+        self.petInfoAllergiesTable.setHorizontalHeaderLabels(
+            ["Vet ID", "Description", "Drugs"])
+        self.petInfoAllergiesTable.verticalHeader().setVisible(False)
+        self.petInfoAllergiesTable.setEditTriggers(
+            QtWidgets.QTableWidget.NoEditTriggers)  # makes table read-only
+        header = self.petInfoAllergiesTable.horizontalHeader()
+        header.setSectionResizeMode(0, QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QtWidgets.QHeaderView.ResizeToContents)
+        header.setSectionResizeMode(2, QtWidgets.QHeaderView.ResizeToContents)
+
         self.retranslateUi(PetOwnerWindow)
         self.petOwnerTabs.setCurrentIndex(0)
         QtCore.QMetaObject.connectSlotsByName(PetOwnerWindow)
+
+        # SETTINGS FOR VISIBILITY OF Widgets:
+        self.petInfoWidget.setVisible(False)
 
     def retranslateUi(self, PetOwnerWindow):
         _translate = QtCore.QCoreApplication.translate
