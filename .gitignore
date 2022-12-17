@@ -5,3 +5,4 @@ credentials.json
 epet_databade.db
 .coverage
 coverage.xml
+htmlcov
