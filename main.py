@@ -126,6 +126,10 @@ def showPassword():
 def navigator(id):
     counter = 0
     pet_ID_list = []
+    ui_petOwner.petInfoWidget.setVisible(False)
+    ui_petOwner.myPetsList.clear()
+    ui_petOwner.petInfoList.clear()
+
     if (is_vet):  # this block runs if user is Vet.
 
         ui_vet.searchPetButton.clicked.connect(showPetInfoPage)
@@ -135,24 +139,14 @@ def navigator(id):
         getDataToMyAppointmentsTab(id)
         
     else:  # this block runs if user is Pet Owner.
+
         pet_list = poo.get_list_of_pets(id)
         for pet in pet_list:
             pet_ID_list.append(pet.id)
-            print(pet.to_string())
             # shows names of pet of regarding pet owner
             ui_petOwner.myPetsList.addItem(pet.name)
-            print(pet_ID_list)
 
         for id in pet_ID_list:
-
-            for vacc_card in poo.get_vaccination_card(id):
-                print(vacc_card.to_string())
-
-            for allergy in poo.get_allergies(id):
-                print(allergy.to_string())
-
-            for treatmen in poo.get_treatments(id):
-                print(treatmen.to_string())
 
             for appointment in poo.get_appointments(id):
                 pet = poo.get_pet(appointment.pet_ID)
@@ -167,11 +161,56 @@ def navigator(id):
                     counter, 2, QTableWidgetItem(str(appointment.date_of_appointment)))
 
                 counter += 1
+        # handling pet list click event:
+        ui_petOwner.myPetsList.itemDoubleClicked.connect(lambda item: handleDoubleClickOnMyPetslistItem(item,pet_list))
+
+def handleDoubleClickOnMyPetslistItem(item,petList):
+    print("SUCCESSFUL")
+    print(item.text())
+    for pet in petList:
+        if(item.text() == pet.name):
+            
+            ui_petOwner.petInfoWidget.setVisible(True)
+        
+            pet_displayed = pet
+            global clicked_pet_id
+            clicked_pet_id = pet.id
+            colored_item = QListWidgetItem("ID")
+            colored_item.setBackground(QColor("#7fc97f"))
+            ui_petOwner.petInfoList.addItem(colored_item)
+            ui_petOwner.petInfoList.addItem(f"{pet_displayed.id}")
+            colored_item = QListWidgetItem("Name")
+            colored_item.setBackground(QColor("#7fc97f"))
+            ui_petOwner.petInfoList.addItem(colored_item)
+            ui_petOwner.petInfoList.addItem(f"{pet_displayed.name}")
+            colored_item = QListWidgetItem("Date of Birth")
+            colored_item.setBackground(QColor("#7fc97f"))
+            ui_petOwner.petInfoList.addItem(colored_item)
+            ui_petOwner.petInfoList.addItem(f"{pet_displayed.date_of_birth}")
+            colored_item = QListWidgetItem("Species")
+            colored_item.setBackground(QColor("#7fc97f"))
+            ui_petOwner.petInfoList.addItem(colored_item)
+            ui_petOwner.petInfoList.addItem(f"{pet_displayed.species}")
+            colored_item = QListWidgetItem("Gender")
+            colored_item.setBackground(QColor("#7fc97f"))
+            ui_petOwner.petInfoList.addItem(colored_item)
+            ui_petOwner.petInfoList.addItem(f"{pet_displayed.gender}")
+            colored_item = QListWidgetItem("Sterility")
+            colored_item.setBackground(QColor("#7fc97f"))
+            ui_petOwner.petInfoList.addItem(colored_item)
+            ui_petOwner.petInfoList.addItem(f"{bool(pet_displayed.sterility)}")
+            colored_item = QListWidgetItem("Owner ID")
+            colored_item.setBackground(QColor("#7fc97f"))
+            ui_petOwner.petInfoList.addItem(colored_item)
+            ui_petOwner.petInfoList.addItem(f"{pet_displayed.owner_ID}")
+            ui_petOwner.petInfoWidget.setVisible(True)
+            ui_petOwner.petInfoBackButton.clicked.connect(showMyPetsListPage)
+            updatePetInfoTables(False)
+
 
 def conductCreateAppointmentPopUp():
     ui_vet.popUi.saveAppointmentButton.clicked.connect(createAppointment)
 def createAppointment():
-    print(" CLICKED SAVE APP.")
     
     if(ui_vet.popUi.petIDField.text() != "" and ui_vet.popUi.dateOfAppointmentField.text() != "" and ui_vet.popUi.appointmentTypeField.currentText() != ""):
         
@@ -186,6 +225,7 @@ def createAppointment():
         newApp = Appointment.Appointment(petID,id,dateOfAppointment,appointmentType,vaccinationField)
         vo.add_appointment(newApp)
         getDataToMyAppointmentsTab(id)
+        
         ui_vet.window.close()
 
     else:
@@ -196,7 +236,19 @@ def createAppointment():
         msg.setWindowTitle("Error!")
         msg.exec_()
         ui_vet.searchPetField.clearFocus()
-            
+    
+
+
+def showMyPetsListPage():
+    ui_petOwner.petInfoWidget.setVisible(False)
+    ui_petOwner.petInfoList.clear()
+    ui_petOwner.petInfoAllergiesTable.clearContents()
+    ui_petOwner.petInfoTreatmentTable.clearContents()
+    ui_petOwner.petInfoVaccinationTable.clearContents()
+    
+
+
+
 def showAddPetPage():  # activates addPetWidget
 
     ui_vet.searchPetField.clearFocus()
@@ -337,7 +389,7 @@ def showPetInfoPage():  # activates petInfoWidget
             ui_vet.petInfoWidget.setVisible(True)
             ui_vet.petInfoBackButton.clicked.connect(showSearchPage)
             # DB operations for regarding pet : ( pet Vaccination List )
-            updatePetInfoTables()
+            updatePetInfoTables(True)
 
         except:
             msg = QMessageBox()  # create a message box to show the error
@@ -395,7 +447,7 @@ def saveVacc():
         savedVacc = Vaccination.Vaccination(
             searched_pet_id, id, vaccName, vaccDate, vaccDose, vaccCount)
         vo.add_vaccination(savedVacc)
-        updatePetInfoTables()
+        updatePetInfoTables(True)
 
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
@@ -427,7 +479,7 @@ def saveAllergy():
         savedAllergy = Allergy.Allergy(
             searched_pet_id, id, allergyDesc, allergyDrugs)
         vo.add_allergy(savedAllergy)
-        updatePetInfoTables()
+        updatePetInfoTables(True)
 
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
@@ -464,7 +516,7 @@ def saveTreatment():
         savedTreat = Treatment.Treatment(
             searched_pet_id, id, treaetDescp, treatUsedMedicine, treaetDate)
         vo.add_treatment(savedTreat)
-        updatePetInfoTables()
+        updatePetInfoTables(True)
         msg = QMessageBox()
         msg.setIcon(QMessageBox.Information)
         msg.setText("Your Treatment Saved !")
@@ -481,49 +533,93 @@ def saveTreatment():
         msg.exec_()
 
 
-def updatePetInfoTables():
-    vacc_list = poo.get_vaccination_card(searched_pet_id)
+def updatePetInfoTables(inVetPage):
+    
 
-    if (len(vacc_list) != 0):
-        for vacc in vacc_list:
+    if(inVetPage):
+        vacc_list = poo.get_vaccination_card(searched_pet_id)
+        if (len(vacc_list) != 0):
+            for vacc in vacc_list:
 
-            ui_vet.petInfoVaccinationTable.setItem(
-                vacc_list.index(vacc), 0, QTableWidgetItem(str(vacc.vet_ID)))
-            ui_vet.petInfoVaccinationTable.setItem(
-                vacc_list.index(vacc), 1, QTableWidgetItem(str(vacc.name)))
-            ui_vet.petInfoVaccinationTable.setItem(vacc_list.index(
-                vacc), 2, QTableWidgetItem(str(vacc.date_of_vaccination)))
-            ui_vet.petInfoVaccinationTable.setItem(vacc_list.index(
-                vacc), 3, QTableWidgetItem(str(vacc.dose_given)))
-            ui_vet.petInfoVaccinationTable.setItem(
-                vacc_list.index(vacc), 4, QTableWidgetItem(str(vacc.count)))
+                ui_vet.petInfoVaccinationTable.setItem(
+                    vacc_list.index(vacc), 0, QTableWidgetItem(str(vacc.vet_ID)))
+                ui_vet.petInfoVaccinationTable.setItem(
+                    vacc_list.index(vacc), 1, QTableWidgetItem(str(vacc.name)))
+                ui_vet.petInfoVaccinationTable.setItem(vacc_list.index(
+                    vacc), 2, QTableWidgetItem(str(vacc.date_of_vaccination)))
+                ui_vet.petInfoVaccinationTable.setItem(vacc_list.index(
+                    vacc), 3, QTableWidgetItem(str(vacc.dose_given)))
+                ui_vet.petInfoVaccinationTable.setItem(
+                    vacc_list.index(vacc), 4, QTableWidgetItem(str(vacc.count)))
 
-    # DB operations for regarding pet : ( pet Treatment List )
-    treatment_list = poo.get_treatments(searched_pet_id)
+        # DB operations for regarding pet : ( pet Treatment List )
+        treatment_list = poo.get_treatments(searched_pet_id)
 
-    if (len(treatment_list) != 0):
-        for treatment in treatment_list:
+        if (len(treatment_list) != 0):
+            for treatment in treatment_list:
 
-            ui_vet.petInfoTreatmentTable.setItem(treatment_list.index(
-                treatment), 0, QTableWidgetItem(str(treatment.vet_ID)))
-            ui_vet.petInfoTreatmentTable.setItem(treatment_list.index(
-                treatment), 1, QTableWidgetItem(str(treatment.description)))
-            ui_vet.petInfoTreatmentTable.setItem(treatment_list.index(
-                treatment), 2, QTableWidgetItem(str(treatment.used_medicine)))
-            ui_vet.petInfoTreatmentTable.setItem(treatment_list.index(
-                treatment), 3, QTableWidgetItem(str(treatment.date_of_treatment)))
+                ui_vet.petInfoTreatmentTable.setItem(treatment_list.index(
+                    treatment), 0, QTableWidgetItem(str(treatment.vet_ID)))
+                ui_vet.petInfoTreatmentTable.setItem(treatment_list.index(
+                    treatment), 1, QTableWidgetItem(str(treatment.description)))
+                ui_vet.petInfoTreatmentTable.setItem(treatment_list.index(
+                    treatment), 2, QTableWidgetItem(str(treatment.used_medicine)))
+                ui_vet.petInfoTreatmentTable.setItem(treatment_list.index(
+                    treatment), 3, QTableWidgetItem(str(treatment.date_of_treatment)))
 
-    # DB operations for regarding pet : ( pet Allergies List )
-    allergy_list = poo.get_allergies(searched_pet_id)
-    if (len(allergy_list) != 0):
-        for allergy in allergy_list:
-            print(allergy.drugs)
-            ui_vet.petInfoAllergiesTable.setItem(allergy_list.index(
-                allergy), 0, QTableWidgetItem(str(allergy.vet_ID)))
-            ui_vet.petInfoAllergiesTable.setItem(allergy_list.index(
-                allergy), 1, QTableWidgetItem(str(allergy.description)))
-            ui_vet.petInfoAllergiesTable.setItem(allergy_list.index(
-                allergy), 2, QTableWidgetItem(str(allergy.drugs)))
+        # DB operations for regarding pet : ( pet Allergies List )
+        allergy_list = poo.get_allergies(searched_pet_id)
+        if (len(allergy_list) != 0):
+            for allergy in allergy_list:
+                print(allergy.drugs)
+                ui_vet.petInfoAllergiesTable.setItem(allergy_list.index(
+                    allergy), 0, QTableWidgetItem(str(allergy.vet_ID)))
+                ui_vet.petInfoAllergiesTable.setItem(allergy_list.index(
+                    allergy), 1, QTableWidgetItem(str(allergy.description)))
+                ui_vet.petInfoAllergiesTable.setItem(allergy_list.index(
+                    allergy), 2, QTableWidgetItem(str(allergy.drugs)))
+    else:
+        vacc_list = poo.get_vaccination_card(clicked_pet_id)
+        if (len(vacc_list) != 0):
+            for vacc in vacc_list:
+
+                ui_petOwner.petInfoVaccinationTable.setItem(
+                    vacc_list.index(vacc), 0, QTableWidgetItem(str(vacc.vet_ID)))
+                ui_petOwner.petInfoVaccinationTable.setItem(
+                    vacc_list.index(vacc), 1, QTableWidgetItem(str(vacc.name)))
+                ui_petOwner.petInfoVaccinationTable.setItem(vacc_list.index(
+                    vacc), 2, QTableWidgetItem(str(vacc.date_of_vaccination)))
+                ui_petOwner.petInfoVaccinationTable.setItem(vacc_list.index(
+                    vacc), 3, QTableWidgetItem(str(vacc.dose_given)))
+                ui_petOwner.petInfoVaccinationTable.setItem(
+                    vacc_list.index(vacc), 4, QTableWidgetItem(str(vacc.count)))
+
+        # DB operations for regarding pet : ( pet Treatment List )
+        treatment_list = poo.get_treatments(clicked_pet_id)
+
+        if (len(treatment_list) != 0):
+            for treatment in treatment_list:
+
+                ui_petOwner.petInfoTreatmentTable.setItem(treatment_list.index(
+                    treatment), 0, QTableWidgetItem(str(treatment.vet_ID)))
+                ui_petOwner.petInfoTreatmentTable.setItem(treatment_list.index(
+                    treatment), 1, QTableWidgetItem(str(treatment.description)))
+                ui_petOwner.petInfoTreatmentTable.setItem(treatment_list.index(
+                    treatment), 2, QTableWidgetItem(str(treatment.used_medicine)))
+                ui_petOwner.petInfoTreatmentTable.setItem(treatment_list.index(
+                    treatment), 3, QTableWidgetItem(str(treatment.date_of_treatment)))
+
+        # DB operations for regarding pet : ( pet Allergies List )
+        allergy_list = poo.get_allergies(clicked_pet_id)
+        if (len(allergy_list) != 0):
+            for allergy in allergy_list:
+                print(allergy.drugs)
+                ui_petOwner.petInfoAllergiesTable.setItem(allergy_list.index(
+                    allergy), 0, QTableWidgetItem(str(allergy.vet_ID)))
+                ui_petOwner.petInfoAllergiesTable.setItem(allergy_list.index(
+                    allergy), 1, QTableWidgetItem(str(allergy.description)))
+                ui_petOwner.petInfoAllergiesTable.setItem(allergy_list.index(
+                    allergy), 2, QTableWidgetItem(str(allergy.drugs)))
 
 
 if __name__ == "__main__":

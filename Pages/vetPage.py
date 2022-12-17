@@ -367,10 +367,12 @@ class Ui_VetWindow(object):
         self.myAppointmentsTable.setStyleSheet("background: white;\n"
                                                "border: 4px solid black; border-radius: 10px;")
         self.myAppointmentsTable.setObjectName("myAppointmentsTable")
-        self.myAppointmentsTable.setColumnCount(10)
+        self.myAppointmentsTable.setColumnCount(5)
         self.myAppointmentsTable.setRowCount(50)
         self.myAppointmentsTable.setEditTriggers(
             QtWidgets.QTableWidget.NoEditTriggers) # makes read only
+        self.myAppointmentsTable.setHorizontalHeaderLabels(
+            ["Pet ID", "Vet ID", "Date", "Type", "Vaccination"])
         self.createAppointmentButton = QtWidgets.QPushButton(
             self.myAppointmentsTab, clicked=lambda: self.openCreatAppointmentPopup())
         self.createAppointmentButton.setGeometry(QtCore.QRect(672, 30, 171, 41))
