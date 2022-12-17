@@ -73,8 +73,7 @@ class Ui_createAppointmentWindow(object):
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
         self.vaccinationField = QtWidgets.QLineEdit(self.centralwidget)
-        self.vaccinationField.setEnabled(False)
-        
+        self.vaccinationField.setEnabled(True)
         self.vaccinationField.setGeometry(QtCore.QRect(240, 210, 371, 22))
         self.vaccinationField.setStyleSheet("background: white;")
         self.vaccinationField.setPlaceholderText("")

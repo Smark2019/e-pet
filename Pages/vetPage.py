@@ -7,12 +7,19 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from AddVaccinationPopup import *
-from AddTreatmentPopup import *
-from AddAllergyPopup import *
-
+from .AddVaccinationPopup  import *
+from .AddTreatmentPopup import *
+from .AddAllergyPopup import *
+from .CreateAppointmentPopup import *
 
 class Ui_VetWindow(object):
+
+    def openCreatAppointmentPopup(self):
+        self.window = QtWidgets.QMainWindow()
+        self.popUi = Ui_createAppointmentWindow()
+        self.popUi.setupUi(self.window)
+        self.window.show()
+
 
     def openAddVaccinationPopup(self):
         self.window = QtWidgets.QMainWindow()
@@ -362,14 +369,14 @@ class Ui_VetWindow(object):
         self.myAppointmentsTable.setObjectName("myAppointmentsTable")
         self.myAppointmentsTable.setColumnCount(10)
         self.myAppointmentsTable.setRowCount(50)
-        self.createAppointmentTable = QtWidgets.QPushButton(
-            self.myAppointmentsTab)
-        self.createAppointmentTable.setGeometry(QtCore.QRect(672, 30, 171, 41))
+        self.createAppointmentButton = QtWidgets.QPushButton(
+            self.myAppointmentsTab, clicked=lambda: self.openCreatAppointmentPopup())
+        self.createAppointmentButton.setGeometry(QtCore.QRect(672, 30, 171, 41))
         font = QtGui.QFont()
         font.setPointSize(11)
-        self.createAppointmentTable.setFont(font)
-        self.createAppointmentTable.setStyleSheet("background: #1CD050;")
-        self.createAppointmentTable.setObjectName("createAppointmentTable")
+        self.createAppointmentButton.setFont(font)
+        self.createAppointmentButton.setStyleSheet("background: #1CD050;")
+        self.createAppointmentButton.setObjectName("createAppointmentButton")
         self.vetTabs.addTab(self.myAppointmentsTab, "")
         VetWindow.setCentralWidget(self.centralwidget)
 
@@ -411,7 +418,7 @@ class Ui_VetWindow(object):
         self.vetTabs.setTabText(self.vetTabs.indexOf(
             self.searchTab), _translate("VetWindow", "Search"))
         self.label.setText(_translate("VetWindow", "My Appointments"))
-        self.createAppointmentTable.setText(
+        self.createAppointmentButton.setText(
             _translate("VetWindow", "Create Appointment"))
         self.vetTabs.setTabText(self.vetTabs.indexOf(
             self.myAppointmentsTab), _translate("VetWindow", "My Appointments"))

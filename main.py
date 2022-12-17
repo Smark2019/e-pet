@@ -131,8 +131,9 @@ def navigator(id):
         ui_vet.searchPetButton.clicked.connect(showPetInfoPage)
         ui_vet.searchPetField.returnPressed.connect(showPetInfoPage)
         ui_vet.addPetButton.clicked.connect(showAddPetPage)
+        ui_vet.createAppointmentButton.clicked.connect(conductCreateAppointmentPopUp)
         getDataToMyAppointmentsTab(id)
-
+        
     else:  # this block runs if user is Pet Owner.
         pet_list = poo.get_list_of_pets(id)
         for pet in pet_list:
@@ -167,7 +168,33 @@ def navigator(id):
 
                 counter += 1
 
-
+def conductCreateAppointmentPopUp():
+    ui_vet.popUi.saveAppointmentButton.clicked.connect(createAppointment)
+def createAppointment():
+    print(" CLICKED SAVE APP.")
+    
+    if(ui_vet.popUi.petIDField.text() != "" and ui_vet.popUi.dateOfAppointmentField.text() != "" and ui_vet.popUi.appointmentTypeField.currentText() != ""):
+        
+        petID = ui_vet.popUi.petIDField.text()
+        dateOfAppointment = ui_vet.popUi.dateOfAppointmentField.text()
+        appointmentType = ui_vet.popUi.appointmentTypeField.currentText()
+        dateOfAppointment = datetime.strptime(dateOfAppointment, "%d.%m.%Y %H:%M")
+        dateOfAppointment = datetime.strftime(dateOfAppointment, "%d-%m-%Y %H:%M")
+        vaccinationField = ui_vet.popUi.vaccinationField.text()
+        
+        print(petID, dateOfAppointment, appointmentType, vaccinationField)
+        newApp = Appointment.Appointment(petID,id,dateOfAppointment,appointmentType,vaccinationField)
+        vo.add_appointment(newApp)
+        updatePetInfoTables()
+    else:
+        msg = QMessageBox()  # create a message box to show the error
+        msg.setIcon(QMessageBox.Critical)
+        msg.setText("Cannot leave fields as empty!")
+        msg.setInformativeText('Please try again.')
+        msg.setWindowTitle("Error!")
+        msg.exec_()
+        ui_vet.searchPetField.clearFocus()
+            
 def showAddPetPage():  # activates addPetWidget
 
     ui_vet.searchPetField.clearFocus()
