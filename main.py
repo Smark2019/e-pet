@@ -182,10 +182,12 @@ def createAppointment():
         dateOfAppointment = datetime.strftime(dateOfAppointment, "%d-%m-%Y %H:%M")
         vaccinationField = ui_vet.popUi.vaccinationField.text()
         
-        print(petID, dateOfAppointment, appointmentType, vaccinationField)
+        #print(petID, dateOfAppointment, appointmentType, vaccinationField)
         newApp = Appointment.Appointment(petID,id,dateOfAppointment,appointmentType,vaccinationField)
         vo.add_appointment(newApp)
-        updatePetInfoTables()
+        getDataToMyAppointmentsTab(id)
+        ui_vet.window.close()
+
     else:
         msg = QMessageBox()  # create a message box to show the error
         msg.setIcon(QMessageBox.Critical)
@@ -357,7 +359,7 @@ def getDataToMyAppointmentsTab(vet_id):  # tested and it works properly.
 
     # DB operations for regarding pet : ( pet Allergies List )
     appointments_list = vo.get_appointments_in_next_3days(vet_id)
-    print(appointments_list)
+    #print(appointments_list)
     if (len(appointments_list) != 0):
         for appointment in appointments_list:
 

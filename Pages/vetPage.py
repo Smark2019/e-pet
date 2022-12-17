@@ -369,6 +369,8 @@ class Ui_VetWindow(object):
         self.myAppointmentsTable.setObjectName("myAppointmentsTable")
         self.myAppointmentsTable.setColumnCount(10)
         self.myAppointmentsTable.setRowCount(50)
+        self.myAppointmentsTable.setEditTriggers(
+            QtWidgets.QTableWidget.NoEditTriggers) # makes read only
         self.createAppointmentButton = QtWidgets.QPushButton(
             self.myAppointmentsTab, clicked=lambda: self.openCreatAppointmentPopup())
         self.createAppointmentButton.setGeometry(QtCore.QRect(672, 30, 171, 41))
