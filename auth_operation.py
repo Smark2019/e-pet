@@ -67,22 +67,7 @@ def authentification(id, password):
     return -1, 0  # Wrong ID or password
 
 
-# register function for the register page to use when the user clicks the register button
-def register(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet):
 
-    connection = sqlite3.connect("epet_database.db")
-    cursor = connection.cursor()
-    connection.commit()
-    password = hashlib.sha256(password.encode('utf-8')).hexdigest()
-
-    try:
-        cursor.execute("INSERT INTO user(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                       (id, password, email, name, surname, phone, address, city, country, zip_code, is_vet))
-        connection.commit()
-    except Exception as err:
-        print(err)
-
-    connection.close()
 
 
 def getDateTime():

@@ -1,4 +1,3 @@
-import auth_operation
 import vet_operations
 from classes.Pet import Pet
 from classes.Vaccination import Vaccination
@@ -10,6 +9,7 @@ import sqlite3
 from datetime import datetime, timedelta
 from faker import Factory
 from db import db_initialize
+import hashlib
 
 
 def get_random_user_id():
@@ -21,6 +21,23 @@ def get_random_user_id():
     random = cursor.fetchone()
     id = random[0]
     return id
+
+# register function for the register page to use when the user clicks the register button
+def register(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet):
+
+    connection = sqlite3.connect("epet_database.db")
+    cursor = connection.cursor()
+    connection.commit()
+    password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+
+    try:
+        cursor.execute("INSERT INTO user(id, password, email, name, surname, phone, address, city, country, zip_code, is_vet) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                       (id, password, email, name, surname, phone, address, city, country, zip_code, is_vet))
+        connection.commit()
+    except Exception as err:
+        print(err)
+
+    connection.close()
 
 
 def get_random_vet_and_pet_id():
@@ -116,7 +133,7 @@ def add_users(count):
 
         print("National ID => " + str(nationalId) + "- E-Mail => "+email + " - Password => " + password + " - First Name => " + firstName + " - Last Name => " +
               lastName + " - Phone Number => " + phoneNumber + " Address => " + address + " - Country => " + country + " - City => " + city + " - Zip Code => " + zipCode)
-        auth_operation.register(nationalId, password, email, firstName,
+        register(nationalId, password, email, firstName,
                                 lastName, phoneNumber, address, city, country, zipCode, vetID)
 
 
