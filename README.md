@@ -20,12 +20,12 @@ The software is completely developed using Python 3. For the graphical user inte
 
 The database named *epet_database.db* keeps the entire software data in 6 different tables which are;
 
-* user: Keeps both the pet owners, and the veterinarian information.
-* pet: Keeps the pet information.
-* appointment: Keeps the appointment information of the veterinarian for the specific pets.
-* treatment: Keeps the treatment records of the pets.
-* vaccination: Keeps the vaccination records of the pets.
-* allergy: Keeps the allergy records of the pets.
+* ***user:*** Keeps both the pet owners, and the veterinarian information.
+* ***pet:** *Keeps the pet information.
+* ***appointment:* **Keeps the appointment information of the veterinarian for the specific pets.
+* ***treatment:*** Keeps the treatment records of the pets.
+* ***vaccination:* **Keeps the vaccination records of the pets.
+* ***allergy:* **Keeps the allergy records of the pets.
 
 The rows of the database is created by combining random data in *db_initialize.py* file.
 
@@ -60,4 +60,4 @@ To log in to the system, user need to enter an ID, and a password. The user can 
 
 [![Selim Çavaş](https://img.shields.io/badge/selim_çavaş-selim.cavas@ozu.edu.tr-green?style=for-the-badge&logo=mail)](mailto:selim.cavas@ozu.edu.tr)
 
-[![Cansu Çelik](https://img.shields.io/badge/cansu_çelik-cansu.celik@ozu.edu.tr-green?style=for-the-badge&logo=mail)](mailto:hatice.gunes@cl.cam.ac.uk)
+[![Cansu Çelik](https://img.shields.io/badge/cansu_çelik-cansu.celik@ozu.edu.tr-green?style=for-the-badge&logo=mail)](mailto:cansu.celik@ozu.edu.trk)
