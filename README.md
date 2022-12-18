@@ -50,6 +50,10 @@ To log in to the system, user need to enter an ID, and a password. The user can 
   * *User ID:* 11727904499
   * *Password:* ikeeastman123
 
+## Application ScreenShots
+![Alt text](media/Login%20Page.png "Epet Software Login Page")
+
+
 ## Contact
 
 [![Salih Metin Arkanöz](https://img.shields.io/badge/salih_metin_arkanöz-metin.arkanoz@ozu.edu.tr-yellow?style=for-the-badge&logo=mail)](mailto:metin.arkanoz@ozu.edu.tr)
