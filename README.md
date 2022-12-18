@@ -52,6 +52,18 @@ To log in to the system, user need to enter an ID, and a password. The user can 
 
 ## Application ScreenShots
 ![Alt text](media/Login%20Page.png "Epet Software Login Page")
+![Alt text](media/Pet%20Owner%20-%20My%20Appointments%20List.png"Pet Owner - My Appointments List")
+![Alt text](media/PetOwner%20-%20My%20Pet%20List.png"Pet Owner - My Pets List")
+![Alt text](media/Vet%20-%20%20Search%20Pet.png"Vet - Search Pet")
+![Alt text](media/Vet%20-%20Add%20Pet.png"Vet - Add Pet")
+![Alt text](media/Vet%20-%20Add%20Vaccination.png "Vet - Add Vaccination")
+![Alt text](media/Vet%20-%20Create%20Appointment.png "Vet - Create Appointment")
+![Alt text](media/Vet%20-%20Show%20Info%20%26%20Add%20Vacc%2C%20Appointment%20and%20Treatment.png"Vet - Show Info & Add Vacc, Appointment and Treatment")
+
+
+
+
+
 
 
 ## Contact
