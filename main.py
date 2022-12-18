@@ -126,9 +126,7 @@ def showPassword():
 def navigator(id):
     counter = 0
     pet_ID_list = []
-    ui_petOwner.petInfoWidget.setVisible(False)
-    ui_petOwner.myPetsList.clear()
-    ui_petOwner.petInfoList.clear()
+    
 
     if (is_vet):  # this block runs if user is Vet.
 
@@ -139,6 +137,9 @@ def navigator(id):
         getDataToMyAppointmentsTab(id)
         
     else:  # this block runs if user is Pet Owner.
+        ui_petOwner.petInfoWidget.setVisible(False)
+        ui_petOwner.myPetsList.clear()
+        ui_petOwner.petInfoList.clear()
 
         pet_list = poo.get_list_of_pets(id)
         for pet in pet_list:
