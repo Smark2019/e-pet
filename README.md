@@ -10,8 +10,6 @@ This repository holds the source code of the e-Pet software that is created as a
   </a>
 </p>
 
-<p> </p>
-
 [![Python Pytest](https://github.com/durmusberk/cs320_project/actions/workflows/python-app.yml/badge.svg)](https://github.com/durmusberk/cs320_project/actions/workflows/python-app.yml)
 
 ### Technical Details
@@ -50,7 +48,8 @@ To log in to the system, user need to enter an ID, and a password. The user can 
   * *User ID:* 11727904499
   * *Password:* ikeeastman123
 
-## Application ScreenShots
+## Application Screenshots
+
 <!---
 ![Alt text](media/Login%20Page.png "Epet Software Login Page")
 ![Alt text](media/Pet%20Owner%20-%20My%20Appointments%20List.png"Pet Owner - My Appointments List")
@@ -62,21 +61,62 @@ To log in to the system, user need to enter an ID, and a password. The user can 
 ![Alt text](media/Vet%20-%20Show%20Info%20%26%20Add%20Vacc%2C%20Appointment%20and%20Treatment.png"Vet - Show Info & Add Vacc, Appointment and Treatment")
 
 --->
-![Screenshot](media/Login%20Page.png)
-![Screenshot](media/Pet%20Owner%20-%20My%20Appointments%20List.png)
-![Screenshot](media/PetOwner%20-%20My%20Pet%20List.png)
-![Screenshot](media/Vet%20-%20%20Search%20Pet.png)
-![Screenshot](media/Vet%20-%20Add%20Pet.png)
-![Screenshot](media/Vet%20-%20Add%20Vaccination.png)
-![Screenshot](media/Vet%20-%20Create%20Appointment.png)
-![Screenshot](media/Vet%20-%20Show%20Info%20%26%20Add%20Vacc%2C%20Appointment%20and%20Treatment.png)
 
+<br />
+<p align="center">
+    <img src="media/Pet%20Owner%20-%20My%20Appointments%20List.png" alt="My Appointments" width="700" height="500">
+  </a>
+</p>
 
+**Figure 1:** "My Appointments" page
 
+<br />
+<p align="center">
+    <img src="media/PetOwner%20-%20My%20Pet%20List.png" alt="My Pet List" width="700" height="220">
+  </a>
+</p>
 
+**Figure 2:** "My Pet List" page
 
+<br />
+<p align="center">
+    <img src="media/Vet%20-%20%20Search%20Pet.png" alt="Search Pet" width="700" height="500">
+  </a>
+</p>
 
+**Figure 3:** "Search Pet" page
 
+<br />
+<p align="center">
+    <img src="media/Vet%20-%20Add%20Pet.png" alt="Add Pet" width="700" height="500">
+  </a>
+</p>
+
+**Figure 4:** "Add Pet" page
+
+<br />
+<p align="center">
+    <img src="media/Vet%20-%20Add%20Vaccination.png" alt="Add Vaccination" width="700" height="500">
+  </a>
+</p>
+
+**Figure 5:** "Add Vaccination" page
+
+<br />
+<p align="center">
+    <img src="media/Vet%20-%20Create%20Appointment.png" alt="Create Appointment" width="700" height="500">
+  </a>
+</p>
+
+**Figure 6:** "Create Appointment" page
+
+<br />
+<p align="center">
+    <img src="media/Vet%20-%20Show%20Info%20%26%20Add%20Vacc%2C%20Appointment%20and%20Treatment.png" alt="Show Info & Add Vaccination, Allergy and Treatment" width="700" height="500">
+  </a>
+</p>
+
+**Figure 7:** "Show Info & Add Vaccination, Allergy and Treatment" page
 
 ## Contact
 
