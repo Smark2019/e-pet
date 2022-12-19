@@ -18,18 +18,21 @@ class Ui_addTreatmentWindow(object):
         addTreatmentWindow.setWindowIcon(QtGui.QIcon('media/logo.png'))
         self.centralwidget = QtWidgets.QWidget(addTreatmentWindow)
         self.centralwidget.setObjectName("centralwidget")
+        #label added into centralwidget.
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(40, 30, 171, 31))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label.setFont(font)
         self.label.setObjectName("label")
+        #label_2 added into central widget.
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(112, 90, 115, 16))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
+        #label_3 added into centralwidget.
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(80, 130, 151, 16))
         font = QtGui.QFont()
