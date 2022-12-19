@@ -8,18 +8,23 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_createAppointmentWindow(object):
     def setupUi(self, createAppointmentWindow):
         createAppointmentWindow.setObjectName("createAppointmentWindow")
+        #AppointmentWindow size setted.
         createAppointmentWindow.resize(651, 330)
         createAppointmentWindow.setMinimumSize(QtCore.QSize(651, 330))
         createAppointmentWindow.setMaximumSize(QtCore.QSize(651, 330))
         createAppointmentWindow.setStyleSheet("background: #23B7C8;")
         createAppointmentWindow.setWindowIcon(QtGui.QIcon('media/logo.png'))
+        #centralwidget added into creatAppointmentWindow.
         self.centralwidget = QtWidgets.QWidget(createAppointmentWindow)
         self.centralwidget.setObjectName("centralwidget")
+        #label added into centralwidget.
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(40, 30, 221, 31))
+        #font editted.
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label.setFont(font)
