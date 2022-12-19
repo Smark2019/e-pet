@@ -18,18 +18,21 @@ class Ui_addAllergyWindow(object):
         addAllergyWindow.setWindowIcon(QtGui.QIcon('media/logo.png'))
         self.centralwidget = QtWidgets.QWidget(addAllergyWindow)
         self.centralwidget.setObjectName("centralwidget")
+        #label added into centralwidget.
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(40, 30, 171, 31))
         font = QtGui.QFont()
         font.setPointSize(14)
         self.label.setFont(font)
         self.label.setObjectName("label")
+        #label_2 added into centralwidget.
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(171, 90, 51, 21))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
+        #allergyDrugsField added into centralwidget.
         self.allergyDrugsField = QtWidgets.QLineEdit(self.centralwidget)
         self.allergyDrugsField.setGeometry(QtCore.QRect(240, 90, 371, 22))
         self.allergyDrugsField.setStyleSheet("background: white;")
