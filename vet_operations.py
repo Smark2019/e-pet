@@ -25,7 +25,8 @@ def add_pet(pet):
     cursor = connection.cursor()
     connection.commit()
 
-    pet_add_query = """INSERT INTO pet(name,date_of_birth,species,gender,sterility,health_status,owner_ID) VALUES(?, ?, ?, ?, ?, ?, ?)"""
+    pet_add_query = """INSERT INTO pet(name,date_of_birth,species,gender,sterility,health_status,owner_ID) 
+    VALUES(?, ?, ?, ?, ?, ?, ?)"""
     cursor.execute(pet_add_query, (pet.name, pet.date_of_birth,
                    pet.species, pet.gender, pet.sterility, pet.health_status, pet.owner_ID))
 
@@ -50,7 +51,8 @@ def add_vaccination(vaccination):
     cursor = connection.cursor()
     connection.commit()
 
-    vaccination_add_query = """INSERT INTO vaccination(pet_ID,vet_ID,name,date_of_vaccination,dose_given,count) VALUES(?, ?, ?, ?, ?, ?)"""
+    vaccination_add_query = """INSERT INTO vaccination(pet_ID,vet_ID,name,date_of_vaccination,dose_given,count) 
+    VALUES(?, ?, ?, ?, ?, ?)"""
     cursor.execute(vaccination_add_query, (vaccination.pet_ID, vaccination.vet_ID, vaccination.name,
                                            vaccination.date_of_vaccination, vaccination.dose_given, vaccination.count))
     connection.commit()
@@ -62,7 +64,8 @@ def add_appointment(appointment):
     cursor = connection.cursor()
     connection.commit()
 
-    appointment_add_query = """INSERT INTO appointment(pet_ID,vet_ID,date_of_appointment,description,vaccinations) VALUES(?, ?, ?, ?, ?)"""
+    appointment_add_query = """INSERT INTO appointment(pet_ID,vet_ID,date_of_appointment,description,vaccinations) 
+    VALUES(?, ?, ?, ?, ?)"""
     cursor.execute(appointment_add_query, (appointment.pet_ID, appointment.vet_ID, appointment.date_of_appointment,
                                            appointment.description, appointment.vaccinations))
     connection.commit()
@@ -100,7 +103,10 @@ def get_appointments_in_next_3days(vet_ID):
     cursor = connection.cursor()
     connection.commit()
 
-    appointment_search_query = """SELECT * FROM appointment WHERE vet_ID = ? AND date(substr(date_of_appointment, 7, 4) || '-' || substr(date_of_appointment, 4, 2) || '-' || substr(date_of_appointment, 1, 2)) BETWEEN date('now') AND date('now', '+3 days') ORDER BY date_of_appointment ASC"""
+    appointment_search_query = """SELECT * FROM appointment WHERE vet_ID = ? 
+    AND date(substr(date_of_appointment, 7, 4) || '-' || substr(date_of_appointment, 4, 2) || '-' ||
+     substr(date_of_appointment, 1, 2)) BETWEEN date('now') AND date('now', '+3 days') 
+     ORDER BY date_of_appointment ASC"""
 
     cursor.execute(appointment_search_query, (vet_ID,))
     appointments = cursor.fetchall()

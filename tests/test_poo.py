@@ -14,7 +14,8 @@ def test_get_list_of_pets():
     connection = sqlite3.connect("epet_database.db")
     cursor = connection.cursor()
     connection.commit()
-    pet_add_query = """INSERT INTO pet(name,date_of_birth,species,gender,sterility,health_status,owner_ID) VALUES(?, ?, ?, ?, ?, ?, ?)"""
+    pet_add_query = """INSERT INTO pet(name,date_of_birth,species,gender,sterility,health_status,owner_ID) 
+    VALUES(?, ?, ?, ?, ?, ?, ?)"""
     delete_query = """DELETE FROM pet WHERE owner_ID = ?"""
     cursor.execute(pet_add_query, (test_pet.name, test_pet.date_of_birth,
                    test_pet.species, test_pet.gender, test_pet.sterility, test_pet.health_status, test_pet.owner_ID))
@@ -42,7 +43,8 @@ def test_get_appointments():
     cursor = connection.cursor()
     connection.commit()
 
-    app_add_query = """INSERT INTO appointment(pet_ID,vet_ID,date_of_appointment,description,vaccinations) VALUES(?, ?, ?, ?, ?)"""
+    app_add_query = """INSERT INTO appointment(pet_ID,vet_ID,date_of_appointment,description,vaccinations) 
+    VALUES(?, ?, ?, ?, ?)"""
     delete_query = """DELETE FROM appointment WHERE pet_ID = ?"""
     cursor.execute(app_add_query, (test_app.pet_ID, test_app.vet_ID, test_app.date_of_appointment,
                                    test_app.description, test_app.vaccinations))
@@ -72,7 +74,8 @@ def test_get_treatments():
     cursor = connection.cursor()
     connection.commit()
 
-    test_treatment_add_query = """INSERT INTO treatment(pet_ID,vet_ID,description,used_medicine,date_of_treatment) VALUES(?, ?, ?, ?, ?)"""
+    test_treatment_add_query = """INSERT INTO treatment(pet_ID,vet_ID,description,used_medicine,date_of_treatment)
+     VALUES(?, ?, ?, ?, ?)"""
     delete_query = """DELETE FROM treatment WHERE pet_ID = ?"""
     cursor.execute(test_treatment_add_query, (test_treat.pet_ID,
                    test_treat.vet_ID, test_treat.description, test_treat.used_medicine, test_treat.date_of_treatment))
@@ -129,7 +132,8 @@ def test_get_vaccination_card():
     cursor = connection.cursor()
     connection.commit()
 
-    vaccination_add_query = """INSERT INTO vaccination(pet_ID,vet_ID,name,date_of_vaccination,dose_given,count) VALUES(?, ?, ?, ?, ?, ?)"""
+    vaccination_add_query = """INSERT INTO vaccination(pet_ID,vet_ID,name,date_of_vaccination,dose_given,count) 
+    VALUES(?, ?, ?, ?, ?, ?)"""
     delete_query = """DELETE FROM vaccination WHERE pet_ID = ?"""
     cursor.execute(vaccination_add_query, (test_vac.pet_ID, test_vac.vet_ID, test_vac.name,
                                            test_vac.date_of_vaccination, test_vac.dose_given, test_vac.count))
@@ -163,7 +167,8 @@ def test_fetch_appointments_in_next_week():
     test_pet = Pet.Pet("Olive", "12.12.2021", "Dog",
                        "Male", "No", "Healthy", ts, 1)
 
-    pet_add_query = """INSERT INTO pet(name,date_of_birth,species,gender,sterility,health_status,owner_ID) VALUES(?, ?, ?, ?, ?, ?, ?)"""
+    pet_add_query = """INSERT INTO pet(name,date_of_birth,species,gender,sterility,health_status,owner_ID)
+     VALUES(?, ?, ?, ?, ?, ?, ?)"""
     cursor.execute(pet_add_query, (test_pet.name, test_pet.date_of_birth,
                    test_pet.species, test_pet.gender, test_pet.sterility, test_pet.health_status, test_pet.owner_ID))
     connection.commit()
@@ -177,7 +182,8 @@ def test_fetch_appointments_in_next_week():
     test_app = Appointment.Appointment(
         test_pet.id, 11, date_of_app, "This appointment is generated for test purpose.", "vac1")
 
-    app_add_query = """INSERT INTO appointment(pet_ID,vet_ID,date_of_appointment,description,vaccinations) VALUES(?, ?, ?, ?, ?)"""
+    app_add_query = """INSERT INTO appointment(pet_ID,vet_ID,date_of_appointment,description,vaccinations) 
+    VALUES(?, ?, ?, ?, ?)"""
     cursor.execute(app_add_query, (test_app.pet_ID, test_app.vet_ID, test_app.date_of_appointment,
                                    test_app.description, test_app.vaccinations))
     connection.commit()
@@ -216,7 +222,8 @@ def test_fetch_appointments_for_tomorrow():
     test_pet = Pet.Pet("Olive", "12.12.2021", "Dog",
                        "Male", "No", "Healthy", ts, 1)
 
-    pet_add_query = """INSERT INTO pet(name,date_of_birth,species,gender,sterility,health_status,owner_ID) VALUES(?, ?, ?, ?, ?, ?, ?)"""
+    pet_add_query = """INSERT INTO pet(name,date_of_birth,species,gender,sterility,health_status,owner_ID)
+     VALUES(?, ?, ?, ?, ?, ?, ?)"""
     cursor.execute(pet_add_query, (test_pet.name, test_pet.date_of_birth,
                    test_pet.species, test_pet.gender, test_pet.sterility, test_pet.health_status, test_pet.owner_ID))
     connection.commit()
@@ -230,7 +237,8 @@ def test_fetch_appointments_for_tomorrow():
     test_app = Appointment.Appointment(
         test_pet.id, 11, date_of_app, "This appointment is generated for test purpose.", "vac1")
 
-    app_add_query = """INSERT INTO appointment(pet_ID,vet_ID,date_of_appointment,description,vaccinations) VALUES(?, ?, ?, ?, ?)"""
+    app_add_query = """INSERT INTO appointment(pet_ID,vet_ID,date_of_appointment,description,vaccinations)
+    VALUES(?, ?, ?, ?, ?)"""
     cursor.execute(app_add_query, (test_app.pet_ID, test_app.vet_ID, test_app.date_of_appointment,
                                    test_app.description, test_app.vaccinations))
     connection.commit()
