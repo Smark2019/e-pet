@@ -61,14 +61,13 @@ To log in to the system, user need to enter an ID, and a password. The user can 
 ![Alt text](media/Vet%20-%20Show%20Info%20%26%20Add%20Vacc%2C%20Appointment%20and%20Treatment.png"Vet - Show Info & Add Vacc, Appointment and Treatment")
 
 --->
-
 <br />
 <p align="center">
-    <img src="media/Pet%20Owner%20-%20My%20Appointments%20List.png" alt="My Appointments" width="700" height="500">
+    <img src="media/Login%20Page.png" alt="My Appointments" width="700" height="450">
   </a>
 </p>
 
-**Figure 1:** "My Appointments" page
+**Figure 1:** "Log In" page
 
 <br />
 <p align="center">
@@ -80,11 +79,19 @@ To log in to the system, user need to enter an ID, and a password. The user can 
 
 <br />
 <p align="center">
+    <img src="media/Pet%20Owner%20-%20My%20Appointments%20List.png" alt="My Appointments" width="700" height="500">
+  </a>
+</p>
+
+**Figure 3:** "My Appointments" page
+
+<br />
+<p align="center">
     <img src="media/Vet%20-%20%20Search%20Pet.png" alt="Search Pet" width="700" height="500">
   </a>
 </p>
 
-**Figure 3:** "Search Pet" page
+**Figure 4:** "Search Pet" page
 
 <br />
 <p align="center">
@@ -92,7 +99,7 @@ To log in to the system, user need to enter an ID, and a password. The user can 
   </a>
 </p>
 
-**Figure 4:** "Add Pet" page
+**Figure 5:** "Add Pet" page
 
 <br />
 <p align="center">
@@ -100,7 +107,7 @@ To log in to the system, user need to enter an ID, and a password. The user can 
   </a>
 </p>
 
-**Figure 5:** "Add Vaccination" page
+**Figure 6:** "Add Vaccination" page
 
 <br />
 <p align="center">
@@ -108,7 +115,7 @@ To log in to the system, user need to enter an ID, and a password. The user can 
   </a>
 </p>
 
-**Figure 6:** "Create Appointment" page
+**Figure 7:** "Create Appointment" page
 
 <br />
 <p align="center">
@@ -116,7 +123,7 @@ To log in to the system, user need to enter an ID, and a password. The user can 
   </a>
 </p>
 
-**Figure 7:** "Show Info & Add Vaccination, Allergy and Treatment" page
+**Figure 8:** "Show Info & Add Vaccination, Allergy and Treatment" page
 
 ## Contact
 
