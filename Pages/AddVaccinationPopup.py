@@ -40,6 +40,7 @@ class Ui_addVaccinationWindow(object):
         font.setPointSize(10)
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
+        #label_4 added into centralwidget.
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(95, 170, 131, 20))
         font = QtGui.QFont()
@@ -52,16 +53,19 @@ class Ui_addVaccinationWindow(object):
         font.setPointSize(10)
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
+        #vaccinationNameField added into centralwidget.
         self.vaccinationNameField = QtWidgets.QLineEdit(self.centralwidget)
         self.vaccinationNameField.setGeometry(QtCore.QRect(240, 90, 361, 22))
         self.vaccinationNameField.setStyleSheet("background: white;")
         self.vaccinationNameField.setObjectName("vaccinationNameField")
+        #dateOfVaccinationField added into centralwidget.
         self.dateOfVaccinationField = QtWidgets.QDateTimeEdit(self.centralwidget)
         self.dateOfVaccinationField.setGeometry(QtCore.QRect(240, 130, 361, 22))
         self.dateOfVaccinationField.setStyleSheet("background: white;")
         self.dateOfVaccinationField.setAlignment(QtCore.Qt.AlignCenter)
         self.dateOfVaccinationField.setCalendarPopup(True)
         self.dateOfVaccinationField.setObjectName("dateOfVaccinationField")
+        #vaccinationCountField added into centralwidget.
         self.vaccinationCountField = QtWidgets.QSpinBox(self.centralwidget)
         self.vaccinationCountField.setGeometry(QtCore.QRect(240, 210, 361, 22))
         self.vaccinationCountField.setStyleSheet("background: white;")
