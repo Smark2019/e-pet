@@ -31,24 +31,30 @@ class Ui_createAppointmentWindow(object):
         self.label.setObjectName("label")
         self.label_2 = QtWidgets.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(172, 90, 61, 20))
+        #font editted.
         font = QtGui.QFont()
         font.setPointSize(10)
+        #label_2 added.
         self.label_2.setFont(font)
         self.label_2.setObjectName("label_2")
+        #label_3 added into centralwidget and editted.
         self.label_3 = QtWidgets.QLabel(self.centralwidget)
         self.label_3.setGeometry(QtCore.QRect(63, 130, 161, 20))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
+        #petIDField added into centralwidget.
         self.petIDField = QtWidgets.QLineEdit(self.centralwidget)
         self.petIDField.setGeometry(QtCore.QRect(240, 90, 371, 22))
         self.petIDField.setStyleSheet("background: white;")
         self.petIDField.setObjectName("petIDField")
+        #dateOfAppointmentField added into centralwidget.
         self.dateOfAppointmentField = QtWidgets.QDateTimeEdit(self.centralwidget)
         self.dateOfAppointmentField.setGeometry(QtCore.QRect(240, 130, 371, 22))
         self.dateOfAppointmentField.setStyleSheet("background: white;")
         self.dateOfAppointmentField.setAlignment(QtCore.Qt.AlignCenter)
+        #CalendarPopup is showed.
         self.dateOfAppointmentField.setCalendarPopup(True)
         self.dateOfAppointmentField.setObjectName("dateOfAppointmentField")
         self.saveAppointmentButton = QtWidgets.QPushButton(self.centralwidget)
