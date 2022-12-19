@@ -70,16 +70,19 @@ class Ui_VetWindow(object):
         self.label_2.setPixmap(QtGui.QPixmap("media/logo.png"))
         self.label_2.setScaledContents(True)
         self.label_2.setObjectName("label_2")
+        #label_3 added into searchTab.
         self.label_3 = QtWidgets.QLabel(self.searchTab)
         self.label_3.setGeometry(QtCore.QRect(380, 320, 121, 31))
         font = QtGui.QFont()
         font.setPointSize(20)
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
+        #searchPetField added into searchTab.
         self.searchPetField = QtWidgets.QLineEdit(self.searchTab)
         self.searchPetField.setGeometry(QtCore.QRect(300, 370, 251, 31))
         self.searchPetField.setStyleSheet("background: white;")
         self.searchPetField.setObjectName("searchPetField")
+        #searchPetButton added into searchTab.
         self.searchPetButton = QtWidgets.QPushButton(self.searchTab)
         self.searchPetButton.setGeometry(QtCore.QRect(560, 370, 93, 31))
         font = QtGui.QFont()
