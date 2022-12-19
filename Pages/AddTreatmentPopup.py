@@ -43,18 +43,22 @@ class Ui_addTreatmentWindow(object):
         self.treatmentUsedMedicineField.setGeometry(QtCore.QRect(240, 90, 371, 22))
         self.treatmentUsedMedicineField.setStyleSheet("background: white;")
         self.treatmentUsedMedicineField.setObjectName("treatmentUsedMedicineField")
+        #dateOfTreatmentField added into centralwidget.
         self.dateOfTreatmentField = QtWidgets.QDateTimeEdit(self.centralwidget)
         self.dateOfTreatmentField.setGeometry(QtCore.QRect(240, 130, 371, 22))
         self.dateOfTreatmentField.setStyleSheet("background: white;")
         self.dateOfTreatmentField.setAlignment(QtCore.Qt.AlignCenter)
         self.dateOfTreatmentField.setCalendarPopup(True)
         self.dateOfTreatmentField.setObjectName("dateOfTreatmentField")
+        #saveTreatmentButton added into centralwidget.
         self.saveTreatmentButton = QtWidgets.QPushButton(self.centralwidget)
         self.saveTreatmentButton.setGeometry(QtCore.QRect(520, 340, 93, 28))
         self.saveTreatmentButton.setStyleSheet("background: #1CD050;")
         self.saveTreatmentButton.setObjectName("saveTreatmentButton")
+        #label_4 added into centralwidget.
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(132, 165, 91, 21))
+        #font sized.
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label_4.setFont(font)
