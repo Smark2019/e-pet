@@ -63,10 +63,12 @@ class Ui_createAppointmentWindow(object):
         self.saveAppointmentButton.setObjectName("saveAppointmentButton")
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(82, 170, 141, 21))
+        #font editted.
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
+        #appointmentTypeField added into centralwidget.
         self.appointmentTypeField = QtWidgets.QComboBox(self.centralwidget)
         self.appointmentTypeField.setGeometry(QtCore.QRect(240, 170, 371, 22))
         self.appointmentTypeField.setStyleSheet("background: white;")
@@ -77,12 +79,14 @@ class Ui_createAppointmentWindow(object):
         self.appointmentTypeField.addItem("")
         self.appointmentTypeField.addItem("")
         self.appointmentTypeField.addItem("")
+        #label_5 added into centralwidget.
         self.label_5 = QtWidgets.QLabel(self.centralwidget)
         self.label_5.setGeometry(QtCore.QRect(132, 210, 91, 21))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label_5.setFont(font)
         self.label_5.setObjectName("label_5")
+        #vaccinationField added into centralwidget.
         self.vaccinationField = QtWidgets.QLineEdit(self.centralwidget)
         self.vaccinationField.setEnabled(True)
         self.vaccinationField.setGeometry(QtCore.QRect(240, 210, 371, 22))
