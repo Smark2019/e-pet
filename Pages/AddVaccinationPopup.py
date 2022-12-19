@@ -71,18 +71,20 @@ class Ui_addVaccinationWindow(object):
         self.vaccinationCountField.setStyleSheet("background: white;")
         self.vaccinationCountField.setAlignment(QtCore.Qt.AlignCenter)
         self.vaccinationCountField.setObjectName("vaccinationCountField")
+        #vaccinationDoseGivenField added into centralwidget.
         self.vaccinationDoseGivenField = QtWidgets.QDoubleSpinBox(self.centralwidget)
         self.vaccinationDoseGivenField.setGeometry(QtCore.QRect(240, 170, 361, 22))
         self.vaccinationDoseGivenField.setStyleSheet("background: white;")
         self.vaccinationDoseGivenField.setFrame(False)
         self.vaccinationDoseGivenField.setAlignment(QtCore.Qt.AlignCenter)
         self.vaccinationDoseGivenField.setObjectName("vaccinationDoseGivenField")
+        #saveVaccinationButton added into centralwidget.
         self.saveVaccinationButton = QtWidgets.QPushButton(self.centralwidget)
         self.saveVaccinationButton.setGeometry(QtCore.QRect(510, 250, 93, 28))
         self.saveVaccinationButton.setStyleSheet("background: #1CD050;")
         self.saveVaccinationButton.setObjectName("saveVaccinationButton")
 
-
+        
         addVaccinationWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(addVaccinationWindow)
