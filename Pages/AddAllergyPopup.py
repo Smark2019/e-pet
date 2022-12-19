@@ -37,16 +37,19 @@ class Ui_addAllergyWindow(object):
         self.allergyDrugsField.setGeometry(QtCore.QRect(240, 90, 371, 22))
         self.allergyDrugsField.setStyleSheet("background: white;")
         self.allergyDrugsField.setObjectName("allergyDrugsField")
+        #saveAllergyButton added into centralwidget.
         self.saveAllergyButton = QtWidgets.QPushButton(self.centralwidget)
         self.saveAllergyButton.setGeometry(QtCore.QRect(520, 340, 93, 28))
         self.saveAllergyButton.setStyleSheet("background: #1CD050;")
         self.saveAllergyButton.setObjectName("saveAllergyButton")
+        #label_4 added into centralwidget.
         self.label_4 = QtWidgets.QLabel(self.centralwidget)
         self.label_4.setGeometry(QtCore.QRect(132, 125, 91, 21))
         font = QtGui.QFont()
         font.setPointSize(10)
         self.label_4.setFont(font)
         self.label_4.setObjectName("label_4")
+        #allergyDescriptionField added into centralwidget.
         self.allergyDescriptionField = QtWidgets.QTextEdit(self.centralwidget)
         self.allergyDescriptionField.setGeometry(QtCore.QRect(240, 130, 371, 191))
         self.allergyDescriptionField.setStyleSheet("background: white;")
