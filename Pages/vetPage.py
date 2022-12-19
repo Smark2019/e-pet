@@ -91,9 +91,12 @@ class Ui_VetWindow(object):
         self.searchPetButton.setStyleSheet("background: #1CD050;\n"
                                            "color: white;")
         self.searchPetButton.setObjectName("searchPetButton")
+        
 
+        #addPetButton added into searchTab.
         self.addPetButton = QtWidgets.QPushButton(self.searchTab)
         self.addPetButton.setGeometry(QtCore.QRect(350, 530, 196, 31))
+        #font editted.
         font = QtGui.QFont()
         font.setPointSize(11)
         self.addPetButton.setFont(font)
