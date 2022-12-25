@@ -126,16 +126,16 @@ def showPassword():
 def navigator(id):
     counter = 0
     pet_ID_list = []
-    
 
     if (is_vet):  # this block runs if user is Vet.
 
         ui_vet.searchPetButton.clicked.connect(showPetInfoPage)
         ui_vet.searchPetField.returnPressed.connect(showPetInfoPage)
         ui_vet.addPetButton.clicked.connect(showAddPetPage)
-        ui_vet.createAppointmentButton.clicked.connect(conductCreateAppointmentPopUp)
+        ui_vet.createAppointmentButton.clicked.connect(
+            conductCreateAppointmentPopUp)
         getDataToMyAppointmentsTab(id)
-        
+
     else:  # this block runs if user is Pet Owner.
         ui_petOwner.petInfoWidget.setVisible(False)
         ui_petOwner.myPetsList.clear()
@@ -163,16 +163,18 @@ def navigator(id):
 
                 counter += 1
         # handling pet list click event:
-        ui_petOwner.myPetsList.itemDoubleClicked.connect(lambda item: handleDoubleClickOnMyPetslistItem(item,pet_list))
+        ui_petOwner.myPetsList.itemDoubleClicked.connect(
+            lambda item: handleDoubleClickOnMyPetslistItem(item, pet_list))
 
-def handleDoubleClickOnMyPetslistItem(item,petList):
+
+def handleDoubleClickOnMyPetslistItem(item, petList):
     print("SUCCESSFUL")
     print(item.text())
     for pet in petList:
-        if(item.text() == pet.name):
-            
+        if (item.text() == pet.name):
+
             ui_petOwner.petInfoWidget.setVisible(True)
-        
+
             pet_displayed = pet
             global clicked_pet_id
             clicked_pet_id = pet.id
@@ -211,22 +213,27 @@ def handleDoubleClickOnMyPetslistItem(item,petList):
 
 def conductCreateAppointmentPopUp():
     ui_vet.popUi.saveAppointmentButton.clicked.connect(createAppointment)
+
+
 def createAppointment():
-    
-    if(ui_vet.popUi.petIDField.text() != "" and ui_vet.popUi.dateOfAppointmentField.text() != "" and ui_vet.popUi.appointmentTypeField.currentText() != ""):
-        
+
+    if (ui_vet.popUi.petIDField.text() != "" and ui_vet.popUi.dateOfAppointmentField.text() != "" and ui_vet.popUi.appointmentTypeField.currentText() != ""):
+
         petID = ui_vet.popUi.petIDField.text()
         dateOfAppointment = ui_vet.popUi.dateOfAppointmentField.text()
         appointmentType = ui_vet.popUi.appointmentTypeField.currentText()
-        dateOfAppointment = datetime.strptime(dateOfAppointment, "%d.%m.%Y %H:%M")
-        dateOfAppointment = datetime.strftime(dateOfAppointment, "%d-%m-%Y %H:%M")
+        dateOfAppointment = datetime.strptime(
+            dateOfAppointment, "%d.%m.%Y %H:%M")
+        dateOfAppointment = datetime.strftime(
+            dateOfAppointment, "%d-%m-%Y %H:%M")
         vaccinationField = ui_vet.popUi.vaccinationField.text()
-        
+
         #print(petID, dateOfAppointment, appointmentType, vaccinationField)
-        newApp = Appointment.Appointment(petID,id,dateOfAppointment,appointmentType,vaccinationField)
+        newApp = Appointment.Appointment(
+            petID, id, dateOfAppointment, appointmentType, vaccinationField)
         vo.add_appointment(newApp)
         getDataToMyAppointmentsTab(id)
-        
+
         ui_vet.window.close()
 
     else:
@@ -237,7 +244,6 @@ def createAppointment():
         msg.setWindowTitle("Error!")
         msg.exec_()
         ui_vet.searchPetField.clearFocus()
-    
 
 
 def showMyPetsListPage():
@@ -246,8 +252,6 @@ def showMyPetsListPage():
     ui_petOwner.petInfoAllergiesTable.clearContents()
     ui_petOwner.petInfoTreatmentTable.clearContents()
     ui_petOwner.petInfoVaccinationTable.clearContents()
-    
-
 
 
 def showAddPetPage():  # activates addPetWidget
@@ -406,13 +410,16 @@ def showSearchPage():
     ui_vet.addPetWidget.setVisible(False)
     ui_vet.searchTab.setVisible(True)
     ui_vet.petInfoList.clear()
+    ui_vet.petInfoAllergiesTable.clearContents()
+    ui_vet.petInfoVaccinationTable.clearContents()
+    ui_vet.petInfoTreatmentTable.clearContents()
 
 
 def getDataToMyAppointmentsTab(vet_id):  # tested and it works properly.
 
     # DB operations for regarding pet : ( pet Allergies List )
     appointments_list = vo.get_appointments_in_next_3days(vet_id)
-    #print(appointments_list)
+    # print(appointments_list)
     if (len(appointments_list) != 0):
         for appointment in appointments_list:
 
@@ -535,9 +542,8 @@ def saveTreatment():
 
 
 def updatePetInfoTables(inVetPage):
-    
 
-    if(inVetPage):
+    if (inVetPage):
         vacc_list = poo.get_vaccination_card(searched_pet_id)
         if (len(vacc_list) != 0):
             for vacc in vacc_list:
